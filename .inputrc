@@ -1,0 +1,3 @@
+# to activate on new system, put this in ~/.inputrc
+# $include /home/<user>/src/dotfiles/.inputrc
+set bell-style none

@@ -1,0 +1,58 @@
+! to activate on new system, put this in ~/.xinitrc:
+! . /home/<user>/src/dotfiles/.Xresources
+
+! to load changes after edit:
+! xrdb -remove
+! xrdb -merge ~/.Xresources
+
+XTerm.vt100.scrollTtyOutput: false
+
+XTerm*visualBell:false
+!XTerm*visualBellLine:true
+
+XTerm*faceName: Monospace
+XTerm*faceSize: 12
+
+xterm.vt100.allowPasteControls:true
+
+XTerm*selectToClipboard: true
+!
+!XTerm*VT100*translations:
+!  Shift <Key>Home: copy-selection (SELECT)
+!  Shift <Key>Insert: copy-selection(SELECT)
+!!  Ctrl Shift <Key>C: copy-selection(SELECT)
+!!  Ctrl Shift <Key>V: insert-selection(SELECT)
+
+
+! be careful with these.
+! if text is misformatted, xterm will hang on start.
+! also, note that these examples are taken from the xterm manpage, 
+! but that page has a typo:
+! Shift <Key>Insert: copy-selection(SELECT) should be Shift <Key>Insert: insert-selection(SELECT)
+*VT100*translations: #override \n\
+  Shift <Key>Home: copy-selection(SELECT) \n\
+  Shift <Key>Insert: insert-selection(SELECT) \n\
+
+XTerm*termName: xterm-256color
+
+!Theme Nine
+xterm*background: rgb:1a/1a/1a
+xterm*foreground: rgb:d6/d6/d6
+xterm*color0:     rgb:00/00/00
+xterm*color1:     rgb:9e/18/28
+xterm*color2:     rgb:00/88/00
+xterm*color3:     rgb:96/8a/38
+xterm*color4:     rgb:41/41/71
+xterm*color5:     rgb:96/3c/59
+xterm*color6:     rgb:41/81/79
+xterm*color7:     rgb:be/be/be
+xterm*color8:     rgb:66/66/66
+xterm*color9:     rgb:cf/61/71
+xterm*color10:     rgb:7c/bc/8c
+xterm*color11:     rgb:ff/f7/96
+xterm*color12:     rgb:41/86/be
+xterm*color13:     rgb:cf/9e/be
+xterm*color14:     rgb:71/be/be
+xterm*color15:    rgb:ff/ff/ff
+
+xterm*cursorColor: #d6d6d6
