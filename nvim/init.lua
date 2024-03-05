@@ -39,11 +39,14 @@ local g = vim.g
 -- https://github.com/nvim-tree/nvim-tree.lua
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
+o.background = 'light'
 --o.termguicolors = true
+--o.colorscheme = 'default'
 require('nvim-tree').setup()
 
 --vim.cmd[[colorscheme tokyonight]]
-vim.cmd[[colorscheme slate]]
+--vim.cmd[[colorscheme slate]]
+vim.cmd[[colorscheme default]] -- using default (or none) just uses terminal colors?
 
 local lsp_zero = require('lsp-zero')
 

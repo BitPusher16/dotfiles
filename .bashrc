@@ -3,11 +3,12 @@
 
 echo 'in ~/src/dotfiles/.bashrc'
 
-# 2023-09-22 fj
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
 HISTSIZE=10000
 
-
-# 2023-12-07 fj
 set -o vi
 
 function cl(){
@@ -15,7 +16,6 @@ function cl(){
 	ls -a
 }
 
-# 2024-03-03 fj
 # $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'

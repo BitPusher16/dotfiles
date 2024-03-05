@@ -1,0 +1,17 @@
+
+
+import:
+  # there are two repos called alacritty-theme. 
+  # using older eendroroy repo bc i am on alacritty 12, which uses .yml not .toml.
+  #- ~/src/alacritty-theme/themes/nord.yaml
+  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
+
+
+env:
+  BAZ: "BAN"
+
+window:
+  dimensions:
+    columns: 256
+    lines: 256
+  startup_mode: "Windowed"
