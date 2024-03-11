@@ -13,3 +13,11 @@ This is messy and inconsistent.
 Switched approaches. Keeping all config files in git repo, not using symlinks,
 and just manually figuring out how to insert "include" statements in each system config.
 
+2024-03-10
+I am having trouble referring to dotfiles neovim config.
+Neovim assumes an existing directory structure at ~/.config/neovim.
+If I source from ~/.config/neovim/init.lua, further "require" statements break.
+I also have the option to use $XDG_CONFIG_HOME,
+but if I set this to my dotfiles dir, other programs may write there.
+Update: Maybe I was just sourcing incorrectly.
+I can now call vim-plug from ~/src/dotfiles/nvim/misc.lua.

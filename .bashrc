@@ -22,3 +22,5 @@ shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 
 # set LESS to not issue bell sound
 #export LESS="$LESS -Lqc --no-vbell"
+
+#export XDG_CONFIG_HOME=/home/fj/src/dotfiles
