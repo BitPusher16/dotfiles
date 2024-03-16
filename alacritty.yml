@@ -1,10 +1,30 @@
 
+#import:
+#  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
 
-import:
-  # there are two repos called alacritty-theme. 
-  # using older eendroroy repo bc i am on alacritty 12, which uses .yml not .toml.
-  #- ~/src/alacritty-theme/themes/nord.yaml
-  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
+colors:
+  # Default colors
+  primary:
+    background: '0x002244'
+    foreground: '0xffffff'
+  normal:
+    black:   '0x666666'
+    red:     '0xff4444'
+    green:   '0x00dd44'
+    yellow:  '0xdddd00'
+    blue:    '0x0088ff'
+    magenta: '0xff00ff'
+    cyan:    '0x00dddd'
+    white:   '0xffffff'
+  bright:
+    black:   '0x000000'
+    red:     '0xff0000'
+    green:   '0x00bb00'
+    yellow:  '0xdddd00'
+    blue:    '0x00aaff'
+    magenta: '0xff88ff'
+    cyan:    '0x00dddd'
+    white:   '0xffffff'
 
 
 env:
