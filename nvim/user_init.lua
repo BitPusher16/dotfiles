@@ -5,8 +5,8 @@
 -- refer to this page for info on how lua require statements work:
 -- https://www.lua.org/pil/8.1.html
 
-package.path = "?/init.lua;" .. package.path
-require("conf1") -- relative lines
+--package.path = "?/init.lua;" .. package.path
+require("conf1/init") -- relative lines
 
 vim.opt.number = true
 vim.opt.colorcolumn = "80"
