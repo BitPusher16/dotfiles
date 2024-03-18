@@ -2,29 +2,85 @@
 #import:
 #  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
 
+font:
+  size: 12.0
+  normal:
+    # This nerd font is installed at ~/.fonts
+    # https://www.nerdfonts.com/
+    #family: UbuntuMonoNerdFont
+    #family: BigBlueTerm437NerdFont
+    #family: BigBlueTermPlusNerdFont
+    family: MononokiNerdFont
+
+    #colors:
+    #  # Default colors
+    #  primary:
+    #    background: '0x002222'
+    #    foreground: '0xffffff'
+    #  normal:
+    #    black:   '0x666666'
+    #    red:     '0xff4444'
+    #    green:   '0x00bb44'
+    #    yellow:  '0xdddd00'
+    #    blue:    '0x0088ff'
+    #    magenta: '0xff00ff'
+    #    cyan:    '0x00dddd'
+    #    white:   '0xffffff'
+    #  bright:
+    #    black:   '0x000000'
+    #    red:     '0xff0000'
+    #    green:   '0x00bb00'
+    #    yellow:  '0xdddd00'
+    #    blue:    '0x00aaff'
+    #    magenta: '0xff88ff'
+    #    cyan:    '0x00dddd'
+    #    white:   '0xffffff'
+
 colors:
-  # Default colors
   primary:
-    background: '0x002244'
+    background: '0x444466'
     foreground: '0xffffff'
   normal:
-    black:   '0x666666'
-    red:     '0xff4444'
-    green:   '0x00dd44'
-    yellow:  '0xdddd00'
-    blue:    '0x0088ff'
-    magenta: '0xff00ff'
-    cyan:    '0x00dddd'
-    white:   '0xffffff'
-  bright:
     black:   '0x000000'
-    red:     '0xff0000'
-    green:   '0x00bb00'
-    yellow:  '0xdddd00'
-    blue:    '0x00aaff'
-    magenta: '0xff88ff'
-    cyan:    '0x00dddd'
+    red:     '0xff9999'
+    green:   '0x99ff99'
+    yellow:  '0xffff99'
+    blue:    '0x9999ff'
+    magenta: '0xff99ff'
+    cyan:    '0x99ffff'
+    white:   '0xdddddd'
+  bright:
+    black:   '0x222222'
+    red:     '0xffbbbb'
+    green:   '0xbbffbb'
+    yellow:  '0xffffbb'
+    blue:    '0xbbbbff'
+    magenta: '0xffbbff'
+    cyan:    '0xbbffff'
     white:   '0xffffff'
+
+    #colors:
+    #  primary:
+    #    background: '0x444466'
+    #    foreground: '0xffffff'
+    #  normal:
+    #    black:   '0x000000'
+    #    red:     '0xff8888'
+    #    green:   '0x88ff88'
+    #    yellow:  '0xffff88'
+    #    blue:    '0x8888ff'
+    #    magenta: '0xff88ff'
+    #    cyan:    '0x88ffff'
+    #    white:   '0xffffff'
+    #  bright:
+    #    black:   '0x222222'
+    #    red:     '0xffaaaa'
+    #    green:   '0xaaffaa'
+    #    yellow:  '0xffffaa'
+    #    blue:    '0xaaaaff'
+    #    magenta: '0xffaaff'
+    #    cyan:    '0xaaffff'
+    #    white:   '0xffffff'
 
 
 env:
