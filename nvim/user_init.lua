@@ -1,6 +1,6 @@
 -- to activate this file, add these lines to ~/.config/nvim/init.lua:
 -- package.path = "/home/<user>/src/dotfiles/nvim/?.lua;" .. package.path
--- require("misc")
+-- require("user_init")
 
 -- refer to this page for info on how lua require statements work:
 -- https://www.lua.org/pil/8.1.html
@@ -10,6 +10,8 @@ require("conf1/init") -- relative lines
 
 vim.opt.number = true
 vim.opt.colorcolumn = "80"
+-- set matching parent to no highlight so it is not visually confusing.
+vim.cmd [[:highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE]]
 -- keep cursor centered if possible
 vim.opt.scrolloff = 999
 
@@ -17,6 +19,8 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 -- run 'M' command on document open to center cursor.
+-- command is created in an autogroup for cleanup per recommendation here:
+-- https://neovim.io/doc/user/usr_40.html#40.3
 augroup('CenterOnStart', {clear = true})
 autocmd('BufReadPost', {
 	group = 'CenterOnStart',
@@ -40,9 +44,10 @@ vim.g.loaded_netrwPlugin = 1
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
-Plug('psliwka/vim-smoothie')
 Plug('nvim-tree/nvim-tree.lua')
 --Plug('nvim-tree/nvim-web-devicons')
+
+Plug('dstein64/nvim-scrollview')
 
 --Plug('el-iot/buffer-tree-explorer')
 
@@ -55,11 +60,16 @@ vim.call('plug#end')
 -- plugin configs
 -- ==========
 
---require('vim-smoothie').setup()
-
 -- nvim-tree configs
 require('nvim-tree').setup()
 --require('nvim-web-devicons').setup()
+
+require('scrollview').setup{
+	current_only = true
+}
+-- set scrollbar color
+-- :help scrollview
+vim.cmd [[highlight Scrollview ctermbg=Red]]
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require('mason').setup()
@@ -72,6 +82,7 @@ lspconfig.lua_ls.setup{
   -- how-to-suppress-warning-undefined-global-vim/1882/3
   settings = { Lua = { diagnostics = { globals = {'vim'} } } }
 }
+lspconfig.clangd.setup{}
 
 -- ==========
 -- key remaps
