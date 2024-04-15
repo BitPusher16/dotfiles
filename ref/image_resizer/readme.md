@@ -97,3 +97,10 @@ and it can be installed dynamically (somewhat) with pip.
 however, it makes running as a module from repo root difficult,
 because python -m only adds the current dir to python path.
 many reputable repos do stutter structure, so i will too.
+
+2024-03-25
+Trying different python LSP servers.
+pylyzer wouldn't install (rust error)
+installed jedi, got jumps working, but limited live feedback.
+installed pylsp, getting more feedback now.
+jumps are working.
