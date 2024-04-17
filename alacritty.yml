@@ -1,5 +1,12 @@
-# an example config is here:
+# to activate, add these lines to ~/.config.alacritty.yml:
+#import:
+#  - /home/<user>/src/dotfiles/alacritty.yml
+
+# an example .toml config for most recent version of alacritty is here:
 # https://alacritty.org/config-alacritty.html
+
+# for a .yaml example for v12, go here: 
+# https://github.com/alacritty/alacritty/releases/tag/v0.12.3
 
 #import:
 #  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
@@ -14,40 +21,43 @@ font:
     #family: BigBlueTermPlusNerdFont
     family: MononokiNerdFont
 
+# to test colors, try 
+# colortest-256
+
 # fj theme, bright gray
 colors:
   primary:
     background: '0xeeeeee'
     foreground: '0x000000'
-    dim_foreground: '0xbb00bb'
     bright_foreground: '0xbb00bb'
+    dim_foreground: '0xbb00bb'
   normal:
+    white:   '0xffffff'
     black:   '0x000000'
-    red:     '0x990000'
-    green:   '0x009900'
-    blue:    '0x000099'
+    red:     '0xdd0000'
+    green:   '0x00dd00'
+    blue:    '0x0000dd'
     yellow:  '0x999900'
     magenta: '0x990099'
     cyan:    '0x009999'
-    white:   '0xdddddd'
   bright:
-    black:   '0x555555'
-    red:     '0xbb0000'
-    green:   '0x00bb00'
-    blue:    '0x0000bb'
-    yellow:  '0xbbbb00'
-    magenta: '0xbb00bb'
-    cyan:    '0x00bbbb'
     white:   '0xffffff'
+    black:   '0x000000'
+    red:     '0xdd0000'
+    green:   '0x00dd00'
+    blue:    '0x0000dd'
+    yellow:  '0x999900'
+    magenta: '0x990099'
+    cyan:    '0x009999'
   dim:
-    black:   '0x555555'
-    red:     '0xbb0000'
-    green:   '0x00bb00'
-    blue:    '0x0000bb'
-    yellow:  '0xbbbb00'
-    magenta: '0xbb00bb'
-    cyan:    '0x00bbbb'
     white:   '0xffffff'
+    black:   '0x000000'
+    red:     '0xdd0000'
+    green:   '0x00dd00'
+    blue:    '0x0000dd'
+    yellow:  '0x999900'
+    magenta: '0x990099'
+    cyan:    '0x009999'
   indexed_colors:
     - {index: 16, color: '0x000000'}
     - {index: 17, color: '0x000000'}
@@ -364,7 +374,7 @@ colors:
 
 env:
   BAZ: "BAN"
-  #TERM: "xterm-256color"
+  #TERM: "xterm-256color" # this is set in tmux conf.
 
 window:
   dimensions:

@@ -1,3 +1,7 @@
+# to activate on new system, add this to ~/.gitconfig:
+#[include]
+#	path = ~/src/dotfiles/.gitconfig
+
 [init]
 	defaultBranch = main
 [user]

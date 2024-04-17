@@ -3,8 +3,14 @@
 
 echo 'in ~/src/dotfiles/.bashrc'
 
+# start tmux immediately.
 # NOTE: this may need modified if alacritty conf or tmux conf changes TERM.
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [[ ! "$TERM" =~ tmux-256color ]] && [ -z "$TMUX" ]; then
+if command -v tmux &> /dev/null && \
+	[ -n "$PS1" ] && \
+	[[ ! "$TERM" =~ screen ]] && \
+	[[ ! "$TERM" =~ tmux ]] && \
+	[[ ! "$TERM" =~ tmux-256color ]] && \
+	[ -z "$TMUX" ]; then
   exec tmux
 fi
 
