@@ -62,8 +62,31 @@ vim.call('plug#end')
 -- plugin configs
 -- ==========
 
--- nvim-tree configs
+-- nvim-tree configs.
+-- run :NvimTreeHiTest to see example highlights.
+-- example nvim lua setup:
+-- https://gitee.com/kongjun18/nvim-tree.lua
+-- Run |:NvimTreeHiTest| to show all the highlights 
+-- that nvim-tree uses.
+-- They can be customised before or after setup is called and 
+-- will be immediately applied at runtime. e.g. >
+
+--require('nvim-tree').setup()
 require('nvim-tree').setup()
+vim.cmd( ":hi link NvimTreeNormalFloat SpellLocal" )
+vim.cmd( ":hi link NvimTreeCursorColumn SpellLocal" )
+vim.cmd( ":hi link NvimTreeStatusLine SpellLocal" )
+vim.cmd( ":hi link NvimTreeStatusLineNC SpellLocal" )
+vim.cmd( ":hi link NvimTreeExecFile SpellLocal" )
+vim.cmd( ":hi link NvimTreeImageFile SpellLocal" )
+vim.cmd( ":hi link NvimTreeSpecialFile SpellLocal" )
+vim.cmd( ":hi link NvimTreeSymlink SpellLocal" )
+vim.cmd( ":hi link NvimTreeCutHL SpellLocal" )
+vim.cmd( ":hi link NvimTreeCopiedHL SpellLocal" )
+
+vim.cmd( ":hi clear NvimTreeWindowPicker")
+vim.cmd( ":hi link NvimTreeWindowPicker SpellLocal" )
+
 --require('nvim-web-devicons').setup()
 
 require('scrollview').setup{
