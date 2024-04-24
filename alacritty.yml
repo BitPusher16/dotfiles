@@ -12,7 +12,7 @@
 #  - ~/src/alacritty-theme/themes/tokyo-night-storm.yaml
 
 import:
-  - ~/src/dotfiles/alacritty_indexed_colors.yml
+  - ~/src/dotfiles/indexed_colors.yml
 
 font:
   size: 12.0
@@ -32,26 +32,26 @@ colors:
   primary:
     background: '0xeeeeee'
     foreground: '0x000000'
-    bright_foreground: '0xbb00bb'
-    dim_foreground: '0xbb00bb'
+    bright_foreground: '0xffffff'
+    dim_foreground: '0xdddddd'
   normal:
-    white:   '0xffffff'
+    white:   '0xcccccc' # nvim calls this lightgray
     black:   '0x000000'
-    red:     '0xdd0000'
-    green:   '0x00dd00'
-    blue:    '0x0000dd'
+    red:     '0xbb0000'
+    green:   '0x00bb00'
+    blue:    '0x0000bb'
     yellow:  '0x999900'
     magenta: '0x990099'
     cyan:    '0x009999'
   bright:
-    white:   '0xffffff'
-    black:   '0x000000'
-    red:     '0xdd0000'
-    green:   '0x00dd00'
-    blue:    '0x0000dd'
-    yellow:  '0x999900'
-    magenta: '0x990099'
-    cyan:    '0x009999'
+    white:   '0xdddddd'
+    black:   '0x555555'
+    red:     '0xff0000'
+    green:   '0x00ff00'
+    blue:    '0x0000ff'
+    yellow:  '0xbbbb00'
+    magenta: '0xbb00bb'
+    cyan:    '0x00bbbb'
   dim:
     white:   '0xffffff'
     black:   '0x000000'

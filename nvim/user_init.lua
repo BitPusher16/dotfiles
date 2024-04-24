@@ -2,27 +2,38 @@
 -- package.path = "/home/<user>/src/dotfiles/nvim/?.lua;" .. package.path
 -- require("user_init")
 
+-- to reload:
+-- :so %
+
 -- refer to this page for info on how lua require statements work:
 -- https://www.lua.org/pil/8.1.html
 
 --package.path = "?/init.lua;" .. package.path
 require("conf1/init") -- relative lines
+require("status_line")
 
 vim.opt.number = true
-vim.opt.colorcolumn = "80"
--- set matching parent to no highlight so it is not visually confusing.
+vim.opt.colorcolumn = "81"
+--vim.cmd( ":hi ColorColumn ctermbg=cyan" )
+--vim.cmd( ":hi ColorColumn ctermbg=lightgray" )
+vim.cmd( ":hi ColorColumn ctermbg=white" )
+
+-- set colors for command mode tab completion.
+vim.cmd( ":hi Pmenu ctermbg=cyan guibg=lightgray" )
+vim.cmd( ":hi PmenuSel ctermbg=yellow guibg=lightgray" )
+
+-- set matching paren to no highlight so it is not visually confusing.
 vim.cmd [[:highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE]]
 -- keep cursor centered if possible
 vim.opt.scrolloff = 999
 
 vim.opt.clipboard = 'unnamedplus'
 
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-
 -- run 'M' command on document open to center cursor.
 -- command is created in an autogroup for cleanup per recommendation here:
 -- https://neovim.io/doc/user/usr_40.html#40.3
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 augroup('CenterOnStart', {clear = true})
 autocmd('BufReadPost', {
 	group = 'CenterOnStart',
@@ -75,8 +86,8 @@ vim.call('plug#end')
 require('nvim-tree').setup()
 vim.cmd( ":hi link NvimTreeNormalFloat SpellLocal" )
 vim.cmd( ":hi link NvimTreeCursorColumn SpellLocal" )
-vim.cmd( ":hi link NvimTreeStatusLine SpellLocal" )
-vim.cmd( ":hi link NvimTreeStatusLineNC SpellLocal" )
+vim.cmd( ":hi link NvimTreeStatusLine Statusline" )
+vim.cmd( ":hi link NvimTreeStatusLineNC StatusLineNC" )
 vim.cmd( ":hi link NvimTreeExecFile SpellLocal" )
 vim.cmd( ":hi link NvimTreeImageFile SpellLocal" )
 vim.cmd( ":hi link NvimTreeSpecialFile SpellLocal" )
@@ -87,6 +98,20 @@ vim.cmd( ":hi link NvimTreeCopiedHL SpellLocal" )
 vim.cmd( ":hi clear NvimTreeWindowPicker")
 vim.cmd( ":hi link NvimTreeWindowPicker SpellLocal" )
 
+vim.cmd( ":hi Visual cterm=NONE ctermbg=cyan ctermfg=black")
+vim.cmd( ":hi Search cterm=NONE ctermbg=yellow ctermfg=black")
+
+--vim.cmd(":hi Statusline ctermfg=white ctermbg=black")
+--vim.cmd(":hi StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray")
+--
+vim.cmd(":hi Statusline cterm=bold ctermfg=black ctermbg=cyan")
+vim.cmd(":hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray")
+
+vim.cmd(":hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan")
+vim.cmd(":hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray")
+
+
+
 --require('nvim-web-devicons').setup()
 
 require('scrollview').setup{
@@ -94,7 +119,8 @@ require('scrollview').setup{
 }
 -- set scrollbar color
 -- :help scrollview
-vim.cmd [[highlight Scrollview ctermbg=Red]]
+-- https://github.com/dstein64/nvim-scrollview/blob/main/doc/scrollview.txt
+vim.cmd [[highlight Scrollview ctermbg=cyan]]
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require('mason').setup()
@@ -164,5 +190,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- where possible, map key sequences (leader -> key)
 -- rather than combinations (leader + key).
 -- left ctrl and right ctrl are awkward to reach.
+
+-- by default, leader is "\".
+
+-- https://neovim.io/doc/user/lua-guide.html
+-- Mappings can be created using vim.keymap.set(). 
+-- This function takes three mandatory arguments:
+
+-- Can we instead just use vim.cmd(":... ")?
+
+-- add a shortcut to delete current buffer but leave pane open.
+--vim.cmd(":map <leader>x :bp<bar>sp<bar>bn<bar>bd<CR>")
+-- alternative (doesn't work with NvimTree open):
+--vim.cmd(":map <leader>x :window b#<bar>bd#<CR>")
+vim.cmd(":map <leader>x :b#<bar>bd#<CR>")
+--vim.cmd(":command! Bd bp<bar>sp<bar>bn<bar>bd<CR>")
+
+-- unmap some unuseful ctrl key combinations for use later.
+--vim.cmd(":unmap <C-c>") -- does same thing as esc
+--vim.cmd(":unmap <C-f>") -- prints file name and status, also available with :f
+
+--vim.cmd(":nnoremap <C-H> <C-W>h")
+--vim.cmd(":nnoremap <C-J> <C-W>j")
+--vim.cmd(":nnoremap <C-K> <C-W>k")
+--vim.cmd(":nnoremap <C-L> <C-W>l")
 
 

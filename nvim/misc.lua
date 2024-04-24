@@ -6,7 +6,7 @@
 -- https://www.lua.org/pil/8.1.html
 
 package.path = "?/init.lua;" .. package.path
-require("conf1") -- relative lines
+--require("conf1") -- relative lines
 
 vim.opt.number = true
 vim.opt.colorcolumn = "80"
