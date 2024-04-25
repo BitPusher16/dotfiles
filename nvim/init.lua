@@ -1,16 +1,46 @@
+-- ========
+-- notes
+-- ========
+
 -- to activate this file, add these lines to ~/.config/nvim/init.lua:
 -- package.path = "/home/<user>/src/dotfiles/nvim/?.lua;" .. package.path
--- require("user_init")
+-- require("init")
 
--- to reload:
--- :so %
+-- to source (may not unload existing autogroups):
+-- :so ~/.config/nvim/init.lua
+
+-- this page has a recommendation for nvim lua config file structure:
+-- https://neovim.io/doc/user/lua-guide.html
+
+--   ~/.config/nvim 
+--  |-- after/
+--  |-- ftplugin/
+--  |-- lua/
+--  |   |-- myluamodule.lua
+--  |   |-- other_modules/
+--  |       |-- anothermodule.lua
+--  |       |-- init.lua
+--  |-- plugin/
+--  |-- syntax/
+--  |-- init.vim
 
 -- refer to this page for info on how lua require statements work:
 -- https://www.lua.org/pil/8.1.html
 
---package.path = "?/init.lua;" .. package.path
-require("conf1/init") -- relative lines
-require("status_line")
+-- refer to this page for lua autocommands:
+-- https://neovim.io/doc/user/lua-guide.html#lua-guide-autocommands
+
+-- ========
+-- requires
+-- ========
+
+local home = os.getenv('HOME')
+package.path = home .. '/src/dotfiles/nvim/?.lua;' .. package.path
+require('conf/status_line')
+
+-- ========
+-- vim opt
+-- ========
 
 vim.opt.number = true
 vim.opt.colorcolumn = "81"
@@ -18,55 +48,42 @@ vim.opt.colorcolumn = "81"
 --vim.cmd( ":hi ColorColumn ctermbg=lightgray" )
 vim.cmd( ":hi ColorColumn ctermbg=white" )
 
--- set colors for command mode tab completion.
-vim.cmd( ":hi Pmenu ctermbg=cyan guibg=lightgray" )
-vim.cmd( ":hi PmenuSel ctermbg=yellow guibg=lightgray" )
-
--- set matching paren to no highlight so it is not visually confusing.
-vim.cmd [[:highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE]]
 -- keep cursor centered if possible
 vim.opt.scrolloff = 999
 
+-- allow copy and paste with system clipboard.
 vim.opt.clipboard = 'unnamedplus'
 
--- run 'M' command on document open to center cursor.
--- command is created in an autogroup for cleanup per recommendation here:
--- https://neovim.io/doc/user/usr_40.html#40.3
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-augroup('CenterOnStart', {clear = true})
-autocmd('BufReadPost', {
-	group = 'CenterOnStart',
-	pattern = '',
-	command = ':execute "normal M"'
-})
-
--- these configs are recommended by the nvim-tree docs
+-- these configs are recommended by the nvim-tree docs.
+-- they must appear before nvim-tree is loaded (or is initialized?).
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+--vim.opt.termguicolors = true -- 24 bit color, but hides 16-bit color.
 
--- 24-bit color. but disconnects nvim from terminal emulator colors.
---vim.opt.termguicolors = true	
 
--- ==========
+
+-- ========
 -- plugins
--- ==========
+-- ========
 
 -- using vim-plug as plugin manager
 -- https://github.com/junegunn/vim-plug
+
+-- :PlugStatus
+-- :PlugUpdate
+-- (how to install/uninstall after updating plugin list without restarting?)
+
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
 Plug('nvim-tree/nvim-tree.lua')
---Plug('nvim-tree/nvim-web-devicons')
 
 Plug('dstein64/nvim-scrollview')
-
---Plug('el-iot/buffer-tree-explorer')
 
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
+
 vim.call('plug#end')
 
 -- ==========
@@ -82,7 +99,6 @@ vim.call('plug#end')
 -- They can be customised before or after setup is called and 
 -- will be immediately applied at runtime. e.g. >
 
---require('nvim-tree').setup()
 require('nvim-tree').setup()
 vim.cmd( ":hi link NvimTreeNormalFloat SpellLocal" )
 vim.cmd( ":hi link NvimTreeCursorColumn SpellLocal" )
@@ -98,29 +114,15 @@ vim.cmd( ":hi link NvimTreeCopiedHL SpellLocal" )
 vim.cmd( ":hi clear NvimTreeWindowPicker")
 vim.cmd( ":hi link NvimTreeWindowPicker SpellLocal" )
 
-vim.cmd( ":hi Visual cterm=NONE ctermbg=cyan ctermfg=black")
-vim.cmd( ":hi Search cterm=NONE ctermbg=yellow ctermfg=black")
-
---vim.cmd(":hi Statusline ctermfg=white ctermbg=black")
---vim.cmd(":hi StatusLineNC cterm=bold ctermfg=white ctermbg=darkgray")
---
-vim.cmd(":hi Statusline cterm=bold ctermfg=black ctermbg=cyan")
-vim.cmd(":hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray")
-
-vim.cmd(":hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan")
-vim.cmd(":hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray")
-
-
-
---require('nvim-web-devicons').setup()
 
 require('scrollview').setup{
 	current_only = true
 }
--- set scrollbar color
+-- set scrollview bar color
 -- :help scrollview
 -- https://github.com/dstein64/nvim-scrollview/blob/main/doc/scrollview.txt
 vim.cmd [[highlight Scrollview ctermbg=cyan]]
+
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require('mason').setup()
@@ -130,19 +132,20 @@ require('mason-lspconfig').setup{
     ,'pylsp'
   }
 }
+
 local lspconfig = require('lspconfig')
 lspconfig.lua_ls.setup{
   -- https://neovim.discourse.group/t/
   -- how-to-suppress-warning-undefined-global-vim/1882/3
   settings = { Lua = { diagnostics = { globals = {'vim'} } } }
 }
+
 lspconfig.clangd.setup{}
---lspconfig.jedi_language_server.setup{}
+
 lspconfig.pylsp.setup{}
 
--- ==========
 -- nvim-lspconfig key remaps
--- ==========
+-- copied from ___?
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -215,4 +218,56 @@ vim.cmd(":map <leader>x :b#<bar>bd#<CR>")
 --vim.cmd(":nnoremap <C-K> <C-W>k")
 --vim.cmd(":nnoremap <C-L> <C-W>l")
 
+-- ========
+-- autogroups
+-- ========
 
+-- run 'M' command on document open to center cursor.
+-- command is created in an autogroup for cleanup per recommendation here:
+-- https://neovim.io/doc/user/usr_40.html#40.3
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+augroup('CenterOnStart', {clear = true})
+autocmd('BufReadPost', {
+	group = 'CenterOnStart',
+	pattern = '',
+	command = ':execute "normal M"'
+})
+
+-- 2024-04-24
+-- can't get nvim wrap option to propagate to NvimTree after startup.
+-- but the autocommand below effectively does the same thing...
+
+vim.api.nvim_create_autocmd(
+	{
+		--"BufAdd", "BufNew", "BufRead", "BufFilePre", "BufFilePost",
+		--"BufEnter", "BufWinEnter", "BufLeave", "BufWinLeave"
+		"BufEnter", "BufLeave"
+		--"FileType"
+	},
+	{
+		--pattern={"NvimTree"},
+		command = "setlocal wrap",
+	}
+)
+
+-- ========
+-- highlights
+-- ========
+
+-- set colors for command mode tab completion.
+vim.cmd( ":hi Pmenu ctermbg=cyan guibg=lightgray" )
+vim.cmd( ":hi PmenuSel ctermbg=yellow guibg=lightgray" )
+
+-- set matching paren to no highlight so it is not visually confusing.
+vim.cmd [[:highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE]]
+
+vim.cmd( ":hi Visual cterm=NONE ctermbg=cyan ctermfg=black")
+vim.cmd( ":hi Search cterm=NONE ctermbg=yellow ctermfg=black")
+
+vim.cmd(":hi Statusline cterm=bold ctermfg=black ctermbg=cyan")
+vim.cmd(":hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray")
+
+vim.cmd(":hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan")
+vim.cmd(":hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray")
