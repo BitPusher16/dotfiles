@@ -12,7 +12,7 @@
 -- this page has a recommendation for nvim lua config file structure:
 -- https://neovim.io/doc/user/lua-guide.html
 
---   ~/.config/nvim 
+--   ~/.config/nvim
 --  |-- after/
 --  |-- ftplugin/
 --  |-- lua/
@@ -37,6 +37,7 @@
 local home = os.getenv('HOME')
 package.path = home .. '/src/dotfiles/nvim/?.lua;' .. package.path
 require('conf/status_line')
+require('conf/highlight')
 
 -- ========
 -- vim opt
@@ -46,10 +47,19 @@ vim.opt.number = true
 vim.opt.colorcolumn = "81"
 --vim.cmd( ":hi ColorColumn ctermbg=cyan" )
 --vim.cmd( ":hi ColorColumn ctermbg=lightgray" )
-vim.cmd( ":hi ColorColumn ctermbg=white" )
+vim.cmd( ":hi ColorColumn ctermbg=black" )
 
 -- keep cursor centered if possible
 vim.opt.scrolloff = 999
+vim.opt.signcolumn = "yes"
+
+-- Use autosave instead of swap files.
+-- Can't think of any scenario where I would want to keep edits in memory only.
+--
+vim.opt.swapfile = false
+vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
+--vim.cmd( ":autocmd InsertLeave * write" ) -- doesn't save after dd, etc.
+vim.cmd( ":autocmd TextChanged,FocusLost,BufEnter * silent update")
 
 -- allow copy and paste with system clipboard.
 vim.opt.clipboard = 'unnamedplus'
@@ -59,6 +69,18 @@ vim.opt.clipboard = 'unnamedplus'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 --vim.opt.termguicolors = true -- 24 bit color, but hides 16-bit color.
+
+-- choosing spaces rather than tabs bc it means my code will 
+-- display with consistent formatting when pushed to github, etc.
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.cmd(":set list listchars=tab:»¯,trail:°")
+
+vim.wo.wrap = true
+--vim.wo.linebreak = true
+--vim.wo.list = false
 
 
 
@@ -100,23 +122,10 @@ vim.call('plug#end')
 -- will be immediately applied at runtime. e.g. >
 
 require('nvim-tree').setup()
-vim.cmd( ":hi link NvimTreeNormalFloat SpellLocal" )
-vim.cmd( ":hi link NvimTreeCursorColumn SpellLocal" )
-vim.cmd( ":hi link NvimTreeStatusLine Statusline" )
-vim.cmd( ":hi link NvimTreeStatusLineNC StatusLineNC" )
-vim.cmd( ":hi link NvimTreeExecFile SpellLocal" )
-vim.cmd( ":hi link NvimTreeImageFile SpellLocal" )
-vim.cmd( ":hi link NvimTreeSpecialFile SpellLocal" )
-vim.cmd( ":hi link NvimTreeSymlink SpellLocal" )
-vim.cmd( ":hi link NvimTreeCutHL SpellLocal" )
-vim.cmd( ":hi link NvimTreeCopiedHL SpellLocal" )
-
-vim.cmd( ":hi clear NvimTreeWindowPicker")
-vim.cmd( ":hi link NvimTreeWindowPicker SpellLocal" )
 
 
 require('scrollview').setup{
-	current_only = true
+    current_only = true
 }
 -- set scrollview bar color
 -- :help scrollview
@@ -197,7 +206,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- by default, leader is "\".
 
 -- https://neovim.io/doc/user/lua-guide.html
--- Mappings can be created using vim.keymap.set(). 
+-- Mappings can be created using vim.keymap.set().
 -- This function takes three mandatory arguments:
 
 -- Can we instead just use vim.cmd(":... ")?
@@ -230,9 +239,9 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 augroup('CenterOnStart', {clear = true})
 autocmd('BufReadPost', {
-	group = 'CenterOnStart',
-	pattern = '',
-	command = ':execute "normal M"'
+    group = 'CenterOnStart',
+    pattern = '',
+    command = ':execute "normal M"'
 })
 
 -- 2024-04-24
@@ -240,34 +249,39 @@ autocmd('BufReadPost', {
 -- but the autocommand below effectively does the same thing...
 
 vim.api.nvim_create_autocmd(
-	{
-		--"BufAdd", "BufNew", "BufRead", "BufFilePre", "BufFilePost",
-		--"BufEnter", "BufWinEnter", "BufLeave", "BufWinLeave"
-		"BufEnter", "BufLeave"
-		--"FileType"
-	},
-	{
-		--pattern={"NvimTree"},
-		command = "setlocal wrap",
-	}
+    {
+        --"BufAdd", "BufNew", "BufRead", "BufFilePre", "BufFilePost",
+        --"BufEnter", "BufWinEnter", "BufLeave", "BufWinLeave"
+        "BufEnter", "BufLeave"
+        --"FileType"
+    },
+    {
+        --pattern={"NvimTree"},
+        command = "setlocal wrap",
+    }
 )
+
 
 -- ========
 -- highlights
 -- ========
 
--- set colors for command mode tab completion.
-vim.cmd( ":hi Pmenu ctermbg=cyan guibg=lightgray" )
-vim.cmd( ":hi PmenuSel ctermbg=yellow guibg=lightgray" )
+-- (moved to conf/highlight.lua)
 
--- set matching paren to no highlight so it is not visually confusing.
-vim.cmd [[:highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE]]
+-- need a way to see what highlight is applied to give text...
 
-vim.cmd( ":hi Visual cterm=NONE ctermbg=cyan ctermfg=black")
-vim.cmd( ":hi Search cterm=NONE ctermbg=yellow ctermfg=black")
+-- also need a better way to browse highlight definitions than :hi
+-- this thread suggests :Telescope highlights
+-- https://www.reddit.com/r/neovim/comments/xdmenn/any_ergonomic_way_to_browse_highlight_groups/
 
-vim.cmd(":hi Statusline cterm=bold ctermfg=black ctermbg=cyan")
-vim.cmd(":hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray")
 
-vim.cmd(":hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan")
-vim.cmd(":hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray")
+-- function to examine the highlight group of text under cursor.
+--vim.api.nvim_exec([[
+--    function! SynGroup()
+--        let l:s = synID(line('.'), col('.'), 1)
+--        echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+--    endfun
+--]], false)
+--vim.cmd(":map <leader>h :call SynGroup()<CR>")
+
+-- source highlights after all plugins so that highlight definitions apply.

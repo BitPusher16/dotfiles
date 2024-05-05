@@ -12,6 +12,9 @@ This is messy and inconsistent.
 
 Switched approaches. Keeping all config files in git repo, not using symlinks,
 and just manually figuring out how to insert "include" statements in each system config.
+This seems suboptimal initially, because the ideal is to set up a new machine with one script.
+However, realistically, no two systems will accept installation paths identically,
+so arguably it is better to allow for gradually enabling configs when setting up new system.
 
 2024-03-10
 I am having trouble referring to dotfiles neovim config.

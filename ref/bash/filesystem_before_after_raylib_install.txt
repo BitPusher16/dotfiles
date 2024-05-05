@@ -1,0 +1,8 @@
+80345a80346
+> /home/<user>/dat/filesystem_snapshots/file_system_snapshot_2024-04-25_-0700_14-02-00
+889855a890452,890454
+> /usr/local/include/raylib.h
+> /usr/local/include/raymath.h
+> /usr/local/include/rlgl.h
+889856a890456
+> /usr/local/lib/libraylib.a

@@ -1,0 +1,38 @@
+# diff of filesystem before and after running apt install fzf.
+# removed /proc, /run/fs/cgroup, /tmp/sort, /tmp/systemd-private, /run/systemd
+
+81712a81713
+> /home/<user>/dat/filesystem_snapshots/file_system_snapshot_2024-04-25_-0700_10-47-02
+970749a967288,967289
+> /usr/bin/fzf
+> /usr/bin/fzf-tmux
+1047990a1044531
+> /usr/share/bash-completion/completions/fzf
+1057158a1053700,1053711
+> /usr/share/doc/fzf
+> /usr/share/doc/fzf/changelog.Debian.gz
+> /usr/share/doc/fzf/copyright
+> /usr/share/doc/fzf/examples
+> /usr/share/doc/fzf/examples/completion.zsh
+> /usr/share/doc/fzf/examples/fzf.vim
+> /usr/share/doc/fzf/examples/key-bindings.bash
+> /usr/share/doc/fzf/examples/key-bindings.fish
+> /usr/share/doc/fzf/examples/key-bindings.zsh
+> /usr/share/doc/fzf/examples/plugin
+> /usr/share/doc/fzf/examples/plugin/fzf.vim
+> /usr/share/doc/fzf/README.Debian
+1068601a1065155,1065156
+> /usr/share/fish/vendor_functions.d
+> /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
+1194294a1190850,1190851
+> /usr/share/man/man1/fzf.1.gz
+> /usr/share/man/man1/fzf-tmux.1.gz
+1341684,1341685d1338240
+< /var/cache/apt/pkgcache.bin
+< /var/cache/apt/srcpkgcache.bin
+1343223a1339779,1339780
+> /var/lib/dpkg/info/fzf.list
+> /var/lib/dpkg/info/fzf.md5sums
+1359073a1355631,1355632
+> /var/tmp/systemd-private-dea8655d004e4a33b100a5f89f823b50-apt-news.service-hTf7Nt
+> /var/tmp/systemd-private-dea8655d004e4a33b100a5f89f823b50-apt-news.service-hTf7Nt/tmp

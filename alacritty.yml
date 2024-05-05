@@ -25,33 +25,34 @@ font:
     family: MononokiNerdFont
 
 # to test colors, try 
-# colortest-256
+# colortest-256 && colortest-16
 
-# fj theme, bright gray
+# fj theme, dark mode
 colors:
   primary:
-    background: '0xeeeeee'
-    foreground: '0x000000'
+    background: '0x003333'
+    foreground: '0xffffff'
     bright_foreground: '0xffffff'
-    dim_foreground: '0xdddddd'
+    dim_foreground: '0xffffff'
   normal:
-    white:   '0xcccccc' # nvim calls this lightgray
-    black:   '0x000000'
-    red:     '0xbb0000'
-    green:   '0x00bb00'
-    blue:    '0x0000bb'
-    yellow:  '0x999900'
-    magenta: '0x990099'
-    cyan:    '0x009999'
-  bright:
-    white:   '0xdddddd'
+    white:   '0xdddddd' # nvim calls this lightgray
     black:   '0x555555'
-    red:     '0xff0000'
-    green:   '0x00ff00'
-    blue:    '0x0000ff'
-    yellow:  '0xbbbb00'
-    magenta: '0xbb00bb'
-    cyan:    '0x00bbbb'
+    red:     '0xff5555'
+    green:   '0x55ff55'
+    blue:    '0x5555ff'
+    yellow:  '0xffff55'
+    magenta: '0xff55ff'
+    cyan:    '0x55ffff'
+  bright:
+    white:   '0xffffff'
+    black:   '0x777777'
+    red:     '0xff7777'
+    green:   '0x77ff77'
+    blue:    '0x7777ff'
+    yellow:  '0xffff77'
+    magenta: '0xff77ff'
+    cyan:    '0x77ffff'
+  # can't find a place where dim colors are used.
   dim:
     white:   '0xffffff'
     black:   '0x000000'
@@ -61,6 +62,43 @@ colors:
     yellow:  '0x999900'
     magenta: '0x990099'
     cyan:    '0x009999'
+
+## fj theme, bright gray
+#colors:
+#  primary:
+#    #background: '0xeeeeee'
+#    background: '0xffffff'
+#    #background: '0xffffee' # near white, just slightly yellow
+#    foreground: '0x000000'
+#    bright_foreground: '0xffffff'
+#    dim_foreground: '0xdddddd'
+#  normal:
+#    white:   '0xcccccc' # nvim calls this lightgray
+#    black:   '0x000000'
+#    red:     '0xbb0000'
+#    green:   '0x00bb00'
+#    blue:    '0x0000bb'
+#    yellow:  '0x999900'
+#    magenta: '0x990099'
+#    cyan:    '0x009999'
+#  bright:
+#    white:   '0xdddddd'
+#    black:   '0x555555'
+#    red:     '0xff0000'
+#    green:   '0x00ff00'
+#    blue:    '0x0000ff'
+#    yellow:  '0xbbbb00'
+#    magenta: '0xbb00bb'
+#    cyan:    '0x00bbbb'
+#  dim:
+#    white:   '0xffffff'
+#    black:   '0x000000'
+#    red:     '0xdd0000'
+#    green:   '0x00dd00'
+#    blue:    '0x0000dd'
+#    yellow:  '0x999900'
+#    magenta: '0x990099'
+#    cyan:    '0x009999'
 
 # fj theme, cool blue
 #colors:
