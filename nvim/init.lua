@@ -35,7 +35,8 @@
 -- ========
 
 local home = os.getenv('HOME')
-package.path = home .. '/src/dotfiles/nvim/?.lua;' .. package.path
+--package.path = home .. '/src/dotfiles/nvim/?.lua;' .. package.path
+package.path = package.path .. ';' .. home .. '/src/dotfiles/nvim/?.lua;'
 require('conf/status_line')
 require('conf/highlight')
 
@@ -55,11 +56,12 @@ vim.opt.signcolumn = "yes"
 
 -- Use autosave instead of swap files.
 -- Can't think of any scenario where I would want to keep edits in memory only.
---
 vim.opt.swapfile = false
 vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
 --vim.cmd( ":autocmd InsertLeave * write" ) -- doesn't save after dd, etc.
-vim.cmd( ":autocmd TextChanged,FocusLost,BufEnter * silent update")
+vim.cmd( ":autocmd TextChanged,FocusLost,FocusGained," ..
+    "InsertLeave,BufEnter,BufLeave * silent update")
+
 
 -- allow copy and paste with system clipboard.
 vim.opt.clipboard = 'unnamedplus'
@@ -72,12 +74,16 @@ vim.g.loaded_netrwPlugin = 1
 
 -- choosing spaces rather than tabs bc it means my code will 
 -- display with consistent formatting when pushed to github, etc.
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.opt.tabstop = 4 -- 4 spaces for tabs.
+vim.opt.shiftwidth = 4 -- 4 spaces for indent width.
+vim.opt.expandtab = true -- expand tab to spaces.
+vim.opt.autoindent = true -- copy indent from current line to new one.
+
+vim.opt.backspace = 'indent,eol,start' -- ?
 
 vim.cmd(":set list listchars=tab:»¯,trail:°")
 
+vim.opt.wrap = true
 vim.wo.wrap = true
 --vim.wo.linebreak = true
 --vim.wo.list = false
@@ -98,6 +104,7 @@ vim.wo.wrap = true
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
+Plug('alexghergh/nvim-tmux-navigation')
 Plug('nvim-tree/nvim-tree.lua')
 
 Plug('dstein64/nvim-scrollview')
@@ -121,7 +128,30 @@ vim.call('plug#end')
 -- They can be customised before or after setup is called and 
 -- will be immediately applied at runtime. e.g. >
 
-require('nvim-tree').setup()
+require('nvim-tmux-navigation').setup{
+    disable_when_zoomed = true,
+    keybindings = {
+        left = '<C-h>',
+        right = '<C-l>',
+        up = '<C-k>',
+        down = '<C-j>',
+    }
+}
+
+require('nvim-tree').setup{
+    git = {
+        ignore = false
+    }
+}
+
+-- nvim-tree closes when sourcing lua config.
+-- see if we can find a way to keep it open always.
+-- https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
+local function open_nvim_tree()
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
 
 
 require('scrollview').setup{
@@ -178,7 +208,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+
+    -- conflicts with split ctrl-hkjl nav
+    --vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<space>wl', function()
@@ -215,8 +248,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --vim.cmd(":map <leader>x :bp<bar>sp<bar>bn<bar>bd<CR>")
 -- alternative (doesn't work with NvimTree open):
 --vim.cmd(":map <leader>x :window b#<bar>bd#<CR>")
-vim.cmd(":map <leader>x :b#<bar>bd#<CR>")
 --vim.cmd(":command! Bd bp<bar>sp<bar>bn<bar>bd<CR>")
+--vim.cmd(":map <leader>x :b#<bar>bd#<CR>")
+-- better:
+vim.keymap.set('n', '<leader>x', ':bp<bar>sp<bar>bn<bar>bd<CR>',
+    {desc='close buffer but leave pane open'})
+vim.keymap.set('n', '<leader>/', ':nohl<CR>',
+    {desc='clear highlights for search'})
 
 -- unmap some unuseful ctrl key combinations for use later.
 --vim.cmd(":unmap <C-c>") -- does same thing as esc
@@ -260,6 +298,7 @@ vim.api.nvim_create_autocmd(
         command = "setlocal wrap",
     }
 )
+--vim.opt_local.wrap=true
 
 
 -- ========
@@ -285,3 +324,8 @@ vim.api.nvim_create_autocmd(
 --vim.cmd(":map <leader>h :call SynGroup()<CR>")
 
 -- source highlights after all plugins so that highlight definitions apply.
+
+
+--vim.cmd.normal('NvimTreeOpen')
+--vim.cmd('NvimTreeOpen')
+--nvim_tree_api.tree.open()
