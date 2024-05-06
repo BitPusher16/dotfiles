@@ -57,10 +57,20 @@ vim.opt.signcolumn = "yes"
 -- Use autosave instead of swap files.
 -- Can't think of any scenario where I would want to keep edits in memory only.
 vim.opt.swapfile = false
-vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
+--vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
 --vim.cmd( ":autocmd InsertLeave * write" ) -- doesn't save after dd, etc.
-vim.cmd( ":autocmd TextChanged,FocusLost,FocusGained," ..
-    "InsertLeave,BufEnter,BufLeave * silent update")
+--vim.cmd( ":autocmd TextChanged,FocusLost,FocusGained," ..
+--    "InsertLeave,BufEnter,BufLeave * silent update")
+--vim.cmd( ":autocmd TextChanged * silent update")
+--vim.cmd( ":autocmd InsertLeave * silent update")
+
+local function save_if_modifiable()
+    if vim.api.nvim_get_option('ma') and vim.api.nvim_get_option('write') then
+        --vim.cmd('echo "foo"')
+        vim.cmd('silent update')
+    end
+end
+vim.api.nvim_create_autocmd({ "TextChanged" }, { callback = save_if_modifiable })
 
 
 -- allow copy and paste with system clipboard.
@@ -112,6 +122,7 @@ Plug('dstein64/nvim-scrollview')
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
+--Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
 
 vim.call('plug#end')
 
@@ -119,15 +130,10 @@ vim.call('plug#end')
 -- plugin configs
 -- ==========
 
--- nvim-tree configs.
--- run :NvimTreeHiTest to see example highlights.
--- example nvim lua setup:
--- https://gitee.com/kongjun18/nvim-tree.lua
--- Run |:NvimTreeHiTest| to show all the highlights 
--- that nvim-tree uses.
--- They can be customised before or after setup is called and 
--- will be immediately applied at runtime. e.g. >
-
+-- seems that the only one of these which has anything mapped
+-- is ctrl-k, which allows entering digraphs.
+-- note that if tmux catches these, it needs to send the keys on to
+-- neovim if neovim is active.
 require('nvim-tmux-navigation').setup{
     disable_when_zoomed = true,
     keybindings = {
@@ -138,18 +144,32 @@ require('nvim-tmux-navigation').setup{
     }
 }
 
+
+-- nvim-tree configs.
+-- run :NvimTreeHiTest to see example highlights.
+-- example nvim lua setup:
+-- https://gitee.com/kongjun18/nvim-tree.lua
+-- Run |:NvimTreeHiTest| to show all the highlights 
+-- that nvim-tree uses.
+-- They can be customised before or after setup is called and 
+-- will be immediately applied at runtime. e.g. >
 require('nvim-tree').setup{
     git = {
         ignore = false
     }
 }
 
+
+
 -- nvim-tree closes when sourcing lua config.
 -- see if we can find a way to keep it open always.
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
 local function open_nvim_tree()
-  -- open the tree
-  require("nvim-tree.api").tree.open()
+  -- check filetype to avoid the vim-plug "modifiable is off" bug.
+  -- https://github.com/junegunn/vim-plug/issues/1032
+    if vim.bo.filetype ~= 'vim-plug' then
+        require("nvim-tree.api").tree.open()
+    end
 end
 vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
 
@@ -162,6 +182,9 @@ require('scrollview').setup{
 -- https://github.com/dstein64/nvim-scrollview/blob/main/doc/scrollview.txt
 vim.cmd [[highlight Scrollview ctermbg=cyan]]
 
+--require('auto-session').setup{
+--    log_level = 'info'
+--}
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require('mason').setup()
@@ -236,6 +259,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- rather than combinations (leader + key).
 -- left ctrl and right ctrl are awkward to reach.
 
+-- prefixes to reserve:
+-- g: git
+-- l: lsp functions
+-- d: debugger
+-- b: buffer
+-- q: quickfix
+-- s: split?
+-- f: find files, string, regex?
+-- r: replace?
+-- f: fold?
+-- z: fold?
+-- c: comments?
+-- t: telescope?
+-- (would be nice to have an in-vim command to run make.)
+
 -- by default, leader is "\".
 
 -- https://neovim.io/doc/user/lua-guide.html
@@ -298,7 +336,6 @@ vim.api.nvim_create_autocmd(
         command = "setlocal wrap",
     }
 )
---vim.opt_local.wrap=true
 
 
 -- ========
