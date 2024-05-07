@@ -59,21 +59,22 @@ vim.cmd [[ hi Typedef ctermfg=darkgreen ]]
 
 
 -- NvimTree
-vim.cmd [[ hi link NvimTreeNormalFloat StatusLine ]]
-vim.cmd [[ hi link NvimTreeCursorColumn StatusLine ]]
-vim.cmd [[ hi link NvimTreeExecFile StatusLine ]]
-vim.cmd [[ hi link NvimTreeImageFile StatusLine ]]
-vim.cmd [[ hi link NvimTreeSpecialFile StatusLine ]]
-vim.cmd [[ hi link NvimTreeSymlink StatusLine ]]
-vim.cmd [[ hi link NvimTreeCutHL StatusLine ]]
-vim.cmd [[ hi link NvimTreeCopiedHL StatusLine ]]
-vim.cmd [[ hi link NvimTreeStatusLine Statusline ]]
-vim.cmd [[ hi link NvimTreeStatusLineNC StatusLineNC ]]
-vim.cmd [[ hi link NvimTreeWindowPicker StatusLine ]]
-
-vim.cmd [[ hi SpecialKey ctermfg=cyan guifg=Cyan ]]
-vim.cmd [[ hi Statement ctermfg=yellow  guifg=yellow ]]
-vim.cmd [[ hi Directory ctermfg=blue guifg=blue ]]
+-- update: these are not really needed if base highlights are clean?
+--vim.cmd [[ hi link NvimTreeNormalFloat StatusLine ]]
+--vim.cmd [[ hi link NvimTreeCursorColumn StatusLine ]]
+--vim.cmd [[ hi link NvimTreeExecFile StatusLine ]]
+--vim.cmd [[ hi link NvimTreeImageFile StatusLine ]]
+--vim.cmd [[ hi link NvimTreeSpecialFile StatusLine ]]
+--vim.cmd [[ hi link NvimTreeSymlink StatusLine ]]
+--vim.cmd [[ hi link NvimTreeCutHL StatusLine ]]
+--vim.cmd [[ hi link NvimTreeCopiedHL StatusLine ]]
+--vim.cmd [[ hi link NvimTreeStatusLine Statusline ]]
+--vim.cmd [[ hi link NvimTreeStatusLineNC StatusLineNC ]]
+--vim.cmd [[ hi link NvimTreeWindowPicker StatusLine ]]
+--
+--vim.cmd [[ hi SpecialKey ctermfg=cyan guifg=Cyan ]]
+--vim.cmd [[ hi Statement ctermfg=yellow  guifg=yellow ]]
+--vim.cmd [[ hi Directory ctermfg=blue guifg=blue ]]
 
 
 

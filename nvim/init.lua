@@ -9,6 +9,13 @@
 -- to source (may not unload existing autogroups):
 -- :so ~/.config/nvim/init.lua
 
+-- to add a new plugin:
+-- 1) add Plug() call to plugin section.
+-- 3) :so %
+-- 4) :PlugInstall
+-- 2) add call to require('plugin-name')
+-- 3) :so %
+
 -- this page has a recommendation for nvim lua config file structure:
 -- https://neovim.io/doc/user/lua-guide.html
 
@@ -64,13 +71,14 @@ vim.opt.swapfile = false
 --vim.cmd( ":autocmd TextChanged * silent update")
 --vim.cmd( ":autocmd InsertLeave * silent update")
 
-local function save_if_modifiable()
-    if vim.api.nvim_get_option('ma') and vim.api.nvim_get_option('write') then
-        --vim.cmd('echo "foo"')
-        vim.cmd('silent update')
-    end
-end
-vim.api.nvim_create_autocmd({ "TextChanged" }, { callback = save_if_modifiable })
+--local function save_if_modifiable()
+--    if vim.api.nvim_get_option('ma') and vim.api.nvim_get_option('write') then
+--        --vim.cmd('echo "foo"')
+--        vim.cmd('silent update')
+--    end
+--end
+--vim.api.nvim_create_autocmd({ "TextChanged" }, { callback = save_if_modifiable })
+vim.cmd( ":autocmd TextChanged,TextChangedI * silent update")
 
 
 -- allow copy and paste with system clipboard.
@@ -78,8 +86,8 @@ vim.opt.clipboard = 'unnamedplus'
 
 -- these configs are recommended by the nvim-tree docs.
 -- they must appear before nvim-tree is loaded (or is initialized?).
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 --vim.opt.termguicolors = true -- 24 bit color, but hides 16-bit color.
 
 -- choosing spaces rather than tabs bc it means my code will 
@@ -106,6 +114,11 @@ vim.wo.wrap = true
 
 -- using vim-plug as plugin manager
 -- https://github.com/junegunn/vim-plug
+-- note:
+-- https://github.com/junegunn/vim-plug/wiki/faq
+-- vim-plug no longer handles dependencies between plugins and it's 
+-- up to the user to manually specify Plug commands for dependent plugins
+
 
 -- :PlugStatus
 -- :PlugUpdate
@@ -114,21 +127,51 @@ vim.wo.wrap = true
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
-Plug('alexghergh/nvim-tmux-navigation')
+-- these are required by neo-tree:
+--Plug('nvim-lua/plenary.nvim')
+--Plug('nvim-tree/nvim-web-devicons')
+--Plug('muniftanjim/nui.nvim')
+
+-- neo-tree
+-- edit: neotree is nice, but causes visible stuttering on startup.
+-- nvim-tree is faster.
+--Plug('nvim-neo-tree/neo-tree.nvim')
+
 Plug('nvim-tree/nvim-tree.lua')
+
+Plug('alexghergh/nvim-tmux-navigation')
 
 Plug('dstein64/nvim-scrollview')
 
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
---Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
+Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
+--Plug('natecraddock/workspaces.nvim') -- maybe not needed with auto-session
 
 vim.call('plug#end')
 
 -- ==========
 -- plugin configs
 -- ==========
+
+--require('plenary').setup()
+--require('nvim-web-devicons').setup{}
+--require('nui.nvim').setup{}
+
+-- neo-tree
+-- TODO: even if nvim saves a file after edit, neo-tree does not update git status
+--require('neo-tree').setup{}
+
+-- always open neotree
+-- https://github.com/AstroNvim/AstroNvim/issues/344
+--vim.api.nvim_create_autocmd("UiEnter",{
+--    callback = function()
+--        if vim.fn.argc() == 0 then
+--            vim.cmd 'Neotree'
+--        end
+--    end
+--})
 
 -- seems that the only one of these which has anything mapped
 -- is ctrl-k, which allows entering digraphs.
@@ -164,14 +207,15 @@ require('nvim-tree').setup{
 -- nvim-tree closes when sourcing lua config.
 -- see if we can find a way to keep it open always.
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
-local function open_nvim_tree()
-  -- check filetype to avoid the vim-plug "modifiable is off" bug.
-  -- https://github.com/junegunn/vim-plug/issues/1032
-    if vim.bo.filetype ~= 'vim-plug' then
-        require("nvim-tree.api").tree.open()
-    end
-end
-vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
+-- edit: this breaks functionality with running "nvim ." in directory.
+--local function open_nvim_tree()
+--  -- check filetype to avoid the vim-plug "modifiable is off" bug.
+--  -- https://github.com/junegunn/vim-plug/issues/1032
+--    if vim.bo.filetype ~= 'vim-plug' then
+--        require("nvim-tree.api").tree.open()
+--    end
+--end
+--vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
 
 
 require('scrollview').setup{
@@ -182,8 +226,20 @@ require('scrollview').setup{
 -- https://github.com/dstein64/nvim-scrollview/blob/main/doc/scrollview.txt
 vim.cmd [[highlight Scrollview ctermbg=cyan]]
 
---require('auto-session').setup{
---    log_level = 'info'
+require('auto-session').setup{
+    auto_save_enabled = true,
+    auto_restore_enabled = true,
+    --log_level = 'info',
+    --pre_save_cmds = { 'Neotree close' },
+    --post_save_cmds = {'Neotree show filesystem'},
+    --post_restore_cmds = { 'Neotree show filesystem'},
+    --post_restore_cmds = { 'Neotree'},
+    pre_save_cmds = {'NvimTreeClose'},
+    post_restore_cmds = {'NvimTreeOpen'},
+}
+
+--require('workspaces').setup{
+--    auto_open = true
 --}
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
@@ -324,18 +380,18 @@ autocmd('BufReadPost', {
 -- can't get nvim wrap option to propagate to NvimTree after startup.
 -- but the autocommand below effectively does the same thing...
 
-vim.api.nvim_create_autocmd(
-    {
-        --"BufAdd", "BufNew", "BufRead", "BufFilePre", "BufFilePost",
-        --"BufEnter", "BufWinEnter", "BufLeave", "BufWinLeave"
-        "BufEnter", "BufLeave"
-        --"FileType"
-    },
-    {
-        --pattern={"NvimTree"},
-        command = "setlocal wrap",
-    }
-)
+--vim.api.nvim_create_autocmd(
+--    {
+--        --"BufAdd", "BufNew", "BufRead", "BufFilePre", "BufFilePost",
+--        --"BufEnter", "BufWinEnter", "BufLeave", "BufWinLeave"
+--        "BufEnter", "BufLeave"
+--        --"FileType"
+--    },
+--    {
+--        --pattern={"NvimTree"},
+--        command = "setlocal wrap",
+--    }
+--)
 
 
 -- ========
