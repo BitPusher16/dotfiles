@@ -5,7 +5,7 @@
 # an example .toml config for most recent version of alacritty is here:
 # https://alacritty.org/config-alacritty.html
 
-# for a .yaml example for v12, go here: 
+# for a .yaml example for v12, go here:
 # https://github.com/alacritty/alacritty/releases/tag/v0.12.3
 
 #import:
@@ -16,13 +16,22 @@ import:
 
 font:
   size: 12.0
+    # note that if using alacritty, font size setting here
+    # does not fully determine font size. alacritty zoom matters too
+    # (ctrl-+ and ctrl--)
   normal:
     # This nerd font is installed at ~/.fonts
     # https://www.nerdfonts.com/
     #family: UbuntuMonoNerdFont
     #family: BigBlueTerm437NerdFont
     #family: BigBlueTermPlusNerdFont
-    family: MononokiNerdFont
+    #family: MononokiNerdFont
+    #family: ProFontIIxNerdFont
+    #family: GohuFont11NerdFont
+    #family: JetBrainsMonoNerdFont
+    #family: AgaveNerdFont
+    #family: MonoidNerdFont
+    family: TerminessNerdFont # looks really good without antialias
 
 # to test colors, try 
 # colortest-256 && colortest-16
@@ -37,18 +46,18 @@ colors:
   normal:
     white:   '0xdddddd' # nvim calls this lightgray
     black:   '0x555555'
-    red:     '0xff5555'
-    green:   '0x55ff55'
-    blue:    '0x5555ff'
-    yellow:  '0xffff55'
-    magenta: '0xff55ff'
-    cyan:    '0x55ffff'
+    red:     '0xdd5555'
+    green:   '0x55dd55'
+    blue:    '0x9999dd'
+    yellow:  '0xdddd55'
+    magenta: '0xdd55dd'
+    cyan:    '0x55dddd'
   bright:
     white:   '0xffffff'
-    black:   '0x777777'
+    black:   '0x777777' # darkgray
     red:     '0xff7777'
     green:   '0x77ff77'
-    blue:    '0x7777ff'
+    blue:    '0xbbbbff'
     yellow:  '0xffff77'
     magenta: '0xff77ff'
     cyan:    '0x77ffff'

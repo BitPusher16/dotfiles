@@ -14,6 +14,7 @@
 -- 3) :so %
 -- 4) :PlugInstall
 -- 2) add call to require('plugin-name')
+--      - only need to do this if plugin needs activated. some deps don't.
 -- 3) :so %
 
 -- this page has a recommendation for nvim lua config file structure:
@@ -52,6 +53,7 @@ require('conf/highlight')
 -- ========
 
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.colorcolumn = "81"
 --vim.cmd( ":hi ColorColumn ctermbg=cyan" )
 --vim.cmd( ":hi ColorColumn ctermbg=lightgray" )
@@ -61,9 +63,12 @@ vim.cmd( ":hi ColorColumn ctermbg=black" )
 vim.opt.scrolloff = 999
 vim.opt.signcolumn = "yes"
 
+-- asdf qwer qwer zxcv
 -- Use autosave instead of swap files.
 -- Can't think of any scenario where I would want to keep edits in memory only.
-vim.opt.swapfile = false
+--vim.opt.swapfile = false
+vim.opt.swapfile = true
+
 --vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
 --vim.cmd( ":autocmd InsertLeave * write" ) -- doesn't save after dd, etc.
 --vim.cmd( ":autocmd TextChanged,FocusLost,FocusGained," ..
@@ -78,7 +83,9 @@ vim.opt.swapfile = false
 --    end
 --end
 --vim.api.nvim_create_autocmd({ "TextChanged" }, { callback = save_if_modifiable })
-vim.cmd( ":autocmd TextChanged,TextChangedI * silent update")
+
+-- update: rethinking this. maybe auto saving after every keystroke is bad idea.
+--vim.cmd( ":autocmd TextChanged,TextChangedI * silent update")
 
 
 -- allow copy and paste with system clipboard.
@@ -129,7 +136,7 @@ vim.call('plug#begin')
 
 -- these are required by neo-tree:
 --Plug('nvim-lua/plenary.nvim')
---Plug('nvim-tree/nvim-web-devicons')
+Plug('nvim-tree/nvim-web-devicons') -- nvim-tree uses this
 --Plug('muniftanjim/nui.nvim')
 
 -- neo-tree
@@ -138,16 +145,23 @@ vim.call('plug#begin')
 --Plug('nvim-neo-tree/neo-tree.nvim')
 
 Plug('nvim-tree/nvim-tree.lua')
+Plug('nvim-lualine/lualine.nvim')
 
 Plug('alexghergh/nvim-tmux-navigation')
 
 Plug('dstein64/nvim-scrollview')
 
+Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
+--Plug('natecraddock/workspaces.nvim') -- maybe not needed with auto-session
+
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
-Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
---Plug('natecraddock/workspaces.nvim') -- maybe not needed with auto-session
+
+Plug('nvim-neotest/nvim-nio')
+Plug('mfussenegger/nvim-dap')
+Plug('rcarriga/nvim-dap-ui')
+Plug('jay-babu/mason-nvim-dap.nvim')
 
 vim.call('plug#end')
 
@@ -217,6 +231,7 @@ require('nvim-tree').setup{
 --end
 --vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
 
+require('lualine').setup()
 
 require('scrollview').setup{
     current_only = true
@@ -245,11 +260,16 @@ require('auto-session').setup{
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require('mason').setup()
 require('mason-lspconfig').setup{
-  ensure_installed = {'lua_ls', 'bashls', 'clangd'
-    --,'jedi_language_server'
-    ,'pylsp'
+  ensure_installed = {
+    'lua_ls', 
+    'clangd',
+    --'bashls', 
+    --'jedi_language_server',
+    --'pylsp',
+    --'codelldb',
   }
 }
+
 
 local lspconfig = require('lspconfig')
 lspconfig.lua_ls.setup{
@@ -261,6 +281,70 @@ lspconfig.lua_ls.setup{
 lspconfig.clangd.setup{}
 
 lspconfig.pylsp.setup{}
+
+
+--require('nio').setup()
+--require('nvim-dap').setup() -- doesn't exist, or not needed.
+--require('nvim-dap-ui').setup() -- doesn't exist, or not needed.
+local dap = require('dap')
+--dap.adapters.codelldb = {
+--    stopOnEntry=false
+--}
+
+--copied from:
+--https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/home/fj/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+dap.defaults.fallback.exception_breakpoints = {'raised'}
+dap.configurations.c = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+
+local dapui = require('dapui')
+dapui.setup()
+
+--require('mason-nvim-dap').setup{
+--    ensure_installed={'codelldb'},
+--    handlers = {}
+--}
+
+
+-- youtube.com/watch?v=lsFoZIg-oDs The perfect Neovim setup for C++
+dap.listeners.after.event_initialized['dapui_config'] = function()
+    dapui.open()
+end
+dap.listeners.before.event_terminated['dapui_config'] = function()
+    dapui.close()
+end
+dap.listeners.before.event_exited['dapui_config'] = function()
+    dapui.close()
+end
+
+-- dap keymaps
+vim.keymap.set('n', '<leader>db', '<cmd> DapToggleBreakpoint <CR>',
+    {desc='add breakpoint at line'})
+vim.keymap.set('n', '<leader>dr', '<cmd> DapContinue <CR>',
+    {desc='start or continue the debugger'})
+
 
 -- nvim-lspconfig key remaps
 -- copied from ___?
@@ -376,6 +460,14 @@ autocmd('BufReadPost', {
     command = ':execute "normal M"'
 })
 
+--try to set some muted colors for inactive windows
+--note that vim has 'wincolor' and neovim has 'winhighlight'
+--augroup('WinBackground', {clear = true})
+--autocmd('WinEnter', { group = 'WinBackground', pattern = '*',
+--    command = ':setl wincolor= syn=on' })
+--autocmd('WinLeave', { group = 'WinBackground', pattern = '*',
+--    command = ':setl wincolor=NormalNC syn=off' })
+
 -- 2024-04-24
 -- can't get nvim wrap option to propagate to NvimTree after startup.
 -- but the autocommand below effectively does the same thing...
@@ -392,6 +484,13 @@ autocmd('BufReadPost', {
 --        command = "setlocal wrap",
 --    }
 --)
+
+
+augroup('CursorLineActiveWin', {clear = true})
+autocmd('WinEnter', { group = 'CursorLineActiveWin', pattern = '*',
+    command = ':set cursorline' })
+autocmd('WinLeave', { group = 'CursorLineActiveWin', pattern = '*',
+    command = ':set nocursorline' })
 
 
 -- ========

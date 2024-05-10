@@ -7,3 +7,5 @@
 [user]
 	name = fj
 	email = somename@somedomain.com
+[core]
+	editor = vi

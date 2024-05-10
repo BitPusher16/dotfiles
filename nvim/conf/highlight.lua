@@ -51,12 +51,20 @@ vim.cmd [[ hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray ]]
 vim.cmd [[ hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan ]]
 vim.cmd [[ hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray ]]
 
-vim.cmd [[ hi Identifier ctermfg=blue ]]
+-- for Identifier, some config other than this one is turning on bold.
+-- so turn it off here.
+vim.cmd [[ hi Identifier cterm=NONE ctermfg=blue ]]
+
 vim.cmd [[ hi PreProc ctermfg=darkred ]]
-vim.cmd [[ hi Comment ctermfg=darkgray ]]
+vim.cmd [[ hi Comment ctermfg=lightgray ]]
 vim.cmd [[ hi Type ctermfg=darkgreen ]]
 vim.cmd [[ hi Typedef ctermfg=darkgreen ]]
 
+vim.cmd [[ hi LineNr ctermfg=darkgray ]]
+--vim.cmd [[ hi CursorLineNr cterm=underline ctermfg=blue ctermbg=lightgray ]]
+--vim.cmd [[ hi CursorLine ctermbg=black ]]
+vim.api.nvim_set_hl(0, 'CursorLineNr', {ctermfg='yellow', underline = false})
+vim.api.nvim_set_hl(0, 'CursorLine', {ctermbg='black', underline = false})
 
 -- NvimTree
 -- update: these are not really needed if base highlights are clean?
