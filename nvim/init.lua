@@ -165,8 +165,9 @@ Plug('neovim/nvim-lspconfig')
 
 Plug('nvim-neotest/nvim-nio') -- nvim-dap-ui uses this
 Plug('mfussenegger/nvim-dap') -- still need one adapter per language
+Plug('jay-babu/mason-nvim-dap.nvim') -- allows automated installation of adapters
+
 Plug('rcarriga/nvim-dap-ui')
-Plug('jay-babu/mason-nvim-dap.nvim')
 
 vim.call('plug#end')
 
@@ -296,26 +297,47 @@ lspconfig.pylsp.setup{}
 --require('nio').setup()
 --require('nvim-dap').setup() -- doesn't exist, or not needed.
 --require('nvim-dap-ui').setup() -- doesn't exist, or not needed.
+
+-- make sure that adapters have been installed with Mason.
+-- also, load default adapters.
+-- names provided here must come from following list, not Mason UI
+-- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+require("mason-nvim-dap").setup({
+    ensure_installed = { 'codelldb', 'python' },
+
+    -- load default adapters.
+    handlers = {
+        function(config)
+            require('mason-nvim-dap').default_setup(config)
+        end
+    }
+})
+
 local dap = require('dap')
 --dap.adapters.codelldb = {
 --    stopOnEntry=false
 --}
 
---copied from:
---https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
-dap.adapters.codelldb = {
-  type = 'server',
-  port = "${port}",
-  executable = {
-    -- CHANGE THIS to your path!
-    command = '/home/fj/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb',
-    args = {"--port", "${port}"},
+-- copied from:
+-- https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
+-- the following adapter is not needed if we invoke mason-nvim-dap defaults.
+-- TODO: this config should really exist per-project...
+--dap.adapters.codelldb = {
+--  type = 'server',
+--  port = "${port}",
+--  executable = {
+--    -- CHANGE THIS to your path!
+--    command = '/home/fj/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb',
+--    args = {"--port", "${port}"},
+--
+--    -- On windows you may have to uncomment this:
+--    -- detached = false,
+--  }
+--}
 
-    -- On windows you may have to uncomment this:
-    -- detached = false,
-  }
-}
-dap.defaults.fallback.exception_breakpoints = {'raised'}
+--dap.defaults.fallback.exception_breakpoints = {'raised'}
+
+-- TODO: this should live in the project directory, not global nvim config.
 dap.configurations.c = {
   {
     name = "Launch file",

@@ -59,6 +59,7 @@ vim.cmd [[ hi PreProc ctermfg=darkred ]]
 vim.cmd [[ hi Comment ctermfg=lightgray ]]
 vim.cmd [[ hi Type ctermfg=darkgreen ]]
 vim.cmd [[ hi Typedef ctermfg=darkgreen ]]
+vim.cmd [[ hi Todo ctermbg=blue ]]
 
 vim.cmd [[ hi LineNr ctermfg=darkgray ]]
 --vim.cmd [[ hi CursorLineNr cterm=underline ctermfg=blue ctermbg=lightgray ]]
