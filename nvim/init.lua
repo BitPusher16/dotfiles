@@ -11,11 +11,11 @@
 
 -- to add a new plugin:
 -- 1) add Plug() call to plugin section.
--- 3) :so %
--- 4) :PlugInstall
--- 2) add call to require('plugin-name')
+-- 2) :so %
+-- 3) :PlugInstall
+-- 4) add call to require('plugin-name')
 --      - only need to do this if plugin needs activated. some deps don't.
--- 3) :so %
+-- 5) :so %
 
 -- this page has a recommendation for nvim lua config file structure:
 -- https://neovim.io/doc/user/lua-guide.html
@@ -154,12 +154,17 @@ Plug('dstein64/nvim-scrollview')
 Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
 --Plug('natecraddock/workspaces.nvim') -- maybe not needed with auto-session
 
+-- mason-lspconfig page has instructions for tying these 3 plugins together.
+-- https://github.com/williamboman/mason-lspconfig.nvim
+-- also, a note from mason-lspconfig:
+-- "this plugin uses the lspconfig server names in the APIs it exposes - 
+-- not mason.nvim package names. See this table for a complete mapping."
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
 
-Plug('nvim-neotest/nvim-nio')
-Plug('mfussenegger/nvim-dap')
+Plug('nvim-neotest/nvim-nio') -- nvim-dap-ui uses this
+Plug('mfussenegger/nvim-dap') -- still need one adapter per language
 Plug('rcarriga/nvim-dap-ui')
 Plug('jay-babu/mason-nvim-dap.nvim')
 
@@ -258,19 +263,24 @@ require('auto-session').setup{
 --}
 
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
+-- note, packages installable with mason-lspconfig (and their mason names)
+-- are available at 
+-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 require('mason').setup()
 require('mason-lspconfig').setup{
   ensure_installed = {
-    'lua_ls', 
+    'lua_ls',
     'clangd',
-    --'bashls', 
+    'bashls', -- requires npm, not sure about version.
+    'pylsp', -- requires python3.12, will not work with 3.10.
     --'jedi_language_server',
-    --'pylsp',
-    --'codelldb',
+    --'codelldb', -- not available from mason lspconfig.
   }
 }
 
-
+-- this is neovim/nvim-lspconfig, not williamboman/mason-lspconfig.nvim
+-- instructions for how to use lspconfig along with mason and mason-lspconfig
+-- are given here: https://github.com/williamboman/mason-lspconfig.nvim
 local lspconfig = require('lspconfig')
 lspconfig.lua_ls.setup{
   -- https://neovim.discourse.group/t/
@@ -316,6 +326,7 @@ dap.configurations.c = {
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
+    args = {}, -- hmm, can pass args to program here?
   },
 }
 
@@ -408,7 +419,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- s: split?
 -- f: find files, string, regex?
 -- r: replace?
--- f: fold?
+-- f: fold? find? file explorer?
 -- z: fold?
 -- c: comments?
 -- t: telescope?

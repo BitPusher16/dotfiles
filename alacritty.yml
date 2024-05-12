@@ -15,7 +15,7 @@ import:
   - ~/src/dotfiles/indexed_colors.yml
 
 font:
-  size: 12.0
+  size: 11.0
     # note that if using alacritty, font size setting here
     # does not fully determine font size. alacritty zoom matters too
     # (ctrl-+ and ctrl--)
@@ -26,12 +26,14 @@ font:
     #family: BigBlueTerm437NerdFont
     #family: BigBlueTermPlusNerdFont
     #family: MononokiNerdFont
-    #family: ProFontIIxNerdFont
     #family: GohuFont11NerdFont
     #family: JetBrainsMonoNerdFont
     #family: AgaveNerdFont
     #family: MonoidNerdFont
-    family: TerminessNerdFont # looks really good without antialias
+    #family: 3270NerdFont
+    family: HurmitNerdFont
+    #family: TerminessNerdFont # looks good without antialias
+    #family: ProFontIIxNerdFont # looks good without antialias
 
 # to test colors, try 
 # colortest-256 && colortest-16
