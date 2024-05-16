@@ -1,6 +1,7 @@
 # this file is needed because in some cases (colons, braces)
 # neovim uses indexed colors instead of 16-bit colors.
-# this config sets all indexed colors to black.
+# this config sets all indexed colors to gray.
+# update: not needed if we map "Special" highlight to a color in nvim?
 
 colors:
   indexed_colors:

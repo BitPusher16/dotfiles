@@ -61,6 +61,7 @@ vim.cmd( ":hi ColorColumn ctermbg=black" )
 
 -- keep cursor centered if possible
 vim.opt.scrolloff = 999
+--vim.opt.scrolloff = 4
 vim.opt.signcolumn = "yes"
 
 -- asdf qwer qwer zxcv
@@ -146,6 +147,10 @@ Plug('nvim-tree/nvim-web-devicons') -- nvim-tree uses this
 
 Plug('nvim-tree/nvim-tree.lua')
 Plug('nvim-lualine/lualine.nvim')
+Plug('folke/which-key.nvim')
+--Plug('karb94/neoscroll.nvim') # no support for 10k, 10j.
+-- TODO: mini has lots of other plugins, check these out.
+Plug('echasnovski/mini.animate')
 
 Plug('alexghergh/nvim-tmux-navigation')
 
@@ -216,12 +221,17 @@ require('nvim-tmux-navigation').setup{
 -- that nvim-tree uses.
 -- They can be customised before or after setup is called and 
 -- will be immediately applied at runtime. e.g. >
-require('nvim-tree').setup{
-    git = {
-        ignore = false
-    }
-}
 
+-- note: loading the nvim-tree plugin closes the tree,
+-- so every time we source our root config, the tree goes away.
+-- to prevent this, check if nvim-tree is loaded before loading.
+-- note! this means doing :so % will not reload tree settings.
+-- we must :wqa and restart nvim for this plugin.
+if (package.loaded['nvim-tree'] == nil) then
+    require('nvim-tree').setup{
+        git = { ignore = false }
+    }
+end
 
 
 -- nvim-tree closes when sourcing lua config.
@@ -236,8 +246,30 @@ require('nvim-tree').setup{
 --    end
 --end
 --vim.api.nvim_create_autocmd({ "SourcePost" }, { callback = open_nvim_tree })
+--:lua print(package.loaded['nvim-tree']) -- (returns table address?)
+--:lua print(package.loaded['nvim-tree'] == nil) -- false
+--:lua print(package.loaded['nvim-troo'] == nil) -- true
+-- update: fixed! conditionally loading nvim-tree now.
 
 require('lualine').setup()
+
+-- which-key uses the global nvim timeout.
+vim.o.timeout = true
+vim.o.timeoutlen = 10
+require('which-key').setup{ }
+
+--require('neoscroll').setup{
+--    respect_scrolloff = true,
+--    cursor_scrolls_alone = true
+--}
+
+-- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-animate.md
+require('mini.animate').setup{
+    -- really only want this for scrolling lines. disable some other defaults.
+    cursor = { enable = false},
+    open = { enable = false },
+    close = { enable = false },
+}
 
 require('scrollview').setup{
     current_only = true
@@ -375,7 +407,7 @@ end
 -- dap keymaps
 vim.keymap.set('n', '<leader>db', '<cmd> DapToggleBreakpoint <CR>',
     {desc='add breakpoint at line'})
-vim.keymap.set('n', '<leader>dr', '<cmd> DapContinue <CR>',
+vim.keymap.set('n', '<leader>dc', '<cmd> DapContinue <CR>',
     {desc='start or continue the debugger'})
 
 
@@ -384,10 +416,16 @@ vim.keymap.set('n', '<leader>dr', '<cmd> DapContinue <CR>',
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float,
+    {desc = 'vim diagnostic open float'})
+--vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev,
+    {desc = 'vim diagnostic goto prev'})
+--vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next,
+    {desc = 'vim diagnostic goto next'})
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist,
+    {desc = 'vim diagnostic set loc list'})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -400,26 +438,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.declaration,
+        {buffer = ev.buf, desc = 'lsp declaration'})
+    vim.keymap.set('n', '<leader>lf', vim.lsp.buf.definition,
+        {buffer = ev.buf, desc = 'lsp definition'})
+    vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover,
+        {buffer = ev.buf, desc = 'lsp hover'})
+    vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation,
+        {buffer = ev.buf, desc = 'lsp implementation'})
 
     -- conflicts with split ctrl-hkjl nav
     --vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
+    vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder,
+        {buffer = ev.buf, desc = 'lsp workspace add'})
+    vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder,
+        {buffer = ev.buf, desc = 'lsp workspace remove'})
+    vim.keymap.set('n', '<leader>lwl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+        {buffer = ev.buf, desc = 'lsp workspace list'})
+    vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition,
+        {buffer = ev.buf, desc = 'lsp type definition'})
+    vim.keymap.set('n', '<leader>ln', vim.lsp.buf.rename,
+        {buffer = ev.buf, desc = 'lsp rename (buffer only?)'})
+    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action,
+        {buffer = ev.buf, desc = 'lsp code action'})
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references,
+        {buffer = ev.buf, desc = 'lsp references'})
+    vim.keymap.set('n', '<leader>lm', function()
+        vim.lsp.buf.format { async = true } end,
+        {buffer = ev.buf, desc = 'lsp format'})
   end,
 })
 
@@ -520,10 +568,16 @@ autocmd('BufReadPost', {
 
 
 augroup('CursorLineActiveWin', {clear = true})
-autocmd('WinEnter', { group = 'CursorLineActiveWin', pattern = '*',
-    command = ':set cursorline' })
-autocmd('WinLeave', { group = 'CursorLineActiveWin', pattern = '*',
-    command = ':set nocursorline' })
+autocmd('WinEnter', {
+    group = 'CursorLineActiveWin',
+    pattern = '*',
+    command = ':set cursorline'
+})
+autocmd('WinLeave', { 
+    group = 'CursorLineActiveWin',
+    pattern = '*',
+    command = ':set nocursorline'
+})
 
 
 -- ========

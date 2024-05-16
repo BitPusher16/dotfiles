@@ -33,6 +33,21 @@
 --vim.cmd [[highlight Scrollview ctermbg=cyan]]
 --vim.cmd [[hi clear Comment]]
 
+-- (from vim :help color)
+--You can see all the groups currently active with this command: >
+--    :so $VIMRUNTIME/syntax/hitest.vim
+--This will open a new window containing all highlight group names, displayed
+--in their own color.
+
+
+vim.cmd [[ hi clear Cursor]]
+vim.cmd [[ hi clear TermCursor]]
+vim.cmd [[ hi TermCursor gui=NONE cterm=NONE ctermbg=white ]]
+vim.cmd [[ hi Cursor gui=NONE cterm=NONE ctermbg=white ]]
+--TermCursor     xxx cterm=reverse gui=reverse
+--Cursor         xxx guifg=bg guibg=fg
+--FloatTitle     xxx links to Title
+--lCursor        xxx guifg=bg guibg=fg
 
 -- set colors for command mode tab completion.
 vim.cmd [[ hi Pmenu ctermbg=cyan ctermfg=black ]]
@@ -44,8 +59,17 @@ vim.cmd [[ highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE ]]
 vim.cmd [[ hi Visual cterm=NONE ctermbg=cyan ctermfg=black ]]
 vim.cmd [[ hi clear VisualNC ]]
 vim.cmd [[ hi Search cterm=NONE ctermbg=yellow ctermfg=black ]]
+-- TODO: how do i set highlight color for current char in search word?
+--vim.cmd [[ hi IncSearch ctermbg=green ]]
+--vim.cmd [[ hi CurSearch ctermbg=green ]]
 
-vim.cmd [[ hi Statusline cterm=bold ctermfg=black ctermbg=darkcyan ]]
+--IncSearch      xxx cterm=reverse gui=reverse
+--Search         xxx ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+--CurSearch      xxx links to Search
+
+-- when using status line plugin, one space to right side of each pane
+-- (under the single-line divider) has highlight Statusline.
+vim.cmd [[ hi Statusline cterm=bold ctermfg=black ctermbg=lightgray ]]
 vim.cmd [[ hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray ]]
 
 vim.cmd [[ hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan ]]
@@ -85,6 +109,21 @@ vim.api.nvim_set_hl(0, 'CursorLine', {ctermbg='black', underline = false})
 --vim.cmd [[ hi Statement ctermfg=yellow  guifg=yellow ]]
 --vim.cmd [[ hi Directory ctermfg=blue guifg=blue ]]
 
+-- folke/which-key.nvim
+--WhichKey	Function	the key
+--WhichKeyGroup	Keyword	a group
+--WhichKeySeparator	DiffAdd	the separator between the key and its label
+--WhichKeyDesc	Identifier	the label of the key
+--WhichKeyFloat	NormalFloat	Normal in the popup window
+--WhichKeyBorder	FloatBorder	Normal in the popup window
+--WhichKeyValue	Comment	used by plugins that provide values
+--vim.cmd [[ hi Function ctermbg=blue ]]
+--vim.cmd [[ hi Keyword ctermbg=blue ]]
+--vim.cmd [[ hi DiffAdd ctermbg=blue ]]
+--vim.cmd [[ hi Identifier ctermbg=blue ]]
+vim.cmd [[ hi NormalFloat ctermbg=black ]]
+--vim.cmd [[ hi FloatBorder ctermbg=lightgray ]]
+--vim.cmd [[ hi Comment ctermbg=blue ]]
 
 
 --SpecialKey     xxx ctermfg=14 guifg=Cyan

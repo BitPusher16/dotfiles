@@ -15,7 +15,7 @@ import:
   - ~/src/dotfiles/indexed_colors.yml
 
 font:
-  size: 11.0
+  size: 10.0
     # note that if using alacritty, font size setting here
     # does not fully determine font size. alacritty zoom matters too
     # (ctrl-+ and ctrl--)
@@ -37,6 +37,33 @@ font:
 
 # to test colors, try 
 # colortest-256 && colortest-16
+
+# dawnbringer-16 color scheme
+# https://lospec.com/palette-list/dawnbringer-16
+#colors:
+#  primary:
+#    background: '0x003333'
+#    foreground: '0xffffff'
+#    bright_foreground: '0xffffff'
+#    dim_foreground: '0xffffff'
+#  normal:
+#    white:   '0x757161' # nvim calls this lightgray
+#    black:   '0x140c1c'
+#    red:     '0x854c30' # brown
+#    green:   '0x346524'
+#    blue:    '0x597dce'
+#    yellow:  '0xd27d2c' # orange
+#    magenta: '0x442434'
+#    cyan:    '0x8595a1' # slate
+#  bright:
+#    white:   '0x8595a1'
+#    black:   '0x434a4e' # darkgray
+#    red:     '0xd04648'
+#    green:   '0x6daa2c'
+#    blue:    '0x6dc2ca'
+#    yellow:  '0xdad45e'
+#    magenta: '0x30346d'
+#    cyan:    '0xd2aa99' # light brown
 
 # fj theme, dark mode
 colors:
