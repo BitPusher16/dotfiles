@@ -30,6 +30,7 @@ function cl(){
 # $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
+echo '| copy: ctrl + shift + c | paste: ctrl + shift + v | move win: command + shift + right |'
 
 # set LESS to not issue bell sound
 #export LESS="$LESS -Lqc --no-vbell"

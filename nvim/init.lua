@@ -3,8 +3,8 @@
 -- ========
 
 -- to activate this file, add these lines to ~/.config/nvim/init.lua:
--- package.path = "/home/<user>/src/dotfiles/nvim/?.lua;" .. package.path
--- require("init")
+-- package.path = '/home/<user>/src/dotfiles/nvim/?.lua;' .. package.path
+-- require('init')
 
 -- to source (may not unload existing autogroups):
 -- :so ~/.config/nvim/init.lua
@@ -45,8 +45,11 @@
 local home = os.getenv('HOME')
 --package.path = home .. '/src/dotfiles/nvim/?.lua;' .. package.path
 package.path = package.path .. ';' .. home .. '/src/dotfiles/nvim/?.lua;'
-require('conf/status_line')
-require('conf/highlight')
+--require('conf/status_line')
+--require('conf/highlight')
+require('conf/subdir_example')
+require('status_line')
+require('highlight')
 
 -- ========
 -- vim opt
@@ -64,11 +67,12 @@ vim.opt.scrolloff = 999
 --vim.opt.scrolloff = 4
 vim.opt.signcolumn = "yes"
 
--- asdf qwer qwer zxcv
 -- Use autosave instead of swap files.
 -- Can't think of any scenario where I would want to keep edits in memory only.
 --vim.opt.swapfile = false
 vim.opt.swapfile = true
+
+--vim.opt.incsearch = false
 
 --vim.opt.autowriteall = true -- this doesn't save on leaving edit mode...
 --vim.cmd( ":autocmd InsertLeave * write" ) -- doesn't save after dd, etc.
@@ -98,8 +102,10 @@ vim.opt.clipboard = 'unnamedplus'
 --vim.g.loaded_netrwPlugin = 1
 --vim.opt.termguicolors = true -- 24 bit color, but hides 16-bit color.
 
--- choosing spaces rather than tabs bc it means my code will 
+-- choosing spaces rather than tabs bc it means my code will
 -- display with consistent formatting when pushed to github, etc.
+-- note: somehow nvim knows to ignore these settings for makefiles.
+-- where is this configured?
 vim.opt.tabstop = 4 -- 4 spaces for tabs.
 vim.opt.shiftwidth = 4 -- 4 spaces for indent width.
 vim.opt.expandtab = true -- expand tab to spaces.
@@ -122,6 +128,11 @@ vim.wo.wrap = true
 
 -- using vim-plug as plugin manager
 -- https://github.com/junegunn/vim-plug
+
+-- note:
+-- installing vim-plug requires downloading plug.vim to
+-- ~/.local/share/nvim/site/autoload
+
 -- note:
 -- https://github.com/junegunn/vim-plug/wiki/faq
 -- vim-plug no longer handles dependencies between plugins and it's 
@@ -146,8 +157,13 @@ Plug('nvim-tree/nvim-web-devicons') -- nvim-tree uses this
 --Plug('nvim-neo-tree/neo-tree.nvim')
 
 Plug('nvim-tree/nvim-tree.lua')
+
 Plug('nvim-lualine/lualine.nvim')
 Plug('folke/which-key.nvim')
+-- Use autosave instead of swap files.
+-- Can't think of any scenario where I would want to keep edits in memory only.
+Plug('folke/flash.nvim')
+
 --Plug('karb94/neoscroll.nvim') # no support for 10k, 10j.
 -- TODO: mini has lots of other plugins, check these out.
 Plug('echasnovski/mini.animate')
@@ -437,7 +453,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
+    --local opts = { buffer = ev.buf }
     vim.keymap.set('n', '<leader>ld', vim.lsp.buf.declaration,
         {buffer = ev.buf, desc = 'lsp declaration'})
     vim.keymap.set('n', '<leader>lf', vim.lsp.buf.definition,
@@ -573,7 +589,7 @@ autocmd('WinEnter', {
     pattern = '*',
     command = ':set cursorline'
 })
-autocmd('WinLeave', { 
+autocmd('WinLeave', {
     group = 'CursorLineActiveWin',
     pattern = '*',
     command = ':set nocursorline'

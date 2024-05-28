@@ -49,6 +49,9 @@ vim.cmd [[ hi Cursor gui=NONE cterm=NONE ctermbg=white ]]
 --FloatTitle     xxx links to Title
 --lCursor        xxx guifg=bg guibg=fg
 
+-- TODO: Is there a way to make color column a thin vertical line?
+--ColorColumn    xxx ctermbg=0 guibg=DarkRed
+
 -- set colors for command mode tab completion.
 vim.cmd [[ hi Pmenu ctermbg=cyan ctermfg=black ]]
 vim.cmd [[ hi PmenuSel ctermbg=yellow ctermfg=black ]]
