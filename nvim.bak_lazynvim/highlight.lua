@@ -129,6 +129,80 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --vim.cmd [[ hi Comment ctermbg=blue ]]
 
 
+
+
+
+-- copied from:
+-- https://github.com/folke/lazy.nvim/blob/24fa2a97085ca8a7220b5b078916f81e316036fd/doc/lazy.nvim.txt#L20
+
+--LazyButton          CursorLine               
+--LazyButtonActive    Visual                   
+--LazyComment         Comment                  
+--LazyCommit          _@variable.builtin_      commitref
+--LazyCommitIssue     Number                   
+--LazyCommitScope     Italic                   conventional commit scope
+--LazyCommitType      Title                    conventional commit type
+--LazyDimmed          Conceal                  property
+--LazyDir             _@markup.link_           directory
+--LazyH1              IncSearch                homebutton
+--LazyH2              Bold                     titles
+--LazyLocal           Constant                 
+--LazyNoCond          DiagnosticWarn           unloaded icon for a plugin where
+--LazyNormal          NormalFloat              
+--LazyProgressDone    Constant                 progress bar done
+--LazyProgressTodo    LineNr                   progress bar todo
+--LazyProp            Conceal                  property
+--LazyReasonCmd       Operator                 
+--LazyReasonEvent     Constant                 
+--LazyReasonFt        Character                
+--LazyReasonImport    Identifier               
+--LazyReasonKeys      Statement                
+--LazyReasonPlugin    Special                  
+--LazyReasonRequire   _@variable.parameter_    
+--LazyReasonRuntime   _@macro_                 
+--LazyReasonSource    Character                
+--LazyReasonStart     _@variable.member_       
+--LazySpecial         _@punctuation.special_   
+--LazyTaskError       ErrorMsg                 taskerrors
+--LazyTaskOutput      MsgArea                  task output
+--LazyUrl             _@markup.link_           url
+--LazyValue           _@string_                valueof a property
+
+--vim.cmd[[ hi clear LazyButton          ]]
+--vim.cmd[[ hi clear LazyButtonActive    ]]
+--vim.cmd[[ hi clear LazyComment         ]]
+--vim.cmd[[ hi clear LazyCommit          ]]
+--vim.cmd[[ hi clear LazyCommitIssue     ]]
+--vim.cmd[[ hi clear LazyCommitScope     ]]
+--vim.cmd[[ hi clear LazyCommitType      ]]
+--vim.cmd[[ hi clear LazyDimmed          ]]
+--vim.cmd[[ hi clear LazyDir             ]]
+--vim.cmd[[ hi clear LazyH1              ]]
+--vim.cmd[[ hi clear LazyH2              ]]
+--vim.cmd[[ hi clear LazyLocal           ]]
+--vim.cmd[[ hi clear LazyNoCond          ]]
+--vim.cmd[[ hi clear LazyNormal          ]]
+--vim.cmd[[ hi clear LazyProgressDone    ]]
+--vim.cmd[[ hi clear LazyProgressTodo    ]]
+--vim.cmd[[ hi clear LazyProp            ]]
+--vim.cmd[[ hi clear LazyReasonCmd       ]]
+--vim.cmd[[ hi clear LazyReasonEvent     ]]
+--vim.cmd[[ hi clear LazyReasonFt        ]]
+--vim.cmd[[ hi clear LazyReasonImport    ]]
+--vim.cmd[[ hi clear LazyReasonKeys      ]]
+--vim.cmd[[ hi clear LazyReasonPlugin    ]]
+--vim.cmd[[ hi clear LazyReasonRequire   ]]
+--vim.cmd[[ hi clear LazyReasonRuntime   ]]
+--vim.cmd[[ hi clear LazyReasonSource    ]]
+--vim.cmd[[ hi clear LazyReasonStart     ]]
+--vim.cmd[[ hi clear LazySpecial         ]]
+--vim.cmd[[ hi clear LazyTaskError       ]]
+--vim.cmd[[ hi clear LazyTaskOutput      ]]
+--vim.cmd[[ hi clear LazyUrl             ]]
+--vim.cmd[[ hi clear LazyValue           ]]
+
+
+
 --SpecialKey     xxx ctermfg=14 guifg=Cyan
 --EndOfBuffer    xxx links to NonText
 --TermCursor     xxx cterm=reverse gui=reverse

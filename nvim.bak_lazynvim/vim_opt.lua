@@ -66,3 +66,6 @@ vim.wo.wrap = true
 --vim.wo.list = false
 
 
+-- which-key uses the global nvim timeout.
+vim.o.timeout = true
+vim.o.timeoutlen = 10

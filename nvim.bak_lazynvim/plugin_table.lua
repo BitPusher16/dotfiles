@@ -39,7 +39,7 @@ return {
         'alexghergh/nvim-tmux-navigation',
         config = function()
             require('nvim-tmux-navigation').setup({
-                --disable_when_zoomed = true,
+                disable_when_zoomed = true,
                 --keybindings = {
                 --    left = '<C-h>',
                 --    right = '<C-l>',
@@ -78,5 +78,11 @@ return {
                 post_restore_cmds = {'NvimTreeOpen'},
             })
         end,
+    },
+    {
+        'folke/which-key.nvim',
+        config = function()
+            require('which-key').setup()
+        end
     },
 }
