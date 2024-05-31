@@ -8,12 +8,20 @@ echo 'in ~/src/dotfiles/.bashrc'
 # start tmux immediately.
 # NOTE: this may need modified if alacritty conf or tmux conf changes TERM.
 if command -v tmux &> /dev/null && \
-	[ -n "$PS1" ] && \
-	[[ ! "$TERM" =~ screen ]] && \
-	[[ ! "$TERM" =~ tmux ]] && \
-	[[ ! "$TERM" =~ tmux-256color ]] && \
-	[ -z "$TMUX" ]; then
-  exec tmux
+    [ -n "$PS1" ] && \
+    [[ ! "$TERM" =~ screen ]] && \
+    [[ ! "$TERM" =~ tmux ]] && \
+    [[ ! "$TERM" =~ tmux-256color ]] && \
+    [ -z "$TMUX" ]; then
+  #exec tmux
+
+  # if terminal emulator is closed while tmux is running, session remains,
+  # and tmux will create a new session next start.
+  # this can cause conflicts with neovim, etc.
+  # to fix, when starting a new session, attempt to attach to default
+  # session name first, per this reply:
+  # https://unix.stackexchange.com/questions/103898/how-to-start-tmux-with-attach-if-a-session-exists
+  exec tmux new -As0
 fi
 
 HISTSIZE=100000
@@ -23,14 +31,19 @@ shopt -s histappend
 set -o vi
 
 function cl(){
-	cd $1
-	ls -a
+    cd $1
+    ls -a
 }
 
-# $- outputs builtin set flags. see man bash -> set subsection.
+# note that $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 echo '| copy: ctrl + shift + c | paste: ctrl + shift + v | move win: command + shift + right |'
+
+# the following assumes that fzf is installed.
+# https://github.com/junegunn/fzf?tab=readme-ov-file#usage
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 # set LESS to not issue bell sound
 #export LESS="$LESS -Lqc --no-vbell"

@@ -49,6 +49,8 @@ vim.cmd [[ hi Cursor gui=NONE cterm=NONE ctermbg=white ]]
 --FloatTitle     xxx links to Title
 --lCursor        xxx guifg=bg guibg=fg
 
+--vim.cmd [[ hi LongLine ctermfg=red ]]
+
 -- TODO: Is there a way to make color column a thin vertical line?
 --ColorColumn    xxx ctermbg=0 guibg=DarkRed
 
@@ -61,7 +63,7 @@ vim.cmd [[ highlight MatchParen cterm=underline ctermfg=NONE ctermbg=NONE ]]
 
 vim.cmd [[ hi Visual cterm=NONE ctermbg=cyan ctermfg=black ]]
 vim.cmd [[ hi clear VisualNC ]]
-vim.cmd [[ hi Search cterm=NONE ctermbg=yellow ctermfg=black ]]
+vim.cmd [[ hi Search cterm=NONE ctermbg=darkblue ctermfg=white ]]
 -- TODO: how do i set highlight color for current char in search word?
 --vim.cmd [[ hi IncSearch ctermbg=green ]]
 --vim.cmd [[ hi CurSearch ctermbg=green ]]
@@ -78,6 +80,9 @@ vim.cmd [[ hi StatusLineNC cterm=bold ctermfg=black ctermbg=lightgray ]]
 vim.cmd [[ hi StatusLineExtra cterm=bold ctermfg=black ctermbg=cyan ]]
 vim.cmd [[ hi StatusLineExtraNC cterm=bold ctermfg=black ctermbg=lightgray ]]
 
+--SignColumn     xxx ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
+vim.cmd [[ hi SignColumn cterm=NONE ctermfg=white ctermbg=NONE ]]
+
 -- for Identifier, some config other than this one is turning on bold.
 -- so turn it off here.
 vim.cmd [[ hi Identifier cterm=NONE ctermfg=blue ]]
@@ -86,7 +91,7 @@ vim.cmd [[ hi PreProc ctermfg=darkred ]]
 vim.cmd [[ hi Comment ctermfg=lightgray ]]
 vim.cmd [[ hi Type ctermfg=darkgreen ]]
 vim.cmd [[ hi Typedef ctermfg=darkgreen ]]
-vim.cmd [[ hi Todo ctermbg=blue ]]
+vim.cmd [[ hi Todo ctermbg=darkmagenta ctermfg=white ]]
 
 vim.cmd [[ hi LineNr ctermfg=darkgray ]]
 --vim.cmd [[ hi CursorLineNr cterm=underline ctermfg=blue ctermbg=lightgray ]]
