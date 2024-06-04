@@ -1,3 +1,9 @@
+# print size of current dir
+du -hs .
+
+# print dir contents recursively, sort by filesize
+du -ah . | sort -rh | head -20
+
 # write file system contents to timestamped file.
 find / 2>/dev/null | sort > file_system_snapshot_$(date +"%Y-%m-%d_%z_%H-%M-%S")
 
@@ -8,3 +14,5 @@ PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -x 7 > bash_env.txt
 
 # clean up the file generated above.
 cat bash_env.txt | cut -d " " -f1 | uniq > unique_env.txt
+
+
