@@ -3,94 +3,97 @@
 # this config sets all indexed colors to gray.
 # update: not needed if we map "Special" highlight to a color in nvim?
 
+# vim tip: to increment all of the hex values at once, set all to same value, then
+# ctrl-v, select all, then g ctrl-a.
+
 colors:
   indexed_colors:
-    - {index: 16, color: '0xbbbbbb'}
-    - {index: 17, color: '0xbbbbbb'}
-    - {index: 18, color: '0xbbbbbb'}
-    - {index: 19, color: '0xbbbbbb'}
-    - {index: 20, color: '0xbbbbbb'}
-    - {index: 21, color: '0xbbbbbb'}
-    - {index: 22, color: '0xbbbbbb'}
-    - {index: 23, color: '0xbbbbbb'}
-    - {index: 24, color: '0xbbbbbb'}
-    - {index: 25, color: '0xbbbbbb'}
-    - {index: 26, color: '0xbbbbbb'}
-    - {index: 27, color: '0xbbbbbb'}
-    - {index: 28, color: '0xbbbbbb'}
-    - {index: 29, color: '0xbbbbbb'}
-    - {index: 30, color: '0xbbbbbb'}
-    - {index: 31, color: '0xbbbbbb'}
-    - {index: 32, color: '0xbbbbbb'}
-    - {index: 33, color: '0xbbbbbb'}
-    - {index: 34, color: '0xbbbbbb'}
-    - {index: 35, color: '0xbbbbbb'}
-    - {index: 36, color: '0xbbbbbb'}
-    - {index: 37, color: '0xbbbbbb'}
-    - {index: 38, color: '0xbbbbbb'}
-    - {index: 39, color: '0xbbbbbb'}
-    - {index: 40, color: '0xbbbbbb'}
-    - {index: 41, color: '0xbbbbbb'}
-    - {index: 42, color: '0xbbbbbb'}
-    - {index: 43, color: '0xbbbbbb'}
-    - {index: 44, color: '0xbbbbbb'}
-    - {index: 45, color: '0xbbbbbb'}
-    - {index: 46, color: '0xbbbbbb'}
-    - {index: 47, color: '0xbbbbbb'}
-    - {index: 48, color: '0xbbbbbb'}
-    - {index: 49, color: '0xbbbbbb'}
-    - {index: 50, color: '0xbbbbbb'}
-    - {index: 51, color: '0xbbbbbb'}
-    - {index: 52, color: '0xbbbbbb'}
-    - {index: 53, color: '0xbbbbbb'}
-    - {index: 54, color: '0xbbbbbb'}
-    - {index: 55, color: '0xbbbbbb'}
-    - {index: 56, color: '0xbbbbbb'}
-    - {index: 57, color: '0xbbbbbb'}
-    - {index: 58, color: '0xbbbbbb'}
-    - {index: 59, color: '0xbbbbbb'}
-    - {index: 60, color: '0xbbbbbb'}
-    - {index: 61, color: '0xbbbbbb'}
-    - {index: 62, color: '0xbbbbbb'}
-    - {index: 63, color: '0xbbbbbb'}
-    - {index: 64, color: '0xbbbbbb'}
-    - {index: 45, color: '0xbbbbbb'}
-    - {index: 66, color: '0xbbbbbb'}
-    - {index: 67, color: '0xbbbbbb'}
-    - {index: 68, color: '0xbbbbbb'}
-    - {index: 69, color: '0xbbbbbb'}
-    - {index: 70, color: '0xbbbbbb'}
-    - {index: 71, color: '0xbbbbbb'}
-    - {index: 72, color: '0xbbbbbb'}
-    - {index: 73, color: '0xbbbbbb'}
-    - {index: 74, color: '0xbbbbbb'}
-    - {index: 75, color: '0xbbbbbb'}
-    - {index: 76, color: '0xbbbbbb'}
-    - {index: 77, color: '0xbbbbbb'}
-    - {index: 78, color: '0xbbbbbb'}
-    - {index: 79, color: '0xbbbbbb'}
-    - {index: 80, color: '0xbbbbbb'}
-    - {index: 81, color: '0xbbbbbb'}
-    - {index: 82, color: '0xbbbbbb'}
-    - {index: 83, color: '0xbbbbbb'}
-    - {index: 84, color: '0xbbbbbb'}
-    - {index: 85, color: '0xbbbbbb'}
-    - {index: 86, color: '0xbbbbbb'}
-    - {index: 87, color: '0xbbbbbb'}
-    - {index: 88, color: '0xbbbbbb'}
-    - {index: 89, color: '0xbbbbbb'}
-    - {index: 80, color: '0xbbbbbb'}
-    - {index: 91, color: '0xbbbbbb'}
-    - {index: 92, color: '0xbbbbbb'}
-    - {index: 93, color: '0xbbbbbb'}
-    - {index: 94, color: '0xbbbbbb'}
-    - {index: 95, color: '0xbbbbbb'}
-    - {index: 96, color: '0xbbbbbb'}
-    - {index: 97, color: '0xbbbbbb'}
-    - {index: 98, color: '0xbbbbbb'}
-    - {index: 99, color: '0xbbbbbb'}
+    -  {index: 16, color: '0xbbbbbb'}
+    -  {index: 17, color: '0xbbbbbb'}
+    -  {index: 18, color: '0xbbbbbb'}
+    -  {index: 19, color: '0xbbbbbb'}
+    -  {index: 20, color: '0xbbbbbb'}
+    -  {index: 21, color: '0xbbbbbb'}
+    -  {index: 22, color: '0xbbbbbb'}
+    -  {index: 23, color: '0xbbbbbb'}
+    -  {index: 24, color: '0xbbbbbb'}
+    -  {index: 25, color: '0xbbbbbb'}
+    -  {index: 26, color: '0xbbbbbb'}
+    -  {index: 27, color: '0xbbbbbb'}
+    -  {index: 28, color: '0xbbbbbb'}
+    -  {index: 29, color: '0xbbbbbb'}
+    -  {index: 30, color: '0xbbbbbb'}
+    -  {index: 31, color: '0xbbbbbb'}
+    -  {index: 32, color: '0xbbbbbb'}
+    -  {index: 33, color: '0xbbbbbb'}
+    -  {index: 34, color: '0xbbbbbb'}
+    -  {index: 35, color: '0xbbbbbb'}
+    -  {index: 36, color: '0xbbbbbb'}
+    -  {index: 37, color: '0xbbbbbb'}
+    -  {index: 38, color: '0xbbbbbb'}
+    -  {index: 39, color: '0xbbbbbb'}
+    -  {index: 40, color: '0xbbbbbb'}
+    -  {index: 41, color: '0xbbbbbb'}
+    -  {index: 42, color: '0xbbbbbb'}
+    -  {index: 43, color: '0xbbbbbb'}
+    -  {index: 44, color: '0xbbbbbb'}
+    -  {index: 45, color: '0xbbbbbb'}
+    -  {index: 46, color: '0xbbbbbb'}
+    -  {index: 47, color: '0xbbbbbb'}
+    -  {index: 48, color: '0xbbbbbb'}
+    -  {index: 49, color: '0xbbbbbb'}
+    -  {index: 50, color: '0xbbbbbb'}
+    -  {index: 51, color: '0xbbbbbb'}
+    -  {index: 52, color: '0xbbbbbb'}
+    -  {index: 53, color: '0xbbbbbb'}
+    -  {index: 54, color: '0xbbbbbb'}
+    -  {index: 55, color: '0xbbbbbb'}
+    -  {index: 56, color: '0xbbbbbb'}
+    -  {index: 57, color: '0xbbbbbb'}
+    -  {index: 58, color: '0xbbbbbb'}
+    -  {index: 59, color: '0xbbbbbb'}
+    -  {index: 60, color: '0xbbbbbb'}
+    -  {index: 61, color: '0xbbbbbb'}
+    -  {index: 62, color: '0xbbbbbb'}
+    -  {index: 63, color: '0xbbbbbb'}
+    -  {index: 64, color: '0xbbbbbb'}
+    -  {index: 45, color: '0xbbbbbb'}
+    -  {index: 66, color: '0xbbbbbb'}
+    -  {index: 67, color: '0xbbbbbb'}
+    -  {index: 68, color: '0xbbbbbb'}
+    -  {index: 69, color: '0xbbbbbb'}
+    -  {index: 70, color: '0xbbbbbb'}
+    -  {index: 71, color: '0xbbbbbb'}
+    -  {index: 72, color: '0xbbbbbb'}
+    -  {index: 73, color: '0xbbbbbb'}
+    -  {index: 74, color: '0xbbbbbb'}
+    -  {index: 75, color: '0xbbbbbb'}
+    -  {index: 76, color: '0xbbbbbb'}
+    -  {index: 77, color: '0xbbbbbb'}
+    -  {index: 78, color: '0xbbbbbb'}
+    -  {index: 79, color: '0xbbbbbb'}
+    -  {index: 80, color: '0xbbbbbb'}
+    -  {index: 81, color: '0xbbbbbb'}
+    -  {index: 82, color: '0xbbbbbb'}
+    -  {index: 83, color: '0xbbbbbb'}
+    -  {index: 84, color: '0xbbbbbb'}
+    -  {index: 85, color: '0xbbbbbb'}
+    -  {index: 86, color: '0xbbbbbb'}
+    -  {index: 87, color: '0xbbbbbb'}
+    -  {index: 88, color: '0xbbbbbb'}
+    -  {index: 89, color: '0xbbbbbb'}
+    -  {index: 80, color: '0xbbbbbb'}
+    -  {index: 91, color: '0xbbbbbb'}
+    -  {index: 92, color: '0xbbbbbb'}
+    -  {index: 93, color: '0xbbbbbb'}
+    -  {index: 94, color: '0xbbbbbb'}
+    -  {index: 95, color: '0xbbbbbb'}
+    -  {index: 96, color: '0xbbbbbb'}
+    -  {index: 97, color: '0xbbbbbb'}
+    -  {index: 98, color: '0xbbbbbb'}
+    -  {index: 99, color: '0xbbbbbb'}
 
-    - {index: 100, color: '0xbbbbbb'}
+    - {index: 100, color: '0xbbbbbb'} # 100
     - {index: 101, color: '0xbbbbbb'}
     - {index: 102, color: '0xbbbbbb'}
     - {index: 103, color: '0xbbbbbb'}
@@ -189,8 +192,7 @@ colors:
     - {index: 197, color: '0xbbbbbb'}
     - {index: 198, color: '0xbbbbbb'}
     - {index: 199, color: '0xbbbbbb'}
-  
-    - {index: 200, color: '0xbbbbbb'}
+    - {index: 200, color: '0xbbbbbb'} # 200
     - {index: 201, color: '0xbbbbbb'}
     - {index: 202, color: '0xbbbbbb'}
     - {index: 203, color: '0xbbbbbb'}

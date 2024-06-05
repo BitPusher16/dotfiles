@@ -44,11 +44,21 @@ Plug('folke/which-key.nvim')
 -- TODO: try out some alternative navigation?
 --Plug('folke/flash.nvim')
 
---Plug('karb94/neoscroll.nvim') # no support for 10k, 10j.
+--Plug('karb94/neoscroll.nvim') -- no support for 10k, 10j.
+
 -- TODO: mini has lots of other plugins, check these out.
---Plug('echasnovski/mini.animate') -- works well, but slows down ctrl-v some.
+Plug('echasnovski/mini.animate') -- works well, but slows down ctrl-v some.
+--Plug('psliwka/vim-smoothie') -- doesn't work for navigating search results.
+
+-- 2024-05-05 fj
+-- this plugin does an okay job of keeping search "/" from immediately jumping.
+-- but maybe better approach is to just use leap.nvim + "*"?
+Plug('RRethy/vim-tranquille')
 
 Plug('alexghergh/nvim-tmux-navigation')
+
+Plug('tpope/vim-repeat')
+Plug('ggandor/leap.nvim') -- requires vim-repeat
 
 Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
 --Plug('natecraddock/workspaces.nvim') -- maybe not needed with auto-session
@@ -57,7 +67,7 @@ Plug('rmagatti/auto-session') -- doesn't play nice with nvim-tree
 -- mason-lspconfig page has instructions for tying these 3 plugins together.
 -- https://github.com/williamboman/mason-lspconfig.nvim
 -- also, a note from mason-lspconfig:
--- "this plugin uses the lspconfig server names in the APIs it exposes - 
+-- "this plugin uses the lspconfig server names in the APIs it exposes -
 -- not mason.nvim package names. See this table for a complete mapping."
 Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
@@ -107,6 +117,9 @@ require('nvim-tmux-navigation').setup{
     --}
 }
 
+--require('leap').create_default_mappings()
+require('leap').opts.safe_labels = {}
+
 
 -- nvim-tree configs.
 -- run :NvimTreeHiTest to see example highlights.
@@ -154,17 +167,25 @@ vim.o.timeoutlen = 10
 require('which-key').setup{ }
 
 --require('neoscroll').setup{
---    respect_scrolloff = true,
+--    respect_scrolloff = false,
 --    cursor_scrolls_alone = true
 --}
 
 -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-animate.md
---require('mini.animate').setup{
---    -- really only want this for scrolling lines. disable some other defaults.
---    cursor = { enable = false},
---    open = { enable = false },
---    close = { enable = false },
---}
+require('mini.animate').setup{
+    -- really only want this for scrolling lines. disable some other defaults.
+    cursor = { enable = true},
+    scroll = { enable = true},
+    open = { enable = false },
+    close = { enable = false },
+}
+
+-- this works great for preventing / from jumping,
+-- but it only works for forward direction.
+--require('vim-tranquille').setup()
+
+
+--require('vim-smoothie').setup()
 
 require('scrollview').setup{
     current_only = true

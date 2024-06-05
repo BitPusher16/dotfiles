@@ -4,7 +4,7 @@
 
 -- to regenerate this file, do:
 -- :redir >> nvim/conf/highlight.lua
--- :highlights
+-- :highlight
 -- (<space> to get through all pages)
 -- :redir END
 --https://stackoverflow.com/questions/16049965/vim-save-highlight-info-screen-to-file
@@ -134,26 +134,27 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --vim.cmd [[ hi Comment ctermbg=blue ]]
 
 
---SpecialKey     xxx ctermfg=14 guifg=Cyan
+
+--SpecialKey     xxx ctermfg=81 guifg=Cyan
 --EndOfBuffer    xxx links to NonText
---TermCursor     xxx cterm=reverse gui=reverse
+--TermCursor     xxx ctermbg=15
 --TermCursorNC   xxx cleared
 --NonText        xxx ctermfg=12 gui=bold guifg=Blue
---Directory      xxx ctermfg=14 guifg=Cyan
+--Directory      xxx ctermfg=159 guifg=Cyan
 --ErrorMsg       xxx ctermfg=15 ctermbg=1 guifg=White guibg=Red
 --IncSearch      xxx cterm=reverse gui=reverse
---Search         xxx ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+--Search         xxx ctermfg=15 ctermbg=4 guifg=Black guibg=Yellow
 --CurSearch      xxx links to Search
 --MoreMsg        xxx ctermfg=121 gui=bold guifg=SeaGreen
 --ModeMsg        xxx cterm=bold gui=bold
---LineNr         xxx ctermfg=11 guifg=Yellow
+--LineNr         xxx ctermfg=242 guifg=Yellow
 --LineNrAbove    xxx links to LineNr
 --LineNrBelow    xxx links to LineNr
---CursorLineNr   xxx cterm=underline ctermfg=11 gui=bold guifg=Yellow
+--CursorLineNr   xxx ctermfg=11
 --CursorLineSign xxx links to SignColumn
 --CursorLineFold xxx links to FoldColumn
 --Question       xxx ctermfg=121 gui=bold guifg=Green
---StatusLine     xxx cterm=bold ctermfg=0 ctermbg=14 gui=bold,reverse
+--StatusLine     xxx cterm=bold ctermfg=0 ctermbg=7 gui=bold,reverse
 --StatusLineNC   xxx cterm=bold ctermfg=0 ctermbg=7 gui=reverse
 --WinSeparator   xxx links to VertSplit
 --VertSplit      xxx links to Normal
@@ -168,7 +169,7 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --DiffChange     xxx ctermbg=5 guibg=DarkMagenta
 --DiffDelete     xxx ctermfg=12 ctermbg=6 gui=bold guifg=Blue guibg=DarkCyan
 --DiffText       xxx cterm=bold ctermbg=9 gui=bold guibg=Red
---SignColumn     xxx ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
+--SignColumn     xxx ctermfg=15 guifg=Cyan guibg=Grey
 --Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
 --SpellBad       xxx ctermbg=9 gui=undercurl guisp=Red
 --SpellCap       xxx ctermbg=12 gui=undercurl guisp=Blue
@@ -186,18 +187,18 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --TabLineSel     xxx cterm=bold gui=bold
 --TabLineFill    xxx cterm=reverse gui=reverse
 --CursorColumn   xxx ctermbg=242 guibg=Grey40
---CursorLine     xxx cterm=underline guibg=Grey40
+--CursorLine     xxx ctermbg=0
 --ColorColumn    xxx ctermbg=0 guibg=DarkRed
 --QuickFixLine   xxx links to Search
 --Whitespace     xxx links to NonText
 --NormalNC       xxx cleared
 --MsgSeparator   xxx links to StatusLine
---NormalFloat    xxx links to Pmenu
+--NormalFloat    xxx ctermbg=0
 --MsgArea        xxx cleared
 --FloatBorder    xxx links to WinSeparator
 --WinBar         xxx cterm=bold gui=bold
 --WinBarNC       xxx links to WinBar
---Cursor         xxx guifg=bg guibg=fg
+--Cursor         xxx ctermbg=15
 --FloatTitle     xxx links to Title
 --lCursor        xxx guifg=bg guibg=fg
 --Normal         xxx cleared
@@ -209,7 +210,7 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --RedrawDebugComposed xxx ctermbg=10 guibg=Green
 --RedrawDebugRecompose xxx ctermbg=9 guibg=Red
 --Error          xxx ctermfg=15 ctermbg=9 guifg=White guibg=Red
---Todo           xxx ctermfg=0 ctermbg=11 guifg=Blue guibg=Yellow
+--Todo           xxx ctermfg=15 ctermbg=5 guifg=Blue guibg=Yellow
 --String         xxx links to Constant
 --Constant       xxx ctermfg=13 guifg=#ffa0a0
 --Character      xxx links to Constant
@@ -217,23 +218,23 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --Boolean        xxx links to Constant
 --Float          xxx links to Number
 --Function       xxx links to Identifier
---Identifier     xxx cterm=bold ctermfg=14 guifg=#40ffff
+--Identifier     xxx ctermfg=12 guifg=#40ffff
 --Conditional    xxx links to Statement
---Statement      xxx ctermfg=11 gui=bold guifg=Yellow
+--Statement      xxx ctermfg=11 gui=bold guifg=#ffff60
 --Repeat         xxx links to Statement
 --Label          xxx links to Statement
 --Operator       xxx links to Statement
 --Keyword        xxx links to Statement
 --Exception      xxx links to Statement
 --Include        xxx links to PreProc
---PreProc        xxx ctermfg=81 guifg=#ff80ff
+--PreProc        xxx ctermfg=1 guifg=#ff80ff
 --Define         xxx links to PreProc
 --Macro          xxx links to PreProc
 --PreCondit      xxx links to PreProc
 --StorageClass   xxx links to Type
---Type           xxx ctermfg=121 gui=bold guifg=#60ff60
+--Type           xxx ctermfg=2 gui=bold guifg=#60ff60
 --Structure      xxx links to Type
---Typedef        xxx links to Type
+--Typedef        xxx ctermfg=2
 --Tag            xxx links to Special
 --Special        xxx ctermfg=224 guifg=Orange
 --SpecialChar    xxx links to Special
@@ -267,7 +268,7 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --DiagnosticSignOk xxx links to DiagnosticOk
 --DiagnosticDeprecated xxx cterm=strikethrough gui=strikethrough guisp=Red
 --DiagnosticUnnecessary xxx links to Comment
---Comment        xxx ctermfg=248
+--Comment        xxx ctermfg=7 guifg=#80a0ff
 --@text          xxx cleared
 --@text.literal  xxx links to Comment
 --@text.reference xxx links to Identifier
@@ -473,36 +474,18 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --NvimInvalidFigureBrace xxx links to NvimInvalidDelimiter
 --NvimInvalidSpacing xxx links to ErrorMsg
 --NvimDoubleQuotedUnknownEscape xxx links to NvimInvalidValue
---StatusLineExtra xxx cterm=bold ctermfg=0 ctermbg=14
---StatusLineExtraNC xxx cterm=bold ctermfg=0 ctermbg=7
---NvimTreeNormalFloat xxx links to StatusLine
---NvimTreeCursorColumn xxx links to StatusLine
---NvimTreeExecFile xxx links to StatusLine
---NvimTreeImageFile xxx links to StatusLine
---NvimTreeSpecialFile xxx links to StatusLine
---NvimTreeSymlink xxx links to StatusLine
---NvimTreeCutHL  xxx links to StatusLine
---NvimTreeCopiedHL xxx links to StatusLine
---NvimTreeStatusLine xxx links to StatusLine
---NvimTreeStatusLineNC xxx links to StatusLineNC
---NvimTreeWindowPicker xxx links to StatusLine
 --NvimTreeFolderIcon xxx ctermfg=12 guifg=#8094b4
---NvimTreeOpenedHL xxx links to Special
---NvimTreeOpenedFile xxx cleared
---NvimTreeGitStagedIcon xxx links to Constant
---NvimTreeGitStaged xxx cleared
---NvimTreeGitDirtyIcon xxx links to Statement
---NvimTreeGitDirty xxx cleared
---NvimTreeGitRenamedIcon xxx links to PreProc
---NvimTreeGitRenamed xxx cleared
---NvimTreeGitDeletedIcon xxx links to Statement
---NvimTreeGitDeleted xxx cleared
---NvimTreeGitMergeIcon xxx links to Constant
---NvimTreeGitMerge xxx cleared
---NvimTreeGitNewIcon xxx links to PreProc
---NvimTreeGitNew xxx cleared
---NvimTreeGitIgnoredIcon xxx links to Comment
---NvimTreeGitIgnored xxx cleared
+--NvimTreeWindowPicker xxx ctermfg=15 ctermbg=4 gui=bold guifg=#ededed guibg=#4493c8
+--NvimTreeGitFolderDeletedHL xxx links to NvimTreeGitFileDeletedHL
+--NvimTreeFolderDeleted xxx cleared
+--NvimTreeGitFolderDirtyHL xxx links to NvimTreeGitFileDirtyHL
+--NvimTreeFolderDirty xxx cleared
+--NvimTreeGitFolderIgnoredHL xxx links to NvimTreeGitFileIgnoredHL
+--NvimTreeFolderIgnored xxx cleared
+--NvimTreeGitFolderMergeHL xxx links to NvimTreeGitFileMergeHL
+--NvimTreeFolderMerge xxx cleared
+--NvimTreeGitFileNewHL xxx links to NvimTreeGitNewIcon
+--NvimTreeFileNew xxx cleared
 --NvimTreeGitFileMergeHL xxx links to NvimTreeGitMergeIcon
 --NvimTreeFileMerge xxx cleared
 --NvimTreeGitFileDeletedHL xxx links to NvimTreeGitDeletedIcon
@@ -511,8 +494,6 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --NvimTreeFileRenamed xxx cleared
 --NvimTreeGitFileIgnoredHL xxx links to NvimTreeGitIgnoredIcon
 --NvimTreeFileIgnored xxx cleared
---NvimTreeBookmarkIcon xxx links to NvimTreeFolderIcon
---NvimTreeBookmark xxx cleared
 --NvimTreeDiagnosticErrorIcon xxx links to DiagnosticError
 --NvimTreeLspDiagnosticsError xxx cleared
 --NvimTreeDiagnosticWarnIcon xxx links to DiagnosticWarn
@@ -531,43 +512,59 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --NvimTreeLspDiagnosticsHintText xxx cleared
 --NvimTreeDiagnosticErrorFolderHL xxx links to NvimTreeDiagnosticErrorFileHL
 --NvimTreeLspDiagnosticsErrorFolderText xxx cleared
---NvimTreeDiagnosticWarnFolderHL xxx links to NvimTreeDiagnosticWarnFileHL
---NvimTreeLspDiagnosticsWarningFolderText xxx cleared
 --NvimTreeModifiedIcon xxx links to Type
 --NvimTreeModifiedFile xxx cleared
---NvimTreeDiagnosticHintFolderHL xxx links to NvimTreeDiagnosticHintFileHL
---NvimTreeLspDiagnosticsHintFolderText xxx cleared
---NvimTreeGitFileStagedHL xxx links to NvimTreeGitStagedIcon
---NvimTreeFileStaged xxx cleared
---NvimTreeGitFileDirtyHL xxx links to NvimTreeGitDirtyIcon
---NvimTreeFileDirty xxx cleared
---NvimTreeGitFileNewHL xxx links to NvimTreeGitNewIcon
---NvimTreeFileNew xxx cleared
---NvimTreeGitFolderDeletedHL xxx links to NvimTreeGitFileDeletedHL
---NvimTreeFolderDeleted xxx cleared
---NvimTreeGitFolderDirtyHL xxx links to NvimTreeGitFileDirtyHL
---NvimTreeFolderDirty xxx cleared
---NvimTreeGitFolderIgnoredHL xxx links to NvimTreeGitFileIgnoredHL
---NvimTreeFolderIgnored xxx cleared
---NvimTreeGitFolderMergeHL xxx links to NvimTreeGitFileMergeHL
---NvimTreeFolderMerge xxx cleared
---NvimTreeGitFolderNewHL xxx links to NvimTreeGitFileNewHL
---NvimTreeFolderNew xxx cleared
---NvimTreeGitFolderRenamedHL xxx links to NvimTreeGitFileRenamedHL
---NvimTreeFolderRenamed xxx cleared
---NvimTreeGitFolderStagedHL xxx links to NvimTreeGitFileStagedHL
---NvimTreeFolderStaged xxx cleared
 --NvimTreeDiagnosticInfoFolderHL xxx links to NvimTreeDiagnosticInfoFileHL
 --NvimTreeLspDiagnosticsInformationFolderText xxx cleared
+--NvimTreeDiagnosticHintFolderHL xxx links to NvimTreeDiagnosticHintFileHL
+--NvimTreeLspDiagnosticsHintFolderText xxx cleared
+--NvimTreeGitDirtyIcon xxx links to Statement
+--NvimTreeGitDirty xxx cleared
+--NvimTreeGitRenamedIcon xxx links to PreProc
+--NvimTreeGitRenamed xxx cleared
+--NvimTreeGitDeletedIcon xxx links to Statement
+--NvimTreeGitDeleted xxx cleared
+--NvimTreeGitMergeIcon xxx links to Constant
+--NvimTreeGitMerge xxx cleared
+--NvimTreeGitNewIcon xxx links to PreProc
+--NvimTreeGitNew xxx cleared
+--NvimTreeGitIgnoredIcon xxx links to Comment
+--NvimTreeGitIgnored xxx cleared
+--NvimTreeOpenedHL xxx links to Special
+--NvimTreeOpenedFile xxx cleared
+--NvimTreeDiagnosticWarnFolderHL xxx links to NvimTreeDiagnosticWarnFileHL
+--NvimTreeLspDiagnosticsWarningFolderText xxx cleared
+--NvimTreeGitFileStagedHL xxx links to NvimTreeGitStagedIcon
+--NvimTreeFileStaged xxx cleared
+--NvimTreeBookmarkIcon xxx links to NvimTreeFolderIcon
+--NvimTreeBookmark xxx cleared
+--NvimTreeGitStagedIcon xxx links to Constant
+--NvimTreeGitStaged xxx cleared
+--NvimTreeGitFolderStagedHL xxx links to NvimTreeGitFileStagedHL
+--NvimTreeFolderStaged xxx cleared
+--NvimTreeGitFolderRenamedHL xxx links to NvimTreeGitFileRenamedHL
+--NvimTreeFolderRenamed xxx cleared
+--NvimTreeGitFolderNewHL xxx links to NvimTreeGitFileNewHL
+--NvimTreeFolderNew xxx cleared
+--NvimTreeGitFileDirtyHL xxx links to NvimTreeGitDirtyIcon
+--NvimTreeFileDirty xxx cleared
 --NvimTreeNormal xxx links to Normal
+--NvimTreeNormalFloat xxx links to NormalFloat
 --NvimTreeNormalNC xxx links to NvimTreeNormal
 --NvimTreeLineNr xxx links to LineNr
 --NvimTreeWinSeparator xxx links to WinSeparator
 --NvimTreeEndOfBuffer xxx links to EndOfBuffer
 --NvimTreePopup  xxx links to Normal
 --NvimTreeSignColumn xxx links to NvimTreeNormal
+--NvimTreeCursorColumn xxx links to CursorColumn
 --NvimTreeCursorLine xxx links to CursorLine
 --NvimTreeCursorLineNr xxx links to CursorLineNr
+--NvimTreeStatusLine xxx links to StatusLine
+--NvimTreeStatusLineNC xxx links to StatusLineNC
+--NvimTreeExecFile xxx links to Question
+--NvimTreeImageFile xxx links to Question
+--NvimTreeSpecialFile xxx links to Title
+--NvimTreeSymlink xxx links to Underlined
 --NvimTreeRootFolder xxx links to Title
 --NvimTreeFolderName xxx links to Directory
 --NvimTreeEmptyFolderName xxx links to Directory
@@ -582,10 +579,659 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --NvimTreeFolderArrowOpen xxx links to NvimTreeIndentMarker
 --NvimTreeLiveFilterPrefix xxx links to PreProc
 --NvimTreeLiveFilterValue xxx links to ModeMsg
+--NvimTreeCutHL  xxx links to SpellBad
+--NvimTreeCopiedHL xxx links to SpellRare
 --NvimTreeBookmarkHL xxx links to SpellLocal
 --NvimTreeModifiedFileHL xxx links to NvimTreeModifiedIcon
 --NvimTreeModifiedFolderHL xxx links to NvimTreeModifiedFileHL
+--DevIconDefault xxx ctermfg=66 guifg=#6d8086
+--DevIconPls     xxx ctermfg=211 guifg=#ed95ae
+--DevIcon3DObjectFile xxx ctermfg=102 guifg=#888888
+--DevIconPm      xxx ctermfg=74 guifg=#519aba
+--DevIconLocalization xxx ctermfg=31 guifg=#2596be
+--DevIconInfo    xxx ctermfg=230 guifg=#ffffcd
+--DevIconPub     xxx ctermfg=222 guifg=#e3c58e
+--DevIconIcalendar xxx ctermfg=18 guifg=#2b2e83
+--DevIconIcs     xxx ctermfg=18 guifg=#2b2e83
+--DevIconPxd     xxx ctermfg=39 guifg=#5aa7e4
+--DevIconIfc     xxx ctermfg=101 guifg=#839463
+--DevIconPxi     xxx ctermfg=39 guifg=#5aa7e4
+--DevIconIge     xxx ctermfg=101 guifg=#839463
+--DevIconIges    xxx ctermfg=101 guifg=#839463
+--DevIconIgs     xxx ctermfg=101 guifg=#839463
+--DevIconConf    xxx ctermfg=66 guifg=#6d8086
+--DevIconImage   xxx ctermfg=181 guifg=#d0bec8
+--DevIconPyx     xxx ctermfg=39 guifg=#5aa7e4
+--DevIconImg     xxx ctermfg=181 guifg=#d0bec8
+--DevIconQt      xxx ctermfg=77 guifg=#40cd52
+--DevIconRake    xxx ctermfg=52 guifg=#701516
+--DevIconRar     xxx ctermfg=214 guifg=#eca517
+--DevIconIso     xxx ctermfg=181 guifg=#d0bec8
+--DevIconJWM     xxx ctermfg=32 guifg=#0078cd
+--DevIconSub     xxx ctermfg=214 guifg=#ffb713
+--DevIconRss     xxx ctermfg=215 guifg=#fb9d3b
+--DevIconDump    xxx ctermfg=188 guifg=#dad8d8
+--DevIconKbx     xxx ctermfg=243 guifg=#737672
+--DevIconH       xxx ctermfg=140 guifg=#a074c4
+--DevIconKdb     xxx ctermfg=71 guifg=#529b34
+--DevIconScalaScript xxx ctermfg=167 guifg=#cc3e44
+--DevIconKdbx    xxx ctermfg=71 guifg=#529b34
+--DevIconKdenlive xxx ctermfg=110 guifg=#83b8f2
+--DevIconSha1    xxx ctermfg=103 guifg=#8c86af
+--DevIconKiCad   xxx ctermfg=231 guifg=#ffffff
+--DevIconSignature xxx ctermfg=166 guifg=#e37933
+--DevIconSketchUp xxx ctermfg=101 guifg=#839463
+--DevIconKrita   xxx ctermfg=201 guifg=#f245fb
+--DevIconSolidWorksAsm xxx ctermfg=101 guifg=#839463
+--DevIconKsh     xxx ctermfg=240 guifg=#4d5a5e
+--DevIconSolveSpace xxx ctermfg=101 guifg=#839463
+--DevIconKotlinScript xxx ctermfg=99 guifg=#7f52ff
+--DevIconLock    xxx ctermfg=250 guifg=#bbbbbb
+--DevIconSpecJs  xxx ctermfg=185 guifg=#cbcb41
+--DevIconJavaScriptReactSpec xxx ctermfg=45 guifg=#20c2e3
+--DevIconSpecTs  xxx ctermfg=74 guifg=#519aba
+--DevIconLibrecadFontFile xxx ctermfg=255 guifg=#ececec
+--DevIconTypeScriptReactSpec xxx ctermfg=26 guifg=#1354bf
+--DevIconWebpack xxx ctermfg=74 guifg=#519aba
+--DevIconXcPlayground xxx ctermfg=166 guifg=#e37933
+--DevIconLrc     xxx ctermfg=214 guifg=#ffb713
+--DevIconXlsx    xxx ctermfg=29 guifg=#207245
+--DevIconXml     xxx ctermfg=166 guifg=#e37933
+--DevIconLua     xxx ctermfg=74 guifg=#51a0cf
+--DevIconZig     xxx ctermfg=172 guifg=#f69a1b
+--DevIconZsh     xxx ctermfg=113 guifg=#89e051
+--DevIconM3u     xxx ctermfg=211 guifg=#ed95ae
+--DevIconLhs     xxx ctermfg=140 guifg=#a074c4
+--DevIconJpg     xxx ctermfg=140 guifg=#a074c4
+--DevIconJpeg    xxx ctermfg=140 guifg=#a074c4
+--DevIconPng     xxx ctermfg=140 guifg=#a074c4
+--DevIconGif     xxx ctermfg=140 guifg=#a074c4
+--DevIconWebp    xxx ctermfg=140 guifg=#a074c4
+--DevIconJpegXl  xxx ctermfg=140 guifg=#a074c4
+--DevIconGradleBuildScript xxx ctermfg=24 guifg=#005f87
+--DevIconGradleSettings xxx ctermfg=24 guifg=#005f87
+--DevIconBabelrc xxx ctermfg=185 guifg=#cbcb41
+--DevIconBashProfile xxx ctermfg=113 guifg=#89e051
+--DevIconBashrc  xxx ctermfg=113 guifg=#89e051
+--DevIconDockerfile xxx ctermfg=68 guifg=#458ee6
+--DevIconD       xxx ctermfg=28 guifg=#427819
+--DevIconDsStore xxx ctermfg=239 guifg=#41535b
+--DevIconEditorConfig xxx ctermfg=255 guifg=#fff2f2
+--DevIconEnv     xxx ctermfg=227 guifg=#faf743
+--DevIconEslintrc xxx ctermfg=56 guifg=#4b32c3
+--DevIconEslintIgnore xxx ctermfg=56 guifg=#4b32c3
+--DevIconObjectiveC xxx ctermfg=111 guifg=#599eff
+--DevIconGitlabCI xxx ctermfg=196 guifg=#e24329
+--DevIconGitModules xxx ctermfg=196 guifg=#f54d27
+--DevIconGTK     xxx ctermfg=231 guifg=#ffffff
+--DevIconGvimrc  xxx ctermfg=28 guifg=#019833
+--DevIconAvif    xxx ctermfg=140 guifg=#a074c4
+--DevIconBash    xxx ctermfg=113 guifg=#89e051
+--DevIconBibTeX  xxx ctermfg=185 guifg=#cbcb41
+--DevIconBicep   xxx ctermfg=74 guifg=#519aba
+--DevIconLuaurc  xxx ctermfg=75 guifg=#00a2ff
+--DevIconBzl     xxx ctermfg=113 guifg=#89e051
+--DevIconBrewfile xxx ctermfg=52 guifg=#701516
+--DevIconBlueprint xxx ctermfg=68 guifg=#5796e2
+--DevIconXpi     xxx ctermfg=196 guifg=#ff1b01
+--DevIconGitCommit xxx ctermfg=196 guifg=#f54d27
+--DevIconLicense xxx ctermfg=185 guifg=#cbcb41
+--DevIconXul     xxx ctermfg=166 guifg=#e37933
+--DevIconGemfile xxx ctermfg=52 guifg=#701516
+--DevIconNPMrc   xxx ctermfg=197 guifg=#e8274b
+--DevIconPrettierConfig xxx ctermfg=33 guifg=#4285f4
+--DevIconAwk     xxx ctermfg=240 guifg=#4d5a5e
+--DevIconBmp     xxx ctermfg=140 guifg=#a074c4
+--DevIconConfiguration xxx ctermfg=66 guifg=#6d8086
+--DevIconZip     xxx ctermfg=214 guifg=#eca517
+--DevIconClojure xxx ctermfg=113 guifg=#8dc149
+--DevIconCMake   xxx ctermfg=66 guifg=#6d8086
+--DevIconZst     xxx ctermfg=214 guifg=#eca517
+--DevIconCoffee  xxx ctermfg=185 guifg=#cbcb41
+--DevIconApple   xxx ctermfg=248 guifg=#a2aaad
+--DevIconSRCINFO xxx ctermfg=67 guifg=#0f94d2
+--DevIconCrystal xxx ctermfg=251 guifg=#c8c8c8
+--DevIconCs      xxx ctermfg=58 guifg=#596706
+--DevIconCsh     xxx ctermfg=240 guifg=#4d5a5e
+--DevIconCson    xxx ctermfg=185 guifg=#cbcb41
+--DevIconCss     xxx ctermfg=75 guifg=#42a5f5
+--DevIconCsv     xxx ctermfg=113 guifg=#89e051
+--DevIconLinux   xxx ctermfg=231 guifg=#fdfdfb
+--DevIconcuda    xxx ctermfg=113 guifg=#89e051
+--DevIconDart    xxx ctermfg=25 guifg=#03589c
+--DevIconAlmalinux xxx ctermfg=203 guifg=#ff4649
+--DevIconDoc     xxx ctermfg=26 guifg=#185abd
+--DevIconDocx    xxx ctermfg=26 guifg=#185abd
+--DevIconXresources xxx ctermfg=196 guifg=#e54d18
+--DevIconAlpine  xxx ctermfg=24 guifg=#0d597f
+--DevIconBat     xxx ctermfg=191 guifg=#c1f12e
+--DevIconIni     xxx ctermfg=66 guifg=#6d8086
+--DevIconAOSC    xxx ctermfg=124 guifg=#c00000
+--DevIconZshenv  xxx ctermfg=113 guifg=#89e051
+--DevIconDrools  xxx ctermfg=217 guifg=#ffafaf
+--DevIconZshrc   xxx ctermfg=113 guifg=#89e051
+--DevIconEex     xxx ctermfg=140 guifg=#a074c4
+--DevIconArchcraft xxx ctermfg=108 guifg=#86bba3
+--DevIconVimrc   xxx ctermfg=28 guifg=#019833
+--DevIconEx      xxx ctermfg=140 guifg=#a074c4
+--DevIconElm     xxx ctermfg=74 guifg=#519aba
+--DevIconArchlabs xxx ctermfg=238 guifg=#503f42
+--DevIconEpp     xxx ctermfg=214 guifg=#ffa61a
+--DevIconErl     xxx ctermfg=163 guifg=#b83998
+--DevIconArcoLinux xxx ctermfg=68 guifg=#6690eb
+--DevIconFennel  xxx ctermfg=230 guifg=#fff3d7
+--DevIconFish    xxx ctermfg=240 guifg=#4d5a5e
+--DevIconArtix   xxx ctermfg=38 guifg=#41b4d7
+--DevIconFortran xxx ctermfg=97 guifg=#734f96
+--DevIconFsharp  xxx ctermfg=74 guifg=#519aba
+--DevIconFsi     xxx ctermfg=74 guifg=#519aba
+--DevIconFsscript xxx ctermfg=74 guifg=#519aba
+--DevIconFsx     xxx ctermfg=74 guifg=#519aba
+--DevIconGDScript xxx ctermfg=66 guifg=#6d8086
+--DevIconCentos  xxx ctermfg=132 guifg=#a2518d
+--DevIconGitConfig xxx ctermfg=196 guifg=#f54d27
+--DevIconCrystalLinux xxx ctermfg=129 guifg=#a900ff
+--DevIconGitAttributes xxx ctermfg=196 guifg=#f54d27
+--DevIconBinaryGLTF xxx ctermfg=214 guifg=#ffb13b
+--DevIconGodotProject xxx ctermfg=66 guifg=#6d8086
+--DevIconGNOME   xxx ctermfg=231 guifg=#ffffff
+--DevIconGroovy  xxx ctermfg=24 guifg=#4a687c
+--DevIconTypoScriptSetup xxx ctermfg=208 guifg=#ff8700
+--DevIconLXQt    xxx ctermfg=32 guifg=#0191d2
+--DevIconDeepin  xxx ctermfg=39 guifg=#2ca7f8
+--DevIconMATE    xxx ctermfg=113 guifg=#9bda5c
+--DevIconDevuan  xxx ctermfg=238 guifg=#404a52
+--DevIconHbs     xxx ctermfg=202 guifg=#f0772b
+--DevIconKDEPlasma xxx ctermfg=33 guifg=#1b89f4
+--DevIconHexadecimal xxx ctermfg=27 guifg=#2e63ff
+--DevIconKiCadFootprintTable xxx ctermfg=231 guifg=#ffffff
+--DevIconIco     xxx ctermfg=185 guifg=#cbcb41
+--DevIconXfce    xxx ctermfg=74 guifg=#00aadf
+--DevIconProlog  xxx ctermfg=179 guifg=#e4b854
+--DevIconEndeavour xxx ctermfg=91 guifg=#7b3db9
+--DevIconImportConfiguration xxx ctermfg=255 guifg=#ececec
+--DevIconawesome xxx ctermfg=59 guifg=#535d6c
+--DevIconJava    xxx ctermfg=167 guifg=#cc3e44
+--DevIconFedora  xxx ctermfg=17 guifg=#072a5e
+--DevIconJs      xxx ctermfg=185 guifg=#cbcb41
+--DevIconGradleWrapperScript xxx ctermfg=24 guifg=#005f87
+--DevIconM3u8    xxx ctermfg=211 guifg=#ed95ae
+--DevIconFreeBSD xxx ctermfg=160 guifg=#c90f02
+--DevIcondwm     xxx ctermfg=31 guifg=#1177aa
+--DevIconJson5   xxx ctermfg=185 guifg=#cbcb41
+--DevIconM4V     xxx ctermfg=208 guifg=#fd971f
+--DevIconGarudaLinux xxx ctermfg=33 guifg=#2974e1
+--DevIconMagnet  xxx ctermfg=124 guifg=#a51b16
+--DevIconKotlin  xxx ctermfg=99 guifg=#7f52ff
+--DevIconGruntfile xxx ctermfg=166 guifg=#e37933
+--DevIconGentoo  xxx ctermfg=146 guifg=#b1abce
+--DevIconLiquid  xxx ctermfg=106 guifg=#95bf47
+--DevIconHyprland xxx ctermfg=37 guifg=#00aaae
+--DevIconGuix    xxx ctermfg=220 guifg=#ffcc00
+--DevIconMd5     xxx ctermfg=103 guifg=#8c86af
+--DevIconSway    xxx ctermfg=64 guifg=#68751c
+--DevIconHyperbolaGNULinuxLibre xxx ctermfg=250 guifg=#c0c0c0
+--DevIconMarkdown xxx ctermfg=253 guifg=#dddddd
+--DevIconMaterial xxx ctermfg=163 guifg=#b83998
+--DevIconMdx     xxx ctermfg=74 guifg=#519aba
+--DevIconIllumos xxx ctermfg=196 guifg=#ff430f
+--DevIconMotoko  xxx ctermfg=135 guifg=#9772fb
+--DevIconKali    xxx ctermfg=69 guifg=#2777ff
+--DevIconMakefile xxx ctermfg=66 guifg=#6d8086
+--DevIconMkv     xxx ctermfg=208 guifg=#fd971f
+--DevIconKDEneon xxx ctermfg=37 guifg=#20a6a4
+--DevIconMli     xxx ctermfg=166 guifg=#e37933
+--DevIconKubuntu xxx ctermfg=32 guifg=#007ac2
+--DevIconObjectiveCPlusPlus xxx ctermfg=74 guifg=#519aba
+--DevIconLocOS   xxx ctermfg=214 guifg=#fab402
+--DevIconLXLE    xxx ctermfg=238 guifg=#474747
+--DevIconMOV     xxx ctermfg=208 guifg=#fd971f
+--DevIconMPEGAudioLayerIII xxx ctermfg=39 guifg=#00afff
+--DevIconMp4     xxx ctermfg=208 guifg=#fd971f
+--DevIconMageia  xxx ctermfg=67 guifg=#2397d4
+--DevIconMpp     xxx ctermfg=74 guifg=#519aba
+--DevIconThunderbird xxx ctermfg=33 guifg=#137be1
+--DevIconManjaro xxx ctermfg=35 guifg=#33b959
+--DevIconMts     xxx ctermfg=74 guifg=#519aba
+--DevIconMXLinux xxx ctermfg=231 guifg=#ffffff
+--DevIconNfo     xxx ctermfg=230 guifg=#ffffcd
+--DevIconNixOS   xxx ctermfg=110 guifg=#7ab1db
+--DevIconOpenBSD xxx ctermfg=220 guifg=#f2ca30
+--DevIconAsc     xxx ctermfg=242 guifg=#576d7f
+--DevIconopenSUSE xxx ctermfg=70 guifg=#6fb424
+--DevIconNswag   xxx ctermfg=112 guifg=#85ea2d
+--DevIconAss     xxx ctermfg=214 guifg=#ffb713
+--DevIconParabolaGNULinuxLibre xxx ctermfg=103 guifg=#797dac
+--DevIconAstro   xxx ctermfg=197 guifg=#e23f67
+--DevIconParrot  xxx ctermfg=45 guifg=#54deff
+--DevIconOggVorbis xxx ctermfg=24 guifg=#0075aa
+--DevIconPop_OS  xxx ctermfg=73 guifg=#48b9c7
+--DevIconAzureCli xxx ctermfg=32 guifg=#0078d4
+--DevIconpostmarketOS xxx ctermfg=28 guifg=#009900
+--DevIconBackup  xxx ctermfg=66 guifg=#6d8086
+--DevIconPuppyLinux xxx ctermfg=145 guifg=#a2aeb9
+--DevIconQubesOS xxx ctermfg=33 guifg=#3774d8
+--DevIconRaspberryPiOS xxx ctermfg=161 guifg=#be1848
+--DevIconBin     xxx ctermfg=124 guifg=#9f0500
+--DevIconBlade   xxx ctermfg=203 guifg=#f05340
+--DevIconGulpfile xxx ctermfg=167 guifg=#cc3e44
+--DevIconRockyLinux xxx ctermfg=36 guifg=#0fb37d
+--DevIconBlender xxx ctermfg=208 guifg=#ea7600
+--DevIconSabayon xxx ctermfg=251 guifg=#c6c6c6
+--DevIconSlackware xxx ctermfg=61 guifg=#475fa9
+--DevIconBoundaryRepresentation xxx ctermfg=101 guifg=#839463
+--DevIconi3      xxx ctermfg=255 guifg=#e8ebee
+--DevIconSolus   xxx ctermfg=239 guifg=#4b5163
+--DevIconBz2     xxx ctermfg=214 guifg=#eca517
+--DevIconBz3     xxx ctermfg=214 guifg=#eca517
+--DevIconTrisquelGNULinux xxx ctermfg=25 guifg=#0f58b6
+--DevIconKalgebrarc xxx ctermfg=32 guifg=#1c99f3
+--DevIconKDEglobals xxx ctermfg=32 guifg=#1c99f3
+--DevIconUbuntu  xxx ctermfg=196 guifg=#dd4814
+--DevIconKdenliveLayoutsrc xxx ctermfg=110 guifg=#83b8f2
+--DevIconVanillaOS xxx ctermfg=214 guifg=#fabd4d
+--DevIconCache   xxx ctermfg=231 guifg=#ffffff
+--DevIconKdenliverc xxx ctermfg=110 guifg=#83b8f2
+--DevIconKritadisplayrc xxx ctermfg=201 guifg=#f245fb
+--DevIconCobol   xxx ctermfg=25 guifg=#005ca5
+--DevIconKritarc xxx ctermfg=201 guifg=#f245fb
+--DevIconCPlusPlus xxx ctermfg=204 guifg=#f34b7d
+--DevIconCPlusPlusModule xxx ctermfg=204 guifg=#f34b7d
+--DevIconSha256  xxx ctermfg=103 guifg=#8c86af
+--DevIconCjs     xxx ctermfg=185 guifg=#cbcb41
+--DevIconLXQtConfigFile xxx ctermfg=32 guifg=#0192d3
+--DevIconClojureC xxx ctermfg=113 guifg=#8dc149
+--DevIconLogos   xxx ctermfg=111 guifg=#599eff
+--DevIconClojureJS xxx ctermfg=74 guifg=#519aba
+--DevIconMpv     xxx ctermfg=53 guifg=#3b1342
+--DevIconClojureDart xxx ctermfg=74 guifg=#519aba
+--DevIconPackageJson xxx ctermfg=197 guifg=#e8274b
+--DevIconConfigRu xxx ctermfg=52 guifg=#701516
+--DevIconPackageLockJson xxx ctermfg=52 guifg=#7a0d21
+--DevIconCppm    xxx ctermfg=74 guifg=#519aba
+--DevIconPKGBUILD xxx ctermfg=67 guifg=#0f94d2
+--DevIconPlatformio xxx ctermfg=208 guifg=#f6822b
+--DevIconMustache xxx ctermfg=166 guifg=#e37933
+--DevIconNim     xxx ctermfg=220 guifg=#f3d400
+--DevIconNix     xxx ctermfg=110 guifg=#7ebae4
+--DevIconNushell xxx ctermfg=36 guifg=#3aa675
+--DevIconNodeModules xxx ctermfg=197 guifg=#e8274b
+--DevIconMl      xxx ctermfg=166 guifg=#e37933
+--DevIconPrusaSlicer xxx ctermfg=202 guifg=#ec6b23
+--DevIconOpenSCAD xxx ctermfg=220 guifg=#f9d72c
+--DevIconOpusAudioFile xxx ctermfg=24 guifg=#0075aa
+--DevIconOpenTypeFont xxx ctermfg=255 guifg=#ececec
+--DevIconPackedResource xxx ctermfg=66 guifg=#6d8086
+--DevIconRazorPage xxx ctermfg=56 guifg=#512bd4
+--DevIconPy.typed xxx ctermfg=214 guifg=#ffbc03
+--DevIconPl      xxx ctermfg=74 guifg=#519aba
+--DevIconPhp     xxx ctermfg=140 guifg=#a074c4
+--DevIconCSharpProject xxx ctermfg=56 guifg=#512bd4
+--DevIconAi      xxx ctermfg=185 guifg=#cbcb41
+--DevIconPpt     xxx ctermfg=160 guifg=#cb4a32
+--DevIconPrisma  xxx ctermfg=62 guifg=#5a67d8
+--DevIconRakefile xxx ctermfg=52 guifg=#701516
+--DevIconPsScriptfile xxx ctermfg=68 guifg=#4273ca
+--DevIconPsManifestfile xxx ctermfg=68 guifg=#6975c4
+--DevIconPsScriptModulefile xxx ctermfg=68 guifg=#6975c4
+--DevIconPsb     xxx ctermfg=74 guifg=#519aba
+--DevIconCue     xxx ctermfg=211 guifg=#ed95ae
+--DevIconPp      xxx ctermfg=214 guifg=#ffa61a
+--DevIconPyc     xxx ctermfg=222 guifg=#ffe291
+--DevIconPyd     xxx ctermfg=222 guifg=#ffe291
+--DevIconcudah   xxx ctermfg=140 guifg=#a074c4
+--DevIconPy      xxx ctermfg=214 guifg=#ffbc03
+--DevIconTailwindConfig xxx ctermfg=45 guifg=#20c2e3
+--DevIconReScript xxx ctermfg=167 guifg=#cc3e44
+--DevIconCxxm    xxx ctermfg=74 guifg=#519aba
+--DevIconReScriptInterface xxx ctermfg=204 guifg=#f55385
+--DevIconRlib    xxx ctermfg=216 guifg=#dea584
+--DevIconRmd     xxx ctermfg=74 guifg=#519aba
+--DevIconRproj   xxx ctermfg=29 guifg=#358a5b
+--DevIconTmux    xxx ctermfg=34 guifg=#14ba19
+--DevIconRb      xxx ctermfg=52 guifg=#701516
+--DevIconRs      xxx ctermfg=216 guifg=#dea584
+--DevIconSass    xxx ctermfg=204 guifg=#f55385
+--DevIconDb      xxx ctermfg=188 guifg=#dad8d8
+--DevIconTSConfig xxx ctermfg=74 guifg=#519aba
+--DevIconScheme  xxx ctermfg=255 guifg=#eeeeee
+--DevIconScss    xxx ctermfg=204 guifg=#f55385
+--DevIconDconf   xxx ctermfg=231 guifg=#ffffff
+--DevIconSlim    xxx ctermfg=196 guifg=#e34c26
+--DevIconSln     xxx ctermfg=98 guifg=#854cc7
+--DevIconSml     xxx ctermfg=166 guifg=#e37933
+--DevIconSolidity xxx ctermfg=74 guifg=#519aba
+--DevIconSql     xxx ctermfg=188 guifg=#dad8d8
+--DevIconWeston  xxx ctermfg=214 guifg=#ffbb01
+--DevIconSsa     xxx ctermfg=214 guifg=#ffb713
+--DevIconStyl    xxx ctermfg=113 guifg=#8dc149
+--DevIconBazelBuild xxx ctermfg=113 guifg=#89e051
+--DevIconBazelWorkspace xxx ctermfg=113 guifg=#89e051
+--DevIconSvelte  xxx ctermfg=196 guifg=#ff3e00
+--DevIconxmonad  xxx ctermfg=203 guifg=#fd4d5d
+--DevIconSwift   xxx ctermfg=166 guifg=#e37933
+--DevIconSystemVerilog xxx ctermfg=28 guifg=#019833
+--DevIconDownload xxx ctermfg=43 guifg=#44cda8
+--DevIconXorgConf xxx ctermfg=196 guifg=#e54d18
+--DevIconGodotTextResource xxx ctermfg=66 guifg=#6d8086
+--DevIconGodotTextScene xxx ctermfg=66 guifg=#6d8086
+--DevIconTwig    xxx ctermfg=113 guifg=#8dc149
+--DevIconTxt     xxx ctermfg=113 guifg=#89e051
+--DevIconTypeScript xxx ctermfg=74 guifg=#519aba
+--DevIconTsx     xxx ctermfg=26 guifg=#1354bf
+--DevIconVala    xxx ctermfg=91 guifg=#7239b3
+--DevIconAutoCADDxf xxx ctermfg=101 guifg=#839463
+--DevIconVHDL    xxx ctermfg=28 guifg=#019833
+--DevIconEbook   xxx ctermfg=215 guifg=#eab16d
+--DevIconVue     xxx ctermfg=113 guifg=#8dc149
+--DevIconWasm    xxx ctermfg=62 guifg=#5c4cdb
+--DevIconWebm    xxx ctermfg=208 guifg=#fd971f
+--DevIcon7z      xxx ctermfg=214 guifg=#eca517
+--DevIconElf     xxx ctermfg=124 guifg=#9f0500
+--DevIconAdvancedAudioCoding xxx ctermfg=39 guifg=#00afff
+--DevIconConfig  xxx ctermfg=66 guifg=#6d8086
+--DevIconElisp   xxx ctermfg=97 guifg=#8172be
+--DevIconAudioInterchangeFileFormat xxx ctermfg=39 guifg=#00afff
+--DevIconEmbeddedOpenTypeFont xxx ctermfg=255 guifg=#ececec
+--DevIconAndroid xxx ctermfg=35 guifg=#34a853
+--DevIconapk     xxx ctermfg=35 guifg=#34a853
+--DevIconApp     xxx ctermfg=124 guifg=#9f0500
+--DevIconLib     xxx ctermfg=52 guifg=#4d2c0b
+--DevIconObjectFile xxx ctermfg=124 guifg=#9f0500
+--DevIconGo      xxx ctermfg=74 guifg=#519aba
+--DevIconWindows xxx ctermfg=39 guifg=#00a4ef
+--DevIconGitLogo xxx ctermfg=196 guifg=#f14c28
+--DevIconDiff    xxx ctermfg=239 guifg=#41535b
+--DevIconLXDEConfigFile xxx ctermfg=246 guifg=#909090
+--DevIconMixLock xxx ctermfg=140 guifg=#a074c4
+--DevIconTerminal xxx ctermfg=34 guifg=#31b53e
+--DevIconAutoCADDwg xxx ctermfg=101 guifg=#839463
+--DevIconKiCadSymbolTable xxx ctermfg=231 guifg=#ffffff
+--DevIconSha384  xxx ctermfg=103 guifg=#8c86af
+--DevIconJson    xxx ctermfg=185 guifg=#cbcb41
+--DevIconVim     xxx ctermfg=28 guifg=#019833
+--DevIconRedhat  xxx ctermfg=196 guifg=#ee0000
+--DevIconLuau    xxx ctermfg=75 guifg=#00a2ff
+--DevIconStaticLibraryArchive xxx ctermfg=253 guifg=#dcddd6
+--DevIconEdn     xxx ctermfg=74 guifg=#519aba
+--DevIconUI      xxx ctermfg=17 guifg=#0c306e
+--DevIconPyo     xxx ctermfg=222 guifg=#ffe291
+--DevIconXls     xxx ctermfg=29 guifg=#207245
+--DevIconMonkeysAudio xxx ctermfg=39 guifg=#00afff
+--DevIconLinuxKernelObject xxx ctermfg=253 guifg=#dcddd6
+--DevIconScala   xxx ctermfg=167 guifg=#cc3e44
+--DevIconR       xxx ctermfg=25 guifg=#2266ba
+--DevIconVoid    xxx ctermfg=23 guifg=#295340
+--DevIconDll     xxx ctermfg=52 guifg=#4d2c0b
+--DevIconZorin   xxx ctermfg=39 guifg=#14a1e8
+--DevIconCheckhealth xxx ctermfg=75 guifg=#75b4fb
+--DevIconExs     xxx ctermfg=140 guifg=#a074c4
+--DevIconTails   xxx ctermfg=54 guifg=#56347c
+--DevIconEpub    xxx ctermfg=215 guifg=#eab16d
+--DevIconSettingsJson xxx ctermfg=98 guifg=#854cc7
+--DevIconCinnamon xxx ctermfg=166 guifg=#dc682e
+--DevIconXsession xxx ctermfg=196 guifg=#e54d18
+--DevIconNPMIgnore xxx ctermfg=197 guifg=#e8274b
+--DevIconXz      xxx ctermfg=214 guifg=#eca517
+--DevIconCp      xxx ctermfg=74 guifg=#519aba
+--DevIconExe     xxx ctermfg=124 guifg=#9f0500
+--DevIconXauthority xxx ctermfg=196 guifg=#e54d18
+--DevIconFs      xxx ctermfg=74 guifg=#519aba
+--DevIconDesktopEntry xxx ctermfg=54 guifg=#563d7c
+--DevIconBSPWM   xxx ctermfg=239 guifg=#4f4f4f
+--DevIconGraphQL xxx ctermfg=199 guifg=#e535ab
+--DevIconFusion360 xxx ctermfg=101 guifg=#839463
+--DevIconEjs     xxx ctermfg=185 guifg=#cbcb41
+--DevIconErb     xxx ctermfg=52 guifg=#701516
+--DevIconJsonc   xxx ctermfg=185 guifg=#cbcb41
+--DevIconFreeCAD xxx ctermfg=160 guifg=#cb0d0d
+--DevIconCMakeLists xxx ctermfg=66 guifg=#6d8086
+--DevIconFdmdownload xxx ctermfg=43 guifg=#44cda8
+--DevIconTor     xxx ctermfg=74 guifg=#519aba
+--DevIconFIGletFontControl xxx ctermfg=255 guifg=#ececec
+--DevIconFIGletFontFormat xxx ctermfg=255 guifg=#ececec
+--DevIconHaml    xxx ctermfg=255 guifg=#eaeae1
+--DevIconC       xxx ctermfg=111 guifg=#599eff
+--DevIconHaxe    xxx ctermfg=208 guifg=#ea8220
+--DevIconHs      xxx ctermfg=140 guifg=#a074c4
+--DevIconHeex    xxx ctermfg=140 guifg=#a074c4
+--DevIconHtml    xxx ctermfg=196 guifg=#e44d26
+--DevIconFreeCADConfig xxx ctermfg=160 guifg=#cb0d0d
+--DevIconArduino xxx ctermfg=73 guifg=#56b6c2
+--DevIconNotebook xxx ctermfg=74 guifg=#51a0cf
+--DevIconGCode   xxx ctermfg=32 guifg=#1471ad
+--DevIconJsx     xxx ctermfg=45 guifg=#20c2e3
+--DevIconVagrantfile xxx ctermfg=27 guifg=#1563ff
+--DevIconMPEG4   xxx ctermfg=39 guifg=#00afff
+--DevIconTcl     xxx ctermfg=25 guifg=#1e5cb3
+--DevIconLeex    xxx ctermfg=140 guifg=#a074c4
+--DevIconGemspec xxx ctermfg=52 guifg=#701516
+--DevIconLess    xxx ctermfg=54 guifg=#563d7c
+--DevIconTex     xxx ctermfg=22 guifg=#3d6117
+--DevIconQuery   xxx ctermfg=107 guifg=#90a850
+--DevIconXeroLinux xxx ctermfg=104 guifg=#888fe2
+--DevIconMjs     xxx ctermfg=185 guifg=#f1e05a
+--DevIconSte     xxx ctermfg=101 guifg=#839463
+--DevIconToml    xxx ctermfg=124 guifg=#9c4221
+--DevIconStep    xxx ctermfg=101 guifg=#839463
+--DevIconMobi    xxx ctermfg=215 guifg=#eab16d
+--DevIconStp     xxx ctermfg=101 guifg=#839463
+--DevIconGv      xxx ctermfg=24 guifg=#30638e
+--DevIconAppleScript xxx ctermfg=66 guifg=#6d8085
+--DevIconGz      xxx ctermfg=214 guifg=#eca517
+--DevIconSha224  xxx ctermfg=103 guifg=#8c86af
+--DevIconOrgMode xxx ctermfg=73 guifg=#77aa99
+--DevIconCts     xxx ctermfg=74 guifg=#519aba
+--DevIconSvelteConfig xxx ctermfg=196 guifg=#ff3e00
+--DevIconBazel   xxx ctermfg=113 guifg=#89e051
+--DevIconTempl   xxx ctermfg=178 guifg=#dbbd30
+--DevIconHh      xxx ctermfg=140 guifg=#a074c4
+--DevIconCantorrc xxx ctermfg=32 guifg=#1c99f3
+--DevIconHpp     xxx ctermfg=140 guifg=#a074c4
+--DevIconBz      xxx ctermfg=214 guifg=#eca517
+--DevIconHrl     xxx ctermfg=163 guifg=#b83998
+--DevIconVerilog xxx ctermfg=28 guifg=#019833
+--DevIconZigObjectNotation xxx ctermfg=172 guifg=#f69a1b
+--DevIconSublime xxx ctermfg=166 guifg=#e37933
+--DevIconHtm     xxx ctermfg=196 guifg=#e34c26
+--DevIconXSettingsdConf xxx ctermfg=196 guifg=#e54d18
+--DevIconTestJs  xxx ctermfg=185 guifg=#cbcb41
+--DevIconJavaScriptReactTest xxx ctermfg=45 guifg=#20c2e3
+--DevIconHuff    xxx ctermfg=56 guifg=#4242c7
+--DevIconTestTs  xxx ctermfg=74 guifg=#519aba
+--DevIconTypeScriptReactTest xxx ctermfg=26 guifg=#1354bf
+--DevIconCrdownload xxx ctermfg=43 guifg=#44cda8
+--DevIconHurl    xxx ctermfg=198 guifg=#ff0288
+--DevIconVLC     xxx ctermfg=208 guifg=#ee7a00
+--DevIconMailmap xxx ctermfg=239 guifg=#41535b
+--DevIconIfb     xxx ctermfg=18 guifg=#2b2e83
+--DevIconTerraform xxx ctermfg=93 guifg=#5f43e9
+--DevIconHxx     xxx ctermfg=140 guifg=#a074c4
+--DevIconIxx     xxx ctermfg=74 guifg=#519aba
+--DevIconCxx     xxx ctermfg=74 guifg=#519aba
+--DevIconTFVars  xxx ctermfg=93 guifg=#5f43e9
+--DevIconIcal    xxx ctermfg=18 guifg=#2b2e83
+--DevIconTgz     xxx ctermfg=214 guifg=#eca517
+--DevIconSolidWorksPrt xxx ctermfg=101 guifg=#839463
+--DevIconSrt     xxx ctermfg=214 guifg=#ffb713
+--DevIconSha512  xxx ctermfg=103 guifg=#8c86af
+--DevIconTorrent xxx ctermfg=43 guifg=#44cda8
+--DevIconQtile   xxx ctermfg=231 guifg=#ffffff
+--DevIconSuo     xxx ctermfg=98 guifg=#854cc7
+--DevIconSvg     xxx ctermfg=214 guifg=#ffb13b
+--DevIconSh      xxx ctermfg=240 guifg=#4d5a5e
+--DevIconTypoScriptConfig xxx ctermfg=208 guifg=#ff8700
+--DevIconEnlightenment xxx ctermfg=231 guifg=#ffffff
+--DevIconLog     xxx ctermfg=253 guifg=#dddddd
+--DevIconArch    xxx ctermfg=67 guifg=#0f94d2
+--DevIconTrueTypeFont xxx ctermfg=255 guifg=#ececec
+--DevIconPyi     xxx ctermfg=214 guifg=#ffbc03
+--DevIconPsd     xxx ctermfg=74 guifg=#519aba
+--DevIconTxz     xxx ctermfg=214 guifg=#eca517
+--DevIconBicepParameters xxx ctermfg=133 guifg=#9f74b3
+--DevIconTypoScript xxx ctermfg=208 guifg=#ff8700
+--DevIconCpp     xxx ctermfg=74 guifg=#519aba
+--DevIconZshprofile xxx ctermfg=113 guifg=#89e051
+--DevIconDropbox xxx ctermfg=27 guifg=#0061fe
+--DevIconBigLinux xxx ctermfg=38 guifg=#189fc8
+--DevIconBudgie  xxx ctermfg=240 guifg=#4e5361
+--DevIconDebian  xxx ctermfg=88 guifg=#a80030
+--DevIconLXDE    xxx ctermfg=248 guifg=#a4a4a4
+--DevIconElementary xxx ctermfg=67 guifg=#5890c2
+--DevIconMint    xxx ctermfg=108 guifg=#87c095
+--DevIconSig     xxx ctermfg=166 guifg=#e37933
+--DevIconMd      xxx ctermfg=253 guifg=#dddddd
+--DevIconJl      xxx ctermfg=133 guifg=#a270ba
+--DevIconGradleWrapperProperties xxx ctermfg=24 guifg=#005f87
+--DevIconVlang   xxx ctermfg=67 guifg=#5d87bf
+--DevIconGradleProperties xxx ctermfg=24 guifg=#005f87
+--DevIconKiCadCache xxx ctermfg=231 guifg=#ffffff
+--DevIconFavicon xxx ctermfg=185 guifg=#cbcb41
+--DevIconVsix    xxx ctermfg=98 guifg=#854cc7
+--DevIconGitIgnore xxx ctermfg=196 guifg=#f54d27
+--DevIconFreeLosslessAudioCodec xxx ctermfg=24 guifg=#0075aa
+--DevIconDot     xxx ctermfg=24 guifg=#30638e
+--DevIconFluxbox xxx ctermfg=240 guifg=#555555
+--DevIconWaveformAudioFile xxx ctermfg=39 guifg=#00afff
+--DevIconXInitrc xxx ctermfg=196 guifg=#e54d18
+--DevIconWebmanifest xxx ctermfg=185 guifg=#f1e05a
+--DevIconYml     xxx ctermfg=66 guifg=#6d8086
+--DevIconWindowsMediaAudio xxx ctermfg=39 guifg=#00afff
+--DevIcon3gp     xxx ctermfg=208 guifg=#fd971f
+--DevIconWebOpenFontFormat xxx ctermfg=255 guifg=#ececec
+--DevIconVRML    xxx ctermfg=102 guifg=#888888
+--DevIconYaml    xxx ctermfg=66 guifg=#6d8086
+--DevIconXaml    xxx ctermfg=56 guifg=#512bd4
+--DevIconTypeScriptDeclaration xxx ctermfg=172 guifg=#d59855
+--DevIconOut     xxx ctermfg=124 guifg=#9f0500
+--DevIconGIMP    xxx ctermfg=240 guifg=#635b46
+--DevIconPart    xxx ctermfg=43 guifg=#44cda8
+--DevIconsbt     xxx ctermfg=167 guifg=#cc3e44
+--DevIconPatch   xxx ctermfg=239 guifg=#41535b
+--DevIconPdf     xxx ctermfg=124 guifg=#b30b00
+--DevIconXcLocalization xxx ctermfg=31 guifg=#2596be
+--DevIconMaven   xxx ctermfg=52 guifg=#7a0d21
+--DevIconPulseCodeModulation xxx ctermfg=24 guifg=#0075aa
+--DevIconSharedObject xxx ctermfg=253 guifg=#dcddd6
+--DevIconProcfile xxx ctermfg=140 guifg=#a074c4
+--DevIconAsciinema xxx ctermfg=208 guifg=#fd971f
+--lualine_b_command xxx ctermfg=87 ctermbg=0 guifg=#40ffff guibg=#000000
+--lualine_a_command xxx cterm=bold ctermfg=0 ctermbg=87 gui=bold guifg=#000000 guibg=#40ffff
+--lualine_c_command xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_insert xxx ctermfg=217 ctermbg=0 guifg=#ffa0a0 guibg=#000000
+--lualine_a_insert xxx cterm=bold ctermfg=0 ctermbg=217 gui=bold guifg=#000000 guibg=#ffa0a0
+--lualine_c_insert xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_terminal xxx ctermfg=87 ctermbg=0 guifg=#40ffff guibg=#000000
+--lualine_a_terminal xxx cterm=bold ctermfg=0 ctermbg=87 gui=bold guifg=#000000 guibg=#40ffff
+--lualine_c_terminal xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_replace xxx ctermfg=217 ctermbg=0 guifg=#ffa0a0 guibg=#000000
+--lualine_a_replace xxx cterm=bold ctermfg=0 ctermbg=217 gui=bold guifg=#000000 guibg=#ffa0a0
+--lualine_c_replace xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_normal xxx ctermfg=248 ctermbg=0 guifg=#a9a9a9 guibg=#000000
+--lualine_a_normal xxx cterm=bold ctermfg=0 ctermbg=248 gui=bold guifg=#000000 guibg=#a9a9a9
+--lualine_c_normal xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_visual xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_a_visual xxx cterm=bold ctermfg=0 ctermbg=214 gui=bold guifg=#000000 guibg=#ffa500
+--lualine_c_visual xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_inactive xxx ctermfg=248 ctermbg=0 guifg=#a9a9a9 guibg=#000000
+--lualine_a_inactive xxx cterm=bold ctermfg=0 ctermbg=248 gui=bold guifg=#000000 guibg=#a9a9a9
+--lualine_c_inactive xxx ctermfg=239 ctermbg=0 guifg=#505050 guibg=#000000
+--lualine_b_diff_added_normal xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_insert xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_visual xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_replace xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_command xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_terminal xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_added_inactive xxx ctermfg=120 ctermbg=0 guifg=#90ee90 guibg=#000000
+--lualine_b_diff_modified_normal xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_insert xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_visual xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_replace xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_command xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_terminal xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_modified_inactive xxx ctermfg=221 ctermbg=0 guifg=#f0e130 guibg=#000000
+--lualine_b_diff_removed_normal xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_insert xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_visual xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_replace xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_command xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_terminal xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diff_removed_inactive xxx ctermfg=12 ctermbg=0 guifg=#0000ff guibg=#000000
+--lualine_b_diagnostics_error_normal xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_insert xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_visual xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_replace xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_command xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_terminal xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_error_inactive xxx ctermfg=9 ctermbg=0 guifg=#ff0000 guibg=#000000
+--lualine_b_diagnostics_warn_normal xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_insert xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_visual xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_replace xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_command xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_terminal xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_warn_inactive xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_b_diagnostics_info_normal xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_insert xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_visual xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_replace xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_command xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_terminal xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_info_inactive xxx ctermfg=152 ctermbg=0 guifg=#add8e6 guibg=#000000
+--lualine_b_diagnostics_hint_normal xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_insert xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_visual xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_replace xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_command xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_terminal xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
+--lualine_b_diagnostics_hint_inactive xxx ctermfg=252 ctermbg=0 guifg=#d3d3d3 guibg=#000000
 --Scrollview     xxx ctermbg=14
+--debugPC        xxx cleared
+--DapUINormal    xxx links to Normal
+--DapUIVariable  xxx links to Normal
+--DapUIScope     xxx guifg=#00f1f5
+--DapUIType      xxx guifg=#d484ff
+--DapUIValue     xxx links to Normal
+--DapUIModifiedValue xxx gui=bold guifg=#00f1f5
+--DapUIDecoration xxx guifg=#00f1f5
+--DapUIThread    xxx guifg=#a9ff68
+--DapUIStoppedThread xxx guifg=#00f1f5
+--DapUIFrameName xxx links to Normal
+--DapUISource    xxx guifg=#d484ff
+--DapUILineNumber xxx guifg=#00f1f5
+--DapUIFloatNormal xxx links to NormalFloat
+--DapUIFloatBorder xxx guifg=#00f1f5
+--DapUIWatchesEmpty xxx guifg=#f70067
+--DapUIWatchesValue xxx guifg=#a9ff68
+--DapUIWatchesError xxx guifg=#f70067
+--DapUIBreakpointsPath xxx guifg=#00f1f5
+--DapUIBreakpointsInfo xxx guifg=#a9ff68
+--DapUIBreakpointsCurrentLine xxx gui=bold guifg=#a9ff68
+--DapUIBreakpointsLine xxx links to DapUILineNumber
+--DapUIBreakpointsDisabledLine xxx guifg=#424242
+--DapUICurrentFrameName xxx links to DapUIBreakpointsCurrentLine
+--DapUIStepOver  xxx guifg=#00f1f5
+--DapUIStepInto  xxx guifg=#00f1f5
+--DapUIStepBack  xxx guifg=#00f1f5
+--DapUIStepOut   xxx guifg=#00f1f5
+--DapUIStop      xxx guifg=#f70067
+--DapUIPlayPause xxx guifg=#a9ff68
+--DapUIRestart   xxx guifg=#a9ff68
+--DapUIUnavailable xxx guifg=#424242
+--DapUIWinSelect xxx ctermfg=14 gui=bold guifg=#00f1f5
+--DapUIEndofBuffer xxx links to EndOfBuffer
+--DapUINormalNC  xxx cterm= gui=
+--                   links to Normal
+--DapUIPlayPauseNC xxx cterm= gui= guifg=#a9ff68
+--DapUIRestartNC xxx cterm= gui= guifg=#a9ff68
+--DapUIStopNC    xxx cterm= gui= guifg=#f70067
+--DapUIUnavailableNC xxx cterm= gui= guifg=#424242
+--DapUIStepOverNC xxx cterm= gui= guifg=#00f1f5
+--DapUIStepIntoNC xxx cterm= gui= guifg=#00f1f5
+--DapUIStepBackNC xxx cterm= gui= guifg=#00f1f5
+--DapUIStepOutNC xxx cterm= gui= guifg=#00f1f5
+--StatusLineExtra xxx cterm=bold ctermfg=0 ctermbg=14
+--StatusLineExtraNC xxx cterm=bold ctermfg=0 ctermbg=7
 --ScrollViewConflictsTop xxx links to DiffAdd
 --ScrollViewConflictsMiddle xxx links to DiffAdd
 --ScrollViewConflictsBottom xxx links to DiffAdd
@@ -603,6 +1249,8 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --ScrollViewSearch xxx links to NonText
 --ScrollViewSpell xxx links to Statement
 --ScrollViewTextWidth xxx links to Question
+--LspInfoBorder  xxx cterm= gui=
+--                   links to Label
 --LspInfoList    xxx cterm= gui=
 --                   links to Function
 --LspInfoTip     xxx cterm= gui=
@@ -611,8 +1259,20 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --                   links to Title
 --LspInfoFiletype xxx cterm= gui=
 --                   links to Type
---LspInfoBorder  xxx cterm= gui=
---                   links to Label
+--WhichKey       xxx cterm= gui=
+--                   links to Function
+--WhichKeyValue  xxx cterm= gui=
+--                   links to Comment
+--WhichKeySeparator xxx cterm= gui=
+--                   links to Comment
+--WhichKeyGroup  xxx cterm= gui=
+--                   links to Keyword
+--WhichKeyDesc   xxx cterm= gui=
+--                   links to Identifier
+--WhichKeyBorder xxx cterm= gui=
+--                   links to FloatBorder
+--WhichKeyFloat  xxx cterm= gui=
+--                   links to NormalFloat
 --luaMetaMethod  xxx links to Function
 --luaParenError  xxx links to Error
 --luaParen       xxx cleared
@@ -646,3 +1306,58 @@ vim.cmd [[ hi NormalFloat ctermbg=black ]]
 --luaTable       xxx links to Structure
 --luaTableBlock  xxx cleared
 --luaFunc        xxx links to Identifier
+--lualine_x_filetype_DevIconLua_normal xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_insert xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_visual xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_replace xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_command xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_terminal xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_x_filetype_DevIconLua_inactive xxx ctermfg=74 ctermbg=0 guifg=#51a0cf guibg=#000000
+--lualine_transitional_lualine_a_normal_to_lualine_b_normal xxx ctermfg=248 ctermbg=0 guifg=#a9a9a9 guibg=#000000
+--lualine_x_filetype_DevIconDefault_normal xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_insert xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_visual xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_replace xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_command xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_terminal xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--lualine_x_filetype_DevIconDefault_inactive xxx ctermfg=8 ctermbg=0 guifg=#6d8086 guibg=#000000
+--yamlTodo       xxx links to Todo
+--yamlComment    xxx links to Comment
+--yamlTAGDirective xxx links to yamlDirectiveName
+--yamlYAMLDirective xxx links to yamlDirectiveName
+--yamlReservedDirective xxx links to Error
+--yamlDirective  xxx cleared
+--yamlTagHandle  xxx links to String
+--yamlTagPrefix  xxx links to String
+--yamlYAMLVersion xxx links to Number
+--yamlFlowStringDelimiter xxx links to yamlString
+--yamlEscape     xxx links to SpecialChar
+--yamlKeyValueDelimiter xxx links to Special
+--yamlFlowString xxx links to yamlString
+--yamlSingleEscape xxx links to SpecialChar
+--yamlBlockScalarHeader xxx cleared
+--yamlBool       xxx links to yamlConstant
+--yamlNull       xxx links to yamlConstant
+--yamlFlowMapping xxx cleared
+--yamlFlowCollection xxx cleared
+--yamlFlowMappingKey xxx links to Identifier
+--yamlFlowMappingMerge xxx links to Special
+--yamlPlainScalar xxx cleared
+--yamlFloat      xxx links to Float
+--yamlTimestamp  xxx links to Number
+--yamlInteger    xxx links to Number
+--yamlMappingKeyStart xxx links to Special
+--yamlFlowIndicator xxx links to Special
+--yamlBlockMappingKey xxx links to Identifier
+--yamlBlockMappingMerge xxx links to Special
+--yamlBlockCollectionItemStart xxx links to Label
+--yamlNodeTag    xxx links to Type
+--yamlAnchor     xxx links to Type
+--yamlAlias      xxx links to Type
+--yamlDocumentStart xxx links to PreProc
+--yamlDocumentEnd xxx links to PreProc
+--yamlDirectiveName xxx links to Keyword
+--yamlString     xxx links to String
+--yamlConstant   xxx links to Constant
+--lualine_transitional_lualine_a_visual_to_lualine_b_visual xxx ctermfg=214 ctermbg=0 guifg=#ffa500 guibg=#000000
+--lualine_transitional_lualine_a_command_to_lualine_b_command xxx ctermfg=87 ctermbg=0 guifg=#40ffff guibg=#000000
