@@ -46,13 +46,13 @@
 -- better:
 vim.keymap.set('n', '<leader>x', ':bp<bar>sp<bar>bn<bar>bd<CR>',
     {desc='close buffer but leave pane open'})
---vim.keymap.set('n', '<leader>/', ':nohl<CR>',
---    {desc='clear highlights for search'})
+vim.keymap.set('n', '<leader>/', ':nohl<CR>',
+    {desc='clear highlights for search'})
 
 -- note: :nohl doesn't clear neo scroll search results.
 -- must call scroll view refresh.
-vim.keymap.set('n', '?', ':nohl<CR>:ScrollViewRefresh<CR>',
-    {desc='clear highlights for search'})
+--vim.keymap.set('n', '?', ':nohl<CR>:ScrollViewRefresh<CR>',
+--    {desc='clear highlights for search'})
 
 -- unmap some unuseful ctrl key combinations for use later.
 --vim.cmd(":unmap <C-c>") -- does same thing as esc
@@ -76,7 +76,7 @@ vim.keymap.set({'n', 'x', 'o'}, 'F', '<Plug>(leap-backward)')
 -- replace default search "/" with a search that doesn't immediately jump.
 -- note: space is important. if space is included after (tranquille_search),
 -- the search command will start with a space.
-vim.cmd[[ nmap <unique> / <Plug>(tranquille_search)]]
+--vim.cmd[[ nmap <unique> / <Plug>(tranquille_search)]]
 
 --vim.cmd[[ nmap <unique> / <Plug>(tranquille_search_down)]]
 --vim.cmd[[ nmap <unique> ? <Plug>(tranquille_search_up)]]

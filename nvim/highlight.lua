@@ -99,6 +99,8 @@ vim.cmd [[ hi LineNr ctermfg=darkgray ]]
 vim.api.nvim_set_hl(0, 'CursorLineNr', {ctermfg='yellow', underline = false})
 vim.api.nvim_set_hl(0, 'CursorLine', {ctermbg='black', underline = false})
 
+vim.cmd [[ hi link LeapLabelPrimary Visual ]]
+
 -- NvimTree
 -- update: these are not really needed if base highlights are clean?
 --vim.cmd [[ hi link NvimTreeNormalFloat StatusLine ]]

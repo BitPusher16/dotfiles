@@ -16,7 +16,7 @@ vim.opt.signcolumn = "yes"
 --vim.opt.colorcolumn = "81"
 -- look for a more aesthetic way to mark long lines
 --vim.cmd [[ :match LongLine /\%>80c/ ]]
-vim.cmd [[ :match Error /\%>80c/ ]]
+vim.cmd [[ :match Error /\%>79c/ ]]
 
 -- Use autosave instead of swap files.
 -- Can't think of any scenario where I would want to keep edits in memory only.

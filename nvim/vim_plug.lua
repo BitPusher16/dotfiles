@@ -47,13 +47,14 @@ Plug('folke/which-key.nvim')
 --Plug('karb94/neoscroll.nvim') -- no support for 10k, 10j.
 
 -- TODO: mini has lots of other plugins, check these out.
-Plug('echasnovski/mini.animate') -- works well, but slows down ctrl-v some.
+--Plug('echasnovski/mini.animate') -- works well, but slows down ctrl-v some.
 --Plug('psliwka/vim-smoothie') -- doesn't work for navigating search results.
 
 -- 2024-05-05 fj
 -- this plugin does an okay job of keeping search "/" from immediately jumping.
 -- but maybe better approach is to just use leap.nvim + "*"?
-Plug('RRethy/vim-tranquille')
+--Plug('RRethy/vim-tranquille')
+--Plug('BitPusher16/vim-tranquille-bidirectional')
 
 Plug('alexghergh/nvim-tmux-navigation')
 
@@ -172,13 +173,18 @@ require('which-key').setup{ }
 --}
 
 -- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-animate.md
-require('mini.animate').setup{
-    -- really only want this for scrolling lines. disable some other defaults.
-    cursor = { enable = true},
-    scroll = { enable = true},
-    open = { enable = false },
-    close = { enable = false },
-}
+-- introduces some stuttering when scrolling. :(
+--local animate = require('mini.animate')
+--animate.setup{
+--    -- really only want this for scrolling lines. disable some other defaults.
+--    cursor = { enable = false},
+--    scroll = {
+--        enable = true,
+--        timing = animate.gen_timing.linear({duration = 80, unit = 'total'}),
+--    },
+--    open = { enable = false },
+--    close = { enable = false },
+--}
 
 -- this works great for preventing / from jumping,
 -- but it only works for forward direction.

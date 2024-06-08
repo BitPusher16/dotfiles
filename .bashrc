@@ -13,15 +13,18 @@ if command -v tmux &> /dev/null && \
     [[ ! "$TERM" =~ tmux ]] && \
     [[ ! "$TERM" =~ tmux-256color ]] && \
     [ -z "$TMUX" ]; then
-  #exec tmux
 
-  # if terminal emulator is closed while tmux is running, session remains,
-  # and tmux will create a new session next start.
-  # this can cause conflicts with neovim, etc.
-  # to fix, when starting a new session, attempt to attach to default
-  # session name first, per this reply:
-  # https://unix.stackexchange.com/questions/103898/how-to-start-tmux-with-attach-if-a-session-exists
-  exec tmux new -As0
+    exec tmux # also see below.
+
+    # if terminal emulator is closed while tmux is running, session remains,
+    # and tmux will create a new session next start.
+    # this can cause conflicts with neovim, etc.
+    # to fix, when starting a new session, attempt to attach to default
+    # session name first, per this reply:
+    # https://unix.stackexchange.com/questions/103898/how-to-start-tmux-with-attach-if-a-session-exists
+    # update: command below causes problems if user needs multiple terminals.
+    # causes all terminals to mirror each other.
+    #exec tmux new -As0
 fi
 
 HISTSIZE=100000
@@ -38,12 +41,15 @@ function cl(){
 # note that $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
-echo '| copy: ctrl + shift + c | paste: ctrl + shift + v | move win: command + shift + right |'
+echo '| copy: ctrl + shift + c | paste: ctrl + shift + v | move win: command + shift + arrow |'
+echo '| tmux connect to new session: ctrl-b :new -s <name> |'
+echo '| tmux kill other sessions: ctrl-b s x y |'
+echo '| tmux help: ctrl-b ? |'
 
 # the following assumes that fzf is installed.
 # https://github.com/junegunn/fzf?tab=readme-ov-file#usage
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --bash)"
+eval "$(fzf --bash)" # this is not working... update: found out old version of fzf
 
 # set LESS to not issue bell sound
 #export LESS="$LESS -Lqc --no-vbell"
