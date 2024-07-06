@@ -47,7 +47,7 @@ local home = os.getenv('HOME')
 package.path = package.path .. ';' .. home .. '/src/dotfiles/nvim/?.lua;'
 --require('conf/status_line')
 --require('conf/highlight')
-require('conf/subdir_example')
+--require('conf/subdir_example')
 --require('status_line') # deprecated, using lualine now.
 require('vim_plug')
 require('autocommands')

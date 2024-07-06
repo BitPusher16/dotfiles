@@ -50,11 +50,9 @@ Plug('folke/which-key.nvim')
 --Plug('echasnovski/mini.animate') -- works well, but slows down ctrl-v some.
 --Plug('psliwka/vim-smoothie') -- doesn't work for navigating search results.
 
--- 2024-05-05 fj
 -- this plugin does an okay job of keeping search "/" from immediately jumping.
 -- but maybe better approach is to just use leap.nvim + "*"?
 --Plug('RRethy/vim-tranquille')
---Plug('BitPusher16/vim-tranquille-bidirectional')
 
 Plug('alexghergh/nvim-tmux-navigation')
 
@@ -249,7 +247,7 @@ lspconfig.lua_ls.setup{
 
 lspconfig.clangd.setup{}
 
-lspconfig.pylsp.setup{}
+--lspconfig.pylsp.setup{} -- temporarily disable bc of excessive warnings.
 
 
 --require('nio').setup()

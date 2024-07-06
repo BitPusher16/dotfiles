@@ -41,7 +41,8 @@ function cl(){
 # note that $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
-echo '| copy: ctrl + shift + c | paste: ctrl + shift + v | move win: command + shift + arrow |'
+echo '| copy: ctrl + shift + c | paste: ctrl + shift + v |'
+echo '| move win: command + shift + arrow | maximize win: super + m|'
 echo '| tmux connect to new session: ctrl-b :new -s <name> |'
 echo '| tmux kill other sessions: ctrl-b s x y |'
 echo '| tmux help: ctrl-b ? |'
