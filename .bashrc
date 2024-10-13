@@ -5,9 +5,6 @@
 
 echo 'BEG ~/src/dotfiles/.bashrc'
 
-# cargo bin contains neovide, may contain other bins as well.
-PATH=$PATH:~/.cargo/bin
-
 # note that $- outputs builtin set flags. see man bash -> set subsection.
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
@@ -17,7 +14,7 @@ echo '| copy:           ctrl-shift-c                | paste:                    
 echo '| move win:       command + shift + arrow     | maximize win:             command + m                                 |'
 echo '| tmux help:      ctrl-b ?                    | tmux kill other sess:     ctrl-b s x y                                |'
 echo '| tmux new sess:  ctrl-b :new -s <name>       | exit neovim terminal:     ctrl-\ ctrl-n                               |'
-echo '| list env vars:  env | sort                  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort               |'
+echo '| list env vars:  env | sort | pr -3t -w 180  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort               |'
 
 # start tmux immediately.
 # https://unix.stackexchange.com/a/113768/604574
@@ -54,7 +51,15 @@ function cl(){
     ls -a
 }
 
+# cargo bin contains neovide, may contain other bins as well.
+PATH=$PATH:~/.cargo/bin
+
+
 alias nv='nvim'
+alias df='nv ~/src/dotfiles'
+
+#xrdb ~/.Xresources
+trap "xrdb ~/src/dotfiles/.Xresources" EXIT
 
 
 # the following assumes that fzf is installed.

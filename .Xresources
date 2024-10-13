@@ -1,0 +1,71 @@
+! not sure how to source this from ~/.Xresources.
+! a workaround: to source this file on terminal exit, put this in .bashrc:
+! trap "~/src/dotfiles/.Xresources" EXIT
+!
+! https://wiki.archlinux.org/title/Xterm#Configuration
+! this page says that $TERM should not be set in .bashrc.
+! says that $TERM should instead be set in .Xresources
+!
+! https://lukas.zapletalovi.com/posts/2013/hidden-gems-of-xterm/
+!
+! export terminal color themes in xterm format.
+! https://terminal.sexy/
+!
+! i would like to have a way to force neovim (specifically, AstroNvim) to use the 16 ANSI colors.
+! https://github.com/neovim/neovim/issues/11974
+! https://jeffkreeftmeijer.com/vim-16-color/
+
+! XTerm
+
+!UXTerm*background: black
+!UXTerm*foreground: white
+!UXTerm*cursorColor: white
+
+!UXTerm*scrollBar: true
+
+!uxterm.font: *-fixed-*-*-*-22-*
+
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 12
+UXTerm*renderFont: true
+
+UXTerm*geometry: 512x512
+
+
+
+
+*.foreground:   #ffffff
+*.background:   #000000
+*.cursorColor:  #ffffff
+
+! black
+*.color0:       #2e3436
+*.color8:       #555753
+
+! red
+*.color1:       #a31604
+*.color9:       #c60001
+
+! green
+*.color2:       #447241
+*.color10:      #27a343
+
+! yellow
+*.color3:       #c1951a
+*.color11:      #d5a30e
+
+! blue
+*.color4:       #425387
+*.color12:      #4a5a8d
+
+! magenta
+*.color5:       #965d98
+*.color13:      #893c8c
+
+! cyan
+*.color6:       #06989a
+*.color14:      #12bccb
+
+! white
+*.color7:       #d3d7cf
+*.color15:      #eeeeec

@@ -24,3 +24,22 @@ I also have the option to use $XDG_CONFIG_HOME,
 but if I set this to my dotfiles dir, other programs may write there.
 Update: Maybe I was just sourcing incorrectly.
 I can now call vim-plug from ~/src/dotfiles/nvim/misc.lua.
+
+2024-10-11
+Have been trying AstroNvim for a while. I like it.
+I haven't integrated the AstroNvim configs into my dotfiles repo.
+For now, configs live in ~/.config/nvim.
+
+NOTE: To get neovim to use terminal colors, set notermguicolors, and then set colorscheme default.
+https://github.com/neovim/neovim/issues/11974
+https://github.com/neovim/neovim/issues/26385
+
+
+2024-10-12
+May abandon AstroNvim for a bit.
+Stack: Intel CPU -> Pop!_os -> uxterm -> bash -> tmux -> neovim -> astronvim.
+
+- uxterm installed with apt.
+- bash comes as preinstalled binary.
+- nvim compiled from repo.
+- astronvim (neovim settings) cloned from repo into ~/.config/nvim (and then .git dir was deleted).

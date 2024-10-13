@@ -1,7 +1,11 @@
 #!/bin/bash
 #
-#   Run with: 
-#   $ . 24-bit-color.sh
+#   Run with:
+#   . ./24-bit-color-2.sh
+#
+#   This version of the script is required for GNU seq (not using BSD/MACOS seq).
+#   https://gist.github.com/lifepillar/09a44b8cf0f9397465614e622979107f
+#   https://gist.github.com/grhbit/db6c5654fa976be33808b8b33a6eb861
 #
 #   This file echoes a bunch of 24-bit color codes
 #   to the terminal to demonstrate its functionality.
@@ -9,11 +13,6 @@
 #   The background escape sequence is ^[48;2;<r>;<g>;<b>m
 #   <r> <g> <b> range from 0 to 255 inclusive.
 #   The escape sequence ^[0m returns output to default
-
-# https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
-# https://gist.githubusercontent.com/lifepillar/09a44b8cf0f9397465614e622979107f/raw/24-bit-color.sh
-# run with:
-# bash 24-bit-color.sh
 
 setBackgroundColor()
 {
@@ -66,7 +65,7 @@ for i in `seq 0 127`; do
     echo -en " "
 done
 resetOutput
-for i in `seq 255 128`; do
+for i in `seq 255 -1 128`; do
     setBackgroundColor $i 0 0
     echo -en " "
 done
@@ -77,7 +76,7 @@ for i in `seq 0 127`; do
     echo -n " "
 done
 resetOutput
-for i in `seq 255 128`; do
+for i in `seq 255 -1 128`; do
     setBackgroundColor 0 $i 0
     echo -n " "
 done
@@ -88,7 +87,7 @@ for i in `seq 0 127`; do
     echo -n " "
 done
 resetOutput
-for i in `seq 255 128`; do
+for i in `seq 255 -1 128`; do
     setBackgroundColor 0 0 $i
     echo -n " "
 done
@@ -99,7 +98,7 @@ for i in `seq 0 127`; do
     echo -n " "
 done
 resetOutput
-for i in `seq 255 128`; do
+for i in `seq 255 -1 128`; do
     setBackgroundColor `rainbowColor $i`
     echo -n " "
 done
