@@ -3,6 +3,14 @@
 -- dofile('/home/<username>/src/dotfiles/overridden.lua')
 -- return ASTRONVIM_DOTFILE_CONFIG
 
+-- for now, i can't figure out how to get these settings into my git dotfiles.
+-- together, they force astronvim to use the 16 ansi terminal colors.
+-- astrocore.lua -> options -> opt -> termguicolors = false
+-- astroui.lua -> opts -> colorscheme = "default"
+
+--HINT! try:
+--:lua =vim.opt.number
+
 ASTRONVIM_DOTFILE_CONFIG = {
   {
     "nvim-neo-tree/neo-tree.nvim",

@@ -31,41 +31,42 @@ UXTerm*renderFont: true
 
 UXTerm*geometry: 512x512
 
+UXTerm*visualBell: False
 
-
-
-*.foreground:   #ffffff
-*.background:   #000000
-*.cursorColor:  #ffffff
+! terminal.sexy: londontube.dark
+! special
+*.foreground:   #d9d8d8
+*.background:   #231f20
+*.cursorColor:  #d9d8d8
 
 ! black
-*.color0:       #2e3436
-*.color8:       #555753
+*.color0:       #231f20
+*.color8:       #737171
 
 ! red
-*.color1:       #a31604
-*.color9:       #c60001
+*.color1:       #ee2e24
+*.color9:       #ee2e24
 
 ! green
-*.color2:       #447241
-*.color10:      #27a343
+*.color2:       #00853e
+*.color10:      #00853e
 
 ! yellow
-*.color3:       #c1951a
-*.color11:      #d5a30e
+*.color3:       #ffd204
+*.color11:      #ffd204
 
 ! blue
-*.color4:       #425387
-*.color12:      #4a5a8d
+*.color4:       #009ddc
+*.color12:      #009ddc
 
 ! magenta
-*.color5:       #965d98
-*.color13:      #893c8c
+*.color5:       #98005d
+*.color13:      #98005d
 
 ! cyan
-*.color6:       #06989a
-*.color14:      #12bccb
+*.color6:       #85cebc
+*.color14:      #85cebc
 
 ! white
-*.color7:       #d3d7cf
-*.color15:      #eeeeec
+*.color7:       #d9d8d8
+*.color15:      #ffffff

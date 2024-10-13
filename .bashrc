@@ -56,7 +56,8 @@ PATH=$PATH:~/.cargo/bin
 
 
 alias nv='nvim'
-alias df='nv ~/src/dotfiles'
+#alias dt='nv ~/src/dotfiles'
+alias dt='cd ~/src/dotfiles && nvim .'
 
 #xrdb ~/.Xresources
 trap "xrdb ~/src/dotfiles/.Xresources" EXIT
