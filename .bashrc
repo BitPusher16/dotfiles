@@ -9,40 +9,40 @@ echo 'BEG ~/src/dotfiles/.bashrc'
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 
-echo '| find startup files: PS4='\''+$BASH_SOURCE> '\'' BASH_XTRACEFD=7 bash -x 1>/dev/null 7>bash_env.txt -i <(echo "exit")      |'
-echo '| copy:           ctrl-shift-c                | paste:                    ctrl-shift-v                                |'
-echo '| move win:       command + shift + arrow     | maximize win:             command + m                                 |'
-echo '| tmux help:      ctrl-b ?                    | tmux kill other sess:     ctrl-b s x y                                |'
-echo '| tmux new sess:  ctrl-b :new -s <name>       | exit neovim terminal:     ctrl-\ ctrl-n                               |'
-echo '| list env vars:  env | sort | pr -3t -w 180  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort               |'
+#echo '| find startup files: PS4='\''+$BASH_SOURCE> '\'' BASH_XTRACEFD=7 bash -x 1>/dev/null 7>bash_env.txt -i <(echo "exit")      |'
+#echo '| copy:           ctrl-shift-c                | paste:                    ctrl-shift-v                                |'
+#echo '| move win:       command + shift + arrow     | maximize win:             command + m                                 |'
+#echo '| tmux help:      ctrl-b ?                    | tmux kill other sess:     ctrl-b s x y                                |'
+#echo '| tmux new sess:  ctrl-b :new -s <name>       | exit neovim terminal:     ctrl-\ ctrl-n                               |'
+#echo '| list env vars:  env | sort | pr -3t -w 180  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort               |'
 
 # start tmux immediately.
 # https://unix.stackexchange.com/a/113768/604574
 # NOTE: this may need modified if alacritty conf or tmux conf changes TERM.
 
-if command -v tmux &> /dev/null && \
-    [ -n "$PS1" ] && \
-    [[ ! "$TERM" =~ screen ]] && \
-    [[ ! "$TERM" =~ tmux ]] && \
-    [[ ! "$TERM" =~ tmux-256color ]] && \
-    [ -z "$TMUX" ]; then
+#if command -v tmux &> /dev/null && \
+#    [ -n "$PS1" ] && \
+#    [[ ! "$TERM" =~ screen ]] && \
+#    [[ ! "$TERM" =~ tmux ]] && \
+#    [[ ! "$TERM" =~ tmux-256color ]] && \
+#    [ -z "$TMUX" ]; then
+#
+#    exec tmux # also see below.
+#
+#    # if terminal emulator is closed while tmux is running, session remains,
+#    # and tmux will create a new session next start.
+#    # this can cause conflicts with neovim, etc.
+#    # to fix, when starting a new session, attempt to attach to default
+#    # session name first, per this reply:
+#    # https://unix.stackexchange.com/questions/103898/how-to-start-tmux-with-attach-if-a-session-exists
+#    # update: command below causes problems if user needs multiple terminals.
+#    # causes all terminals to mirror each other.
+#    #exec tmux new -As0
+#fi
 
-    exec tmux # also see below.
-
-    # if terminal emulator is closed while tmux is running, session remains,
-    # and tmux will create a new session next start.
-    # this can cause conflicts with neovim, etc.
-    # to fix, when starting a new session, attempt to attach to default
-    # session name first, per this reply:
-    # https://unix.stackexchange.com/questions/103898/how-to-start-tmux-with-attach-if-a-session-exists
-    # update: command below causes problems if user needs multiple terminals.
-    # causes all terminals to mirror each other.
-    #exec tmux new -As0
-fi
-
-HISTSIZE=100000
-HISTFILESIZE=100000
-shopt -s histappend
+#HISTSIZE=100000
+#HISTFILESIZE=100000
+#shopt -s histappend
 
 set -o vi
 
@@ -52,15 +52,16 @@ function cl(){
 }
 
 # cargo bin contains neovide, may contain other bins as well.
-PATH=$PATH:~/.cargo/bin
+#PATH=$PATH:~/.cargo/bin
 
 
-alias nv='nvim'
+#alias nv='nvim'
 #alias dt='nv ~/src/dotfiles'
-alias dt='cd ~/src/dotfiles && nvim .'
+#alias dt='cd ~/src/dotfiles && nvim .'
 
+# reload .Xresources on terminal exit.
 #xrdb ~/.Xresources
-trap "xrdb ~/src/dotfiles/.Xresources" EXIT
+#trap "xrdb ~/src/dotfiles/.Xresources" EXIT
 
 
 # the following assumes that fzf is installed.

@@ -1,3 +1,8 @@
+# 2024-12-18 fj
+# note that ~/.profile will not be loaded if the shell is non-login.
+# best practice is to load it from .bashrc?
+# but note! this means that starting a login shell may load .profile multiple times.
+
 # 2023-09-22 fj
 # the following lines, which came with my system, contain bugs.
 # these lines will reload paths repeatedly if ~/.profile is sourced repeatedly.
@@ -35,3 +40,4 @@
 if [ ! -d "$HOME/.local/bin" ] && [ ! ":$PATH:" == *":$HOME/.local/bin:"* ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
