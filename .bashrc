@@ -113,11 +113,11 @@ function pathadd() {
 # load those here in case we are in non-login shell.
 # take care not to load the paths if they exist already.
 
-if [ -d "~/bin" ]; then
+if [[ -d ~/bin ]] ; then
     pathadd ~/bin
 fi
 
-if [ -d "~/.local/bin" ]; then
+if [[ -d ~/.local/bin ]] ; then
     pathadd ~/.local/bin
 fi
 
