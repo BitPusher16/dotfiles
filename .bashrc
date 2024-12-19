@@ -51,6 +51,12 @@ function cl(){
     ls -a
 }
 
+function pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
 # cargo bin contains neovide, may contain other bins as well.
 #PATH=$PATH:~/.cargo/bin
 
@@ -97,5 +103,22 @@ function cl(){
 #  }
 #  bind -x '"\C-y": copy_line_to_x_clipboard' # binded to ctrl-y
 #fi
+
+# if shell is non-login, then .profile will not be loaded.
+# load it here.
+# update: no, can't do this. ~/.profile loads .bashrc, creating loop.
+#. ~/.profile
+
+# if ~/.profile runs, it will attempt to load private ~/bin and ~/.local/bin.
+# load those here in case we are in non-login shell.
+# take care not to load the paths if they exist already.
+
+if [ -d "~/bin" ]; then
+    pathadd ~/bin
+fi
+
+if [ -d "~/.local/bin" ]; then
+    pathadd ~/.local/bin
+fi
 
 echo 'END ~/src/dotfiles/.bashrc'
