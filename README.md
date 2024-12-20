@@ -43,3 +43,21 @@ Stack: Intel CPU -> Pop!_os -> uxterm -> bash -> tmux -> neovim -> astronvim.
 - bash comes as preinstalled binary.
 - nvim compiled from repo.
 - astronvim (neovim settings) cloned from repo into ~/.config/nvim (and then .git dir was deleted).
+
+2024-12-19
+Trying kitty terminal. Seems good. Source is on github. x86_64 build is available in github releases.
+
+Note about login vs non-login shells:
+https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell
+https://unix.stackexchange.com/questions/119627/why-are-interactive-shells-on-osx-login-shells-by-default
+Logging in through SSH will give a login shell. Logging in with an X terminal application will give a non-login shell.
+We would like ~/.bashrc and ~/.profile to be loaded in both cases.
+Unfortunately, this may be difficult, because ~/.profile sources ~/.bashrc,
+so if we call ~/.profile from ~/.bashrc, we get an infinite loop.
+
+Note about ~/.bashrc, ~/.profile:
+~/.profile loads ~/bin, ~/.local/bin, but it only runs if shell is login shell.
+Need to have configs such that everything works same for login and non-login shell.
+Tried sourcing ~/.profile from ~/.bashrc, but this creates an infinite loop.
+So instead, just load ~/bin and ~/.local/bin from ~/.bashrc 
+(if they've not been added to path already).
