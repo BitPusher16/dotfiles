@@ -57,6 +57,11 @@ function pathadd() {
     fi
 }
 
+# TODO: modify this to check the output of dry run and proceed if it succeeds.
+function install_defaults() {
+    apt install --dry-run htop
+}
+
 # cargo bin contains neovide, may contain other bins as well.
 #PATH=$PATH:~/.cargo/bin
 
@@ -119,6 +124,30 @@ fi
 
 if [[ -d ~/.local/bin ]] ; then
     pathadd ~/.local/bin
+fi
+
+export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
+export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
+export PATH="$PATH:$HOME/bin/zellij/0.41.2"
+
+
+# start zellij when bash starts.
+# attach to an existing session if it exists.
+# close bash if zellij closes.
+# todo: stop zellij server if client shell closes. (possible with config)
+export ZELLIJ_AUTO_ATTACH="true"
+export ZELLIJ_AUTO_EXIT="true"
+export ZELLIJ_CONFIG_FILE="$HOME/src/dotfiles/zellij.kdl"
+if [[ -z "$ZELLIJ" ]]; then
+    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+        zellij attach -c
+    else
+        zellij
+    fi
+
+    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+        exit
+    fi
 fi
 
 echo 'END ~/src/dotfiles/.bashrc'
