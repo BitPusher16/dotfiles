@@ -86,3 +86,6 @@ https://github.com/neovim/neovim/discussions/28010
 
 Also found a way to run non-plugin code in Astronvim: polish.lua.
 The polish.lua file can also source something from my dotfiles.
+
+Kitty author's recommendation for Kitty select-copy-paste:
+https://github.com/kovidgoyal/kitty/issues/1698
