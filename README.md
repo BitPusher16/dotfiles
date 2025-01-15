@@ -70,3 +70,19 @@ Neovim can be "upgraded" to AstroNvim by cloning the AstroNvim template to ~/.co
 So far, seems likely that all configs can be kept in source control and "installed" by adding a src or equivalent to a home dir dotfile.
 Need to make sure copy-paste works with Kitty, Zellij, and Neovim.
 Todo: Find out how to make all tools use the 16 ANSI terminal colors?
+
+2025-01-14
+It's going to be very difficult to avoid apt installs.
+Just tried to get a copy-paste tool for neovim. 
+Without apt, would need to build something from source. (And build tools will again likely need apt.)
+Installed wl-clipboard, and astronvim copy paste started working immediately.
+So which tools do I install by downloading bin and adding to path, and which do I install with apt?
+
+Also, the convenience of using Astronvim means that it becomes harder to do any customization.
+
+Maybe found a workaround.
+https://github.com/neovim/neovim/discussions/28010
+(copy paste using osc52 in neovim >v10)
+
+Also found a way to run non-plugin code in Astronvim: polish.lua.
+The polish.lua file can also source something from my dotfiles.
