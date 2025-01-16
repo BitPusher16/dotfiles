@@ -37,3 +37,24 @@ vim.g.clipboard = {
 		["*"] = paste,
 	},
 }
+
+-- this takes effect, but strips too many colors:
+--vim.o.termguicolors = false
+
+--require("astrotheme").setup({
+--palette = "brewer_dark",
+--require("astroui").setup({
+--	highlights = {
+--		init = {
+--			Normal = {
+--				bg = "#000000",
+--				fg = "#ffffff",
+--				--black = "#000000",
+--				--white = "#ffffff",
+--				--green = "#00ff00",
+--				--blue = "#0000ff",
+--				--red = "#ff0000",
+--			},
+--		},
+--	},
+--})

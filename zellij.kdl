@@ -281,6 +281,7 @@ load_plugins {
 // Default: default
 // 
 // theme "dracula"
+theme "brewer_dark"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -300,7 +301,7 @@ default_mode "normal"
 // Default: "default"
 // 
 // default_layout "compact"
-default_layout "compact"
+//default_layout "compact"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -454,5 +455,23 @@ on_force_close "quit"
 ui {
     pane_frames{
         hide_session_name true
+    }
+}
+
+// https://terminal.sexy/#DA0Ot7i5DA0O4xocMaNU3KBgMYK9dWuxgLHTt7i5c3R14xocMaNU3KBgMYK9dWuxgLHT_P3-
+themes{
+    brewer_dark{
+        fg "#b7b8b9"
+        bg "#0c0d0e"
+        black "#0c0d0e"
+        red "#e31a1c"
+        green "#31a354"
+        yellow "#dca060"
+        blue "#3182bd"
+        magenta "#756bb1"
+        cyan "#80b1d3"
+        white "#b7b8b9"
+        // terminal.sexy doesn't have an orange color. just re-use yellow.
+        orange "#dca060"
     }
 }
