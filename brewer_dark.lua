@@ -22,8 +22,8 @@ local c = {
 local black = "#0c0d0e"
 local white = "#b7b8b9"
 
---c.syntax.red = "#e31a1c" -- brewer_dark red is a little intense.
-c.syntax.red = "#F8747E" -- this is the original from astronvim config.
+c.syntax.red = "#e31a1c" -- brewer_dark red is a little intense.
+--c.syntax.red = "#F8747E" -- this is the original from astronvim config.
 c.syntax.orange = "#dca060"
 c.syntax.yellow = "#dca060"
 c.syntax.green = "#31a354"
@@ -40,7 +40,8 @@ c.syntax.mute = white
 --------------------------------
 --- UI
 --------------------------------
-c.ui.red = "#f8747e"
+c.ui.red = "#e31a1c"
+--c.ui.red = "#f8747e"
 c.ui.orange = "#dca060"
 c.ui.yellow = "#dca060"
 c.ui.green = "#31a354"
