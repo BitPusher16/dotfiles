@@ -321,7 +321,7 @@ default_mode "normal"
 //   - false
 // 
 // mouse_mode false
-mouse_mode false
+mouse_mode true
  
 // Toggle having pane frames around the panes
 // Options:
@@ -356,7 +356,7 @@ on_force_close "quit"
 // Valid values: positive integers
 // Default value: 10000
 // 
-// scroll_buffer_size 10000
+scroll_buffer_size 10000
  
 // Provide a command to execute when copying text. The text will be piped to
 // the stdin of the program to perform the copy. This can be used with
@@ -462,7 +462,8 @@ ui {
 themes{
     brewer_dark{
         fg "#b7b8b9"
-        bg "#0c0d0e"
+        //bg "#0c0d0e"
+        bg "#dca060" // this one controls the color of selected text.
         black "#0c0d0e"
         red "#e31a1c"
         //red "#f8747e"

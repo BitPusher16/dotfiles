@@ -130,24 +130,29 @@ export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
 export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 export PATH="$PATH:$HOME/bin/zellij/0.41.2"
 
+# set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
+# https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # start zellij when bash starts.
 # attach to an existing session if it exists.
 # close bash if zellij closes.
 # todo: stop zellij server if client shell closes. (possible with config)
-export ZELLIJ_AUTO_ATTACH="true"
-export ZELLIJ_AUTO_EXIT="true"
-export ZELLIJ_CONFIG_FILE="$HOME/src/dotfiles/zellij.kdl"
-if [[ -z "$ZELLIJ" ]]; then
-    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
-        zellij attach -c
-    else
-        zellij
-    fi
 
-    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
-        exit
-    fi
-fi
+#export ZELLIJ_AUTO_ATTACH="true"
+#export ZELLIJ_AUTO_EXIT="true"
+#export ZELLIJ_CONFIG_FILE="$HOME/src/dotfiles/zellij.kdl"
+#if [[ -z "$ZELLIJ" ]]; then
+#    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+#        zellij attach -c
+#    else
+#        zellij
+#    fi
+#
+#    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+#        exit
+#    fi
+#fi
 
 echo 'END ~/src/dotfiles/.bashrc'
