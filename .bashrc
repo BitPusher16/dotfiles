@@ -126,9 +126,11 @@ if [[ -d ~/.local/bin ]] ; then
     pathadd ~/.local/bin
 fi
 
-export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
-export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
-export PATH="$PATH:$HOME/bin/zellij/0.41.2"
+#export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
+#export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
+#export PATH="$PATH:$HOME/bin/zellij/0.41.2"
+
+#export PATH="$PATH:$HOME/bin/cmake/cmake-3.31.6-linux-x86_64/bin"
 
 # set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
 # https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
@@ -154,5 +156,11 @@ export VISUAL="nvim"
 #        exit
 #    fi
 #fi
+
+# this is only for playing Beyond All Reason.
+# maps side mouse button to middle.
+# does not take effect system wide, but doesn't need to 
+# because i launch BAR from shell.
+#xinput set-button-map 7 1 2 3 4 5 6 7 2 9 10
 
 echo 'END ~/src/dotfiles/.bashrc'

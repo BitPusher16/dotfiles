@@ -31,6 +31,11 @@
 -- I've found the configs that prevent pop-ups when pasting using osc 52.
 -- However, unfortunately Zellij doesn't understand the Kitty warning signal (even though disabled),
 -- so when putting with "p", neovim hangs and requires ctrl-c.
+--
+-- apple
+-- apple
+-- apple
+--
 
 vim.o.clipboard = "unnamedplus"
 
