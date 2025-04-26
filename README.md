@@ -65,7 +65,7 @@ So instead, just load ~/bin and ~/.local/bin from ~/.bashrc
 2025-01-12
 Very close to a clean setup.
 Kitty, Zellij, and Neovim all have downloadable binaries that can be versioned by adding to PATH.
-(Note: Kitty is better with Nerd fonts. Need some notes on how to do this on Pop OS.)
+(Note: Kitty is better with Nerd fonts. Need some notes on how to do this on Pop OS. Involves copying .ttf files to ~/.fonts)
 Neovim can be "upgraded" to AstroNvim by cloning the AstroNvim template to ~/.config/nvim.
 So far, seems likely that all configs can be kept in source control and "installed" by adding a src or equivalent to a home dir dotfile.
 Need to make sure copy-paste works with Kitty, Zellij, and Neovim.
