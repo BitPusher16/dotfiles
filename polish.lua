@@ -1,6 +1,12 @@
 -- to activate this file, put the following line in ~/.config/nvim/lua/polish.lua:
 -- dofile ("/home/<user>/src/dotfiles/polish.lua")
 
+-- according to astronvim docs, polish.lua is a good place to put pure lua code (not plugin code?)
+
+-- try this:
+--:lua =require('neo-tree').filesystem.filtered_items
+--require("neo-tree").filesystem.filtered_items.hide_dotfiles = false -- doesn't work...
+
 -- https://github.com/neovim/neovim/discussions/28010
 -- note: only pressing "p" will not paste
 --
@@ -37,14 +43,16 @@
 -- apple
 --
 
-vim.o.clipboard = "unnamedplus"
+-- try this:
+-- lua: =vim.o.clipboard
+--vim.o.clipboard = "unnamedplus"
 
-local function paste() -- this is poorly named. ctrl+shift+v is paste. this is get register.
-	return {
-		vim.fn.split(vim.fn.getreg(""), "\n"), -- note: split() drops leading newlines.
-		vim.fn.getregtype(""),
-	}
-end
+--local function paste() -- this is poorly named. ctrl+shift+v is paste. this is get register.
+--	return {
+--		vim.fn.split(vim.fn.getreg(""), "\n"), -- note: split() drops leading newlines.
+--		vim.fn.getregtype(""),
+--	}
+--end
 
 --local function my_paste()
 --	return vim.fn.split(vim.fn.getreg("*"), "\n")
@@ -56,25 +64,25 @@ end
 --	}
 --end
 
-vim.g.clipboard = {
-	name = "OSC 52",
-	copy = {
-		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-	},
-	paste = {
-		--["+"] = my_paste,
-		--["*"] = my_paste,
-
-		--["+"] = paste,
-		--["*"] = paste,
-
-		--[""] = paste, -- also use paste function for undefined register.
-
-		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-	},
-}
+--vim.g.clipboard = {
+--	name = "OSC 52",
+--	copy = {
+--		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+--		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+--	},
+--	paste = {
+--		--["+"] = my_paste,
+--		--["*"] = my_paste,
+--
+--		--["+"] = paste,
+--		--["*"] = paste,
+--
+--		--[""] = paste, -- also use paste function for undefined register.
+--
+--		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+--		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+--	},
+--}
 
 --vim.paste = clip_paste
 

@@ -89,3 +89,32 @@ The polish.lua file can also source something from my dotfiles.
 
 Kitty author's recommendation for Kitty select-copy-paste:
 https://github.com/kovidgoyal/kitty/issues/1698
+
+2025-04-25
+Problem I am working on today is trying to make system setup a bit cleaner.
+Different programs look for configs in different places.
+For example, bash looks for confic in ~/.bashrc, but Kitty looks for config in ~/.config/kitty/kitty.conf.
+Would be nice if a bash script could control which configs are turned on and off.
+Tried looking for a way to do per-session symbolic links, but didn't find anything.
+Another option would be if each binary looked for an environment variable that defined config location.
+Kitty does support this apparently. KITTY_CONFIG_DIRECTORY.
+Neovim also supports? https://docs.astronvim.com/reference/alt_install/
+Ah wait, the NVIM_APPNAME variable only controls where nvim looks inside the $XDG_CONFIG_HOME directory.
+I do have the option to set $XDG_CONFIG_HOME, but this may cause other programs to write in my config repo.
+
+2025-04-26
+Upgraded Kitty to 0.41.1. Hoping that the newer version has better handling of paste warning messages.
+Completely forgot how to add Kitty to Pop OS applications list.
+Put the follwing lines in ~/.local/share/applications/kitty.desktop:
+
+[Desktop Entry]
+Version=1.0
+Name=kitty
+Comment=kitty
+Exec=/home/fj/bin/kitty/kitty-0.41.1-x86_64/bin/kitty
+Icon=/home/fj/bin/kitty/kitty-0.41.1-x86_64/share/icons/hicolor/256x256/apps/kitty.png
+Type=Application
+Terminal=false
+Categories=System;TerminalEmulator;
+
+Note: For some reason, the .desktop file provided with the Kitty binary download doesn't work.

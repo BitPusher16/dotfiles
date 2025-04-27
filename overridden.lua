@@ -1,5 +1,5 @@
 -- to add this config to astronvim settings, replace the contents of
--- ~/.config/nvim/lua/plugs/overridden.lua with these two lines:
+-- ~/.config/nvim/lua/plugins/overridden.lua with these two lines:
 -- dofile('/home/<username>/src/dotfiles/overridden.lua')
 -- return ASTRONVIM_DOTFILE_CONFIG
 
@@ -17,7 +17,7 @@ ASTRONVIM_DOTFILE_CONFIG = {
 		opts = {
 			filesystem = {
 				filtered_items = {
-					visible = true,
+					--visible = true,
 					hide_dotfiles = false,
 				},
 			},

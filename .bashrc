@@ -127,15 +127,97 @@ if [[ -d ~/.local/bin ]] ; then
 fi
 
 #export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
-#export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
+export PATH="$PATH:$HOME/bin/kitty/kitty-0.41.1-x86_64/bin"
+export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 #export PATH="$PATH:$HOME/bin/zellij/0.41.2"
 
 #export PATH="$PATH:$HOME/bin/cmake/cmake-3.31.6-linux-x86_64/bin"
+
+
+# TODO: currently, using this config var requires restarting kitty twice.
+# once to update the kitty config file in ~/.config, and once for kitty to read the updated file.
+# better approach is to execute this code upon shell exit.
+
+CONFIG_MAGIC="756E72A0-C214-4288-BA88-74D974E83784"
+
+ENABLE_KITTY_CONFIG=true
+#ENABLE_KITTY_CONFIG=false
+if [ "$ENABLE_KITTY_CONFIG" = true ]; then
+    echo "enabling kitty config"
+    if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
+        echo "kitty config contains magic value."
+        # no action required.
+    else
+        echo "kitty config not contains magic value."
+        # append config reference and magic value.
+        echo "# these lines appended by ~/src/dotfiles/.bashrc $CONFIG_MAGIC" >> $HOME/.config/kitty/kitty.conf
+        echo "include ~/src/dotfiles/kitty.conf" >> $HOME/.config/kitty/kitty.conf # hmm... line-end comments not supported in kitty.conf
+    fi
+# careful here. only take action if enable var is defined and is false.
+# take no action if var is undefined.
+#elif [ -v "$ENABLE_KITTY_CONFIG" && $"ENABLE_KITTY_CONFIG" == "false" ]; then
+elif [  "$ENABLE_KITTY_CONFIG" == "false" ]; then
+    echo "disabling kitty config"
+    if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
+        echo "kitty config contains magic value."
+        # remove config reference.
+        while read -r line
+        do
+            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
+        done < $HOME/.config/kitty/kitty.conf > $HOME/tmp/tmp.conf
+        while read -r line
+        do
+            [[ ! $line =~ "include ~/src/dotfiles/kitty.conf" ]] && echo "$line"
+        done < $HOME/tmp/tmp.conf > $HOME/tmp/tmp2.conf
+        mv $HOME/tmp/tmp2.conf $HOME/.config/kitty/kitty.conf
+    else
+        echo "kitty config not contains magic value."
+        # no action required.
+    fi
+fi
+
+# NOTE: the below script assumes that astronvim template has been cloned to ~/.config/nvim
+# see instructions at https://docs.astronvim.com/
+# and template at https://github.com/AstroNvim/template
+# TODO: add a check so this portion of the script only runs if astronvim starter template has been cloned.
+
+ENABLE_NVIM_CONFIG=true
+#ENABLE_NVIM_CONFIG=false
+if [ "$ENABLE_NVIM_CONFIG" = true ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
+    echo "enabling nvim config"
+    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
+        echo "nvim config contains magic value."
+        # no action required.
+    else
+        echo "nvim config not contains magic value."
+        # append config reference and magic value.
+        echo "dofile ('$HOME/src/dotfiles/overridden.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
+        echo "return ASTRONVIM_DOTFILE_CONFIG -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
+    fi
+# careful here. only take action if enable var is defined and is false.
+# take no action if var is undefined.
+elif [  "$ENABLE_NVIM" == "false" ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
+    echo "disabling nvim config"
+    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
+        echo "nvim config contains magic value."
+        # remove config reference.
+        while read -r line
+        do
+            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
+        done < $HOME/.config/nvim/lua/plugins/overridden.lua > $HOME/tmp/tmp.conf
+        mv $HOME/tmp/tmp.conf $HOME/.config/nvim/lua/plugins/overridden.lua
+    else
+        echo "nvim config not contains magic value."
+        # no action required.
+    fi
+fi
 
 # set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
 # https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
 #export EDITOR="nvim"
 #export VISUAL="nvim"
+export EDITOR="vi"
+export VISUAL="vi"
 
 # start zellij when bash starts.
 # attach to an existing session if it exists.
