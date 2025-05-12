@@ -133,8 +133,12 @@ export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 
 #export PATH="$PATH:$HOME/bin/cmake/cmake-3.31.6-linux-x86_64/bin"
 
+# NOTE: the code below to add and delete config references is bulky and awkward.
+# why is it worthwhile?
+# because without it, I have to manually review all dotfiles and config files in my home dir
+# to see what is enabled and what is not.
 
-# TODO: currently, using this config var requires restarting kitty twice.
+# TODO: currently, using this config var approach requires restarting kitty twice.
 # once to update the kitty config file in ~/.config, and once for kitty to read the updated file.
 # better approach is to execute this code upon shell exit.
 

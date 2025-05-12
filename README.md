@@ -118,3 +118,6 @@ Terminal=false
 Categories=System;TerminalEmulator;
 
 Note: For some reason, the .desktop file provided with the Kitty binary download doesn't work.
+
+https://rrethy.github.io/book/colorscheme.html
+Keeping Neovim and Kitty Terminal Colorschemes Consistent
