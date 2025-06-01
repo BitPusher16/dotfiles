@@ -10,17 +10,21 @@
 -- https://github.com/neovim/neovim/discussions/28010
 -- note: only pressing "p" will not paste
 --
---vim.g.clipboard = {
---	name = "OSC 52",
---	copy = {
---		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
---		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
---	},
---	paste = {
---		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
---		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
---	},
---}
+
+-- TODO: update the paste function so that they strip ^M (carriage return) characters.
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+
+vim.opt.number = false -- works
 
 -- neovim no longer needs a separate program to copy paste from system clipboard.
 -- https://neovim.io/doc/user/provider.html
@@ -37,6 +41,8 @@
 -- I've found the configs that prevent pop-ups when pasting using osc 52.
 -- However, unfortunately Zellij doesn't understand the Kitty warning signal (even though disabled),
 -- so when putting with "p", neovim hangs and requires ctrl-c.
+-- UPDATE 2025-05-12. it may be that now after i've worked out how to disable warning in Kitty,
+-- zellij may again become a viable option.
 --
 -- apple
 -- apple

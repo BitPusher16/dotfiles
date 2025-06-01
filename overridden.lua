@@ -2,6 +2,7 @@
 -- ~/.config/nvim/lua/plugins/overridden.lua with these two lines:
 -- dofile('/home/<username>/src/dotfiles/overridden.lua')
 -- return ASTRONVIM_DOTFILE_CONFIG
+-- TODO: see if i can run return from git repo overridden.lua, and not need it in ~/.config.
 
 -- for now, i can't figure out how to get these settings into my git dotfiles.
 -- together, they force astronvim to use the 16 ansi terminal colors.
@@ -101,8 +102,24 @@ ASTRONVIM_DOTFILE_CONFIG = {
 						mute = "#737475",
 					},
 					term = {
-						--red = "#e31a1c",
-						--bright_red = "#e31a1c",
+						--black = "#cc6666",
+						--bright_black = "#cc6666",
+						--red = "#cc6666",
+						--bright_red = "#cc6666",
+						--green = "#cc6666",
+						--bright_green = "#cc6666",
+						--yellow = "#cc6666",
+						--bright_yello = "#cc6666",
+						--blue = "#cc6666",
+						--bright_blue = "#cc6666",
+						--purple = "#cc6666",
+						--bright_purple = "#cc6666",
+						--cyan = "#cc6666",
+						--bright_cyan = "#cc6666",
+						--white = "#cc6666",
+						--bright_white = "#cc6666",
+						--background = "#cc6666",
+						--foreground = "#cc6666",
 					},
 					icon = {
 						--vimrc = "#e31a1c",
