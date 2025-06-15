@@ -25,6 +25,8 @@ vim.g.clipboard = {
 }
 
 vim.opt.number = false -- works
+vim.opt.shiftwidth = 4 -- how many columns of whitespace for one indent level? (used by auto indent?)
+vim.opt.tabstop = 4    --how many columns of whitespace should \t character be drawn as?
 
 -- neovim no longer needs a separate program to copy paste from system clipboard.
 -- https://neovim.io/doc/user/provider.html

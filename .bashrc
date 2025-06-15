@@ -151,8 +151,8 @@ export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 
 CONFIG_MAGIC="756E72A0-C214-4288-BA88-74D974E83784"
 
-ENABLE_KITTY_CONFIG=true
-#ENABLE_KITTY_CONFIG=false
+#ENABLE_KITTY_CONFIG=true
+ENABLE_KITTY_CONFIG=false
 if [ "$ENABLE_KITTY_CONFIG" = true ]; then
     echo "enabling kitty config"
     if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
@@ -191,9 +191,11 @@ fi
 # see instructions at https://docs.astronvim.com/
 # and template at https://github.com/AstroNvim/template
 # TODO: add a check so this portion of the script only runs if astronvim starter template has been cloned.
+# BUG: if lua/plugins/overridden.lua is completely empty (as it is after cleaup), lua still tries to load it and throws an error.
+# # it needs return {}.
 
-ENABLE_NVIM_CONFIG=true
-#ENABLE_NVIM_CONFIG=false
+#ENABLE_NVIM_CONFIG=true
+ENABLE_NVIM_CONFIG=false
 if [ "$ENABLE_NVIM_CONFIG" = true ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
     echo "enabling nvim config"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
@@ -223,8 +225,8 @@ elif [  "$ENABLE_NVIM_CONFIG" == "false" ] && [ -f $HOME/.config/nvim/lua/plugin
     fi
 fi
 
-ENABLE_NVIM_LUA=true
-#ENABLE_NVIM_LUA=false
+#ENABLE_NVIM_LUA=true
+ENABLE_NVIM_LUA=false
 if [ "$ENABLE_NVIM_LUA" = true ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; then
     echo "enabling nvim lua"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/polish.lua; then
