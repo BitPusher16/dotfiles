@@ -44,8 +44,6 @@ shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 #HISTFILESIZE=100000
 #shopt -s histappend
 
-set -o vi
-
 function cl(){
     cd $1
     ls -a
@@ -59,8 +57,34 @@ function pathadd() {
 
 # TODO: modify this to check the output of dry run and proceed if it succeeds.
 function install_defaults() {
-    apt install --dry-run htop
+    apt install --dry-run htop git make unzip ripgrep fd-find build-essential
 }
+
+# if shell is non-login, then .profile will not be loaded.
+# load it here.
+# update: no, can't do this. ~/.profile loads .bashrc, creating loop.
+#. ~/.profile
+
+# if ~/.profile runs, it will attempt to load private ~/bin and ~/.local/bin.
+# load those here in case we are in non-login shell.
+# take care that the paths exist and also that they have not been added already.
+
+if [[ -d ~/bin ]] ; then
+    pathadd ~/bin
+fi
+
+if [[ -d ~/.local/bin ]] ; then
+    pathadd ~/.local/bin
+fi
+
+set -o vi
+
+# set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
+# https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
+#export EDITOR="nvim"
+#export VISUAL="nvim"
+export EDITOR="vi"
+export VISUAL="vi"
 
 # cargo bin contains neovide, may contain other bins as well.
 #PATH=$PATH:~/.cargo/bin
@@ -71,6 +95,7 @@ function install_defaults() {
 #alias dt='cd ~/src/dotfiles && nvim .'
 
 # reload .Xresources on terminal exit.
+# update: this is for xterm?
 #xrdb ~/.Xresources
 #trap "xrdb ~/src/dotfiles/.Xresources" EXIT
 
@@ -109,30 +134,6 @@ function install_defaults() {
 #  bind -x '"\C-y": copy_line_to_x_clipboard' # binded to ctrl-y
 #fi
 
-# if shell is non-login, then .profile will not be loaded.
-# load it here.
-# update: no, can't do this. ~/.profile loads .bashrc, creating loop.
-#. ~/.profile
-
-# if ~/.profile runs, it will attempt to load private ~/bin and ~/.local/bin.
-# load those here in case we are in non-login shell.
-# take care that the paths exist and also that they have not been added already.
-
-if [[ -d ~/bin ]] ; then
-    pathadd ~/bin
-fi
-
-if [[ -d ~/.local/bin ]] ; then
-    pathadd ~/.local/bin
-fi
-
-# set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
-# https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
-#export EDITOR="nvim"
-#export VISUAL="nvim"
-export EDITOR="vi"
-export VISUAL="vi"
-
 #export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
 export PATH="$PATH:$HOME/bin/kitty/kitty-0.41.1-x86_64/bin"
 export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
@@ -151,15 +152,16 @@ export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 
 CONFIG_MAGIC="756E72A0-C214-4288-BA88-74D974E83784"
 
-#ENABLE_KITTY_CONFIG=true
-ENABLE_KITTY_CONFIG=false
+ENABLE_KITTY_CONFIG=true
+#ENABLE_KITTY_CONFIG=false
 if [ "$ENABLE_KITTY_CONFIG" = true ]; then
     echo "enabling kitty config"
     if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
-        echo "kitty config contains magic value."
+        #echo "kitty config contains magic value."
+        : # no-op
         # no action required.
     else
-        echo "kitty config not contains magic value."
+        #echo "kitty config not contains magic value."
         # append config reference and magic value.
         echo "# these lines appended by ~/src/dotfiles/.bashrc $CONFIG_MAGIC" >> $HOME/.config/kitty/kitty.conf
         echo "include ~/src/dotfiles/kitty.conf" >> $HOME/.config/kitty/kitty.conf # hmm... line-end comments not supported in kitty.conf
@@ -170,7 +172,7 @@ if [ "$ENABLE_KITTY_CONFIG" = true ]; then
 elif [  "$ENABLE_KITTY_CONFIG" == "false" ]; then
     echo "disabling kitty config"
     if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
-        echo "kitty config contains magic value."
+        #echo "kitty config contains magic value."
         # remove config reference.
         while read -r line
         do
@@ -182,7 +184,8 @@ elif [  "$ENABLE_KITTY_CONFIG" == "false" ]; then
         done < $HOME/tmp/tmp.conf > $HOME/tmp/tmp2.conf
         mv $HOME/tmp/tmp2.conf $HOME/.config/kitty/kitty.conf
     else
-        echo "kitty config not contains magic value."
+        #echo "kitty config not contains magic value."
+	: # no-op
         # no action required.
     fi
 fi
@@ -192,17 +195,18 @@ fi
 # and template at https://github.com/AstroNvim/template
 # TODO: add a check so this portion of the script only runs if astronvim starter template has been cloned.
 # BUG: if lua/plugins/overridden.lua is completely empty (as it is after cleaup), lua still tries to load it and throws an error.
-# # it needs return {}.
+# # it needs to return {}.
 
 #ENABLE_NVIM_CONFIG=true
 ENABLE_NVIM_CONFIG=false
 if [ "$ENABLE_NVIM_CONFIG" = true ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
     echo "enabling nvim config"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
-        echo "nvim config contains magic value."
+        #echo "nvim config contains magic value."
+        : # no-op
         # no action required.
     else
-        echo "nvim config not contains magic value."
+        #echo "nvim config not contains magic value."
         # append config reference and magic value.
         echo "dofile ('$HOME/src/dotfiles/overridden.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
         echo "return ASTRONVIM_DOTFILE_CONFIG -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
@@ -212,7 +216,8 @@ if [ "$ENABLE_NVIM_CONFIG" = true ] && [ -f $HOME/.config/nvim/lua/plugins/overr
 elif [  "$ENABLE_NVIM_CONFIG" == "false" ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
     echo "disabling nvim config"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
-        echo "nvim config contains magic value."
+        #echo "nvim config contains magic value."
+        : # no-op
         # remove config reference.
         while read -r line
         do
@@ -220,7 +225,8 @@ elif [  "$ENABLE_NVIM_CONFIG" == "false" ] && [ -f $HOME/.config/nvim/lua/plugin
         done < $HOME/.config/nvim/lua/plugins/overridden.lua > $HOME/tmp/tmp.conf
         mv $HOME/tmp/tmp.conf $HOME/.config/nvim/lua/plugins/overridden.lua
     else
-        echo "nvim config not contains magic value."
+        #echo "nvim config not contains magic value."
+	: # no-op
         # no action required.
     fi
 fi
@@ -230,10 +236,11 @@ ENABLE_NVIM_LUA=false
 if [ "$ENABLE_NVIM_LUA" = true ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; then
     echo "enabling nvim lua"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/polish.lua; then
-        echo "nvim lua contains magic value."
+        #echo "nvim lua contains magic value."
+	: # no-op
         # no action required.
     else
-        echo "nvim lua not contains magic value."
+        #echo "nvim lua not contains magic value."
         # append config reference and magic value.
         echo "dofile ('$HOME/src/dotfiles/polish.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/polish.lua
     fi
@@ -242,7 +249,7 @@ if [ "$ENABLE_NVIM_LUA" = true ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; th
 elif [  "$ENABLE_NVIM_LUA" == "false" ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; then
     echo "disabling nvim lua"
     if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/polish.lua; then
-        echo "nvim lua contains magic value."
+        #echo "nvim lua contains magic value."
         # remove config reference.
         while read -r line
         do
@@ -250,7 +257,43 @@ elif [  "$ENABLE_NVIM_LUA" == "false" ] && [ -f $HOME/.config/nvim/lua/polish.lu
         done < $HOME/.config/nvim/lua/polish.lua > $HOME/tmp/tmp.conf
         mv $HOME/tmp/tmp.conf $HOME/.config/nvim/lua/polish.lua
     else
-        echo "nvim polish not contains magic value."
+        #echo "nvim polish not contains magic value."
+	: # no-op
+        # no action required.
+    fi
+fi
+
+# in lua, dofile loads and executes a file, while require keeps a table of modules that have already been loaded.
+# https://stackoverflow.com/questions/31144564/what-are-the-differences-between-dofile-and-require-in-lua
+
+ENABLE_NVIM_KICKSTART=true
+#ENABLE_NVIM_KICKSTART=false
+if [ "$ENABLE_NVIM_KICKSTART" = true ] && [ -f $HOME/.config/nvim/init.lua ]; then
+    echo "enabling nvim kickstart"
+    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/init.lua; then
+        #echo "nvim init contains magic value."
+	: # no-op
+        # no action required.
+    else
+        #echo "nvim init not contains magic value."
+        # append config reference and magic value.
+        echo "dofile ('$HOME/src/dotfiles/kickstart.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/init.lua
+    fi
+# careful here. only take action if enable var is defined and is false.
+# take no action if var is undefined.
+elif [  "$ENABLE_NVIM_LUA" == "false" ] && [ -f $HOME/.config/nvim/init.lua ]; then
+    echo "disabling nvim kickstart"
+    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/init.lua; then
+        #echo "nvim lua contains magic value."
+        # remove config reference.
+        while read -r line
+        do
+            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
+        done < $HOME/.config/nvim/init.lua > $HOME/tmp/tmp.conf
+        mv $HOME/tmp/tmp.conf $HOME/.config/nvim/init.lua
+    else
+        #echo "nvim polish not contains magic value."
+	: # no-op
         # no action required.
     fi
 fi
@@ -281,6 +324,6 @@ fi
 # because i launch BAR from shell.
 #xinput set-button-map 7 1 2 3 4 5 6 7 2 9 10
 
-echo 'CTRL+\ CTRL+N to exit insert mode in neovim terminal'
+#echo 'CTRL+\ CTRL+N to exit insert mode in neovim terminal'
 
 echo 'END ~/src/dotfiles/.bashrc'
