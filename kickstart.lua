@@ -1,4 +1,9 @@
 -- this file copied from https://github.com/nvim-lua/kickstart.nvim
+-- gx: open url, filepath.
+-- :lua print(vim.o.clipboard)
+-- :help option-list
+-- :options -- opens a new window
+-- :help toc -- table of contents
 
 --[[
 
@@ -109,7 +114,8 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+--vim.o.mouse = 'a'
+vim.o.mouse = '' -- same as :set mouse=
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -123,13 +129,22 @@ vim.o.showmode = false
 --end)
 
 
--- for clipboard to be bidirectional, both of the following are required.
--- not sure yet what is the difference between vim.o and vim.g
--- https://www.reddit.com/r/neovim/comments/12d95do/can_someone_help_me_understand_the_diff_bw_vimg/
+-- for clipboard to be bidirectional, both of the following are required, not sure why yet.
 -- this user had a similar experience:
 -- https://github.com/neovim/neovim/discussions/28010
 -- i think it has something to do with the fact that i am on wayland and xclip doesn't work.
 -- (at least, i know that is the reason i need OSC 52)
+
+-- not sure yet what is the difference between vim.o and vim.g
+-- :help vim.g says g is global editor variables.
+-- https://www.reddit.com/r/neovim/comments/12d95do/can_someone_help_me_understand_the_diff_bw_vimg/
+
+-- update. from :help clipboard:
+-- The presence of a working clipboard tool implicitly enables the '+' and "*"
+-- registers. Nvim looks for these clipboard tools, in order of priority:
+--  - |g:clipboard| (unless unset or `false`)
+--  - pbcopy, pbpaste (macOS)
+--  - wl-copy, wl-paste (if $WAYLAND_DISPLAY is set)
 
 vim.o.clipboard = 'unnamedplus'
 vim.g.clipboard = {
@@ -143,6 +158,9 @@ vim.g.clipboard = {
 		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
 	},
 }
+
+-- Treat wrapped lines as individual lines when scrolling.
+vim.o.smoothscroll = true
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -185,7 +203,8 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+--vim.o.scrolloff = 10
+vim.o.scrolloff = 1000
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -246,7 +265,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
---[====[
 
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -381,6 +399,7 @@ require('lazy').setup({
     },
   },
 
+
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -443,11 +462,12 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
-        },
+
+        --extensions = {
+        --  ['ui-select'] = {
+        --    require('telescope.themes').get_dropdown(),
+        --  },
+        --},
       }
 
       -- Enable Telescope extensions if they are installed
@@ -465,15 +485,18 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
+        ---- You can pass additional configuration to Telescope to change the theme, layout, etc.
+        builtin.current_buffer_fuzzy_find(
+          --require('telescope.themes').get_dropdown {
+          --  winblend = 10,
+          --  previewer = false,
+          --}
+        )
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
@@ -491,6 +514,9 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
+
+})
+--[====[
 
   -- LSP Plugins
   {

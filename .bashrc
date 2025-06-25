@@ -1,7 +1,6 @@
 # to activate on new system, append the following to ~/.bashrc:
 # . ~/src/dotfiles/.bashrc
 
-# useful binaries: xclip, fuzzy finder, ripgrep.
 
 echo 'BEG ~/src/dotfiles/.bashrc'
 
@@ -56,6 +55,7 @@ function pathadd() {
 }
 
 # TODO: modify this to check the output of dry run and proceed if it succeeds.
+# useful binaries: xclip, fuzzy finder, ripgrep.
 function install_defaults() {
     apt install --dry-run htop git make unzip ripgrep fd-find build-essential
 }
