@@ -1,7 +1,6 @@
 # to activate on new system, append the following to ~/.bashrc:
 # . ~/src/dotfiles/.bashrc
 
-
 echo 'BEG ~/src/dotfiles/.bashrc'
 
 # note that $- outputs builtin set flags. see man bash -> set subsection.
@@ -48,12 +47,6 @@ function cl(){
     ls -a
 }
 
-function pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$1"
-    fi
-}
-
 # TODO: modify this to check the output of dry run and proceed if it succeeds.
 # useful binaries: xclip, fuzzy finder, ripgrep.
 function install_defaults() {
@@ -69,6 +62,12 @@ function install_defaults() {
 # load those here in case we are in non-login shell.
 # take care that the paths exist and also that they have not been added already.
 
+function pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
 if [[ -d ~/bin ]] ; then
     pathadd ~/bin
 fi
@@ -83,8 +82,8 @@ set -o vi
 # https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
 #export EDITOR="nvim"
 #export VISUAL="nvim"
-export EDITOR="vi"
-export VISUAL="vi"
+#export EDITOR="vi"
+#export VISUAL="vi"
 
 # cargo bin contains neovide, may contain other bins as well.
 #PATH=$PATH:~/.cargo/bin
@@ -135,195 +134,61 @@ export VISUAL="vi"
 #fi
 
 #export PATH="$PATH:$HOME/bin/kitty/kitty-0.38.0-x86_64/bin"
-export PATH="$PATH:$HOME/bin/kitty/kitty-0.41.1-x86_64/bin"
-export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
+#export PATH="$PATH:$HOME/bin/kitty/kitty-0.41.1-x86_64/bin"
+#export PATH="$PATH:$HOME/bin/nvim/nvim-linux64_10_2/bin"
 #export PATH="$PATH:$HOME/bin/zellij/0.41.2"
+export PATH="/home/fj/bin/zig/zig-x86_64-linux-0.14.1:$PATH"
+export PATH="/home/fj/bin/nvim/nvim-linux-x86_64/bin:$PATH"
 
 #export PATH="$PATH:$HOME/bin/cmake/cmake-3.31.6-linux-x86_64/bin"
 
-# NOTE: the code below to add and delete config references is bulky and awkward.
-# why is it worthwhile?
-# because without it, I have to manually review all dotfiles and config files in my home dir
-# to see what is enabled and what is not.
+# it is convenient to store dotfiles in a single repository directory.
+# however, depending on the program being configured, a dotfile may need to live
+# at an arbitrary location in the file system.
+# rather than relocate the file,
+# we will append a "source" statement to a config stub file.
+# further, we wish to manage the creation and deletion of this "source" statement
+# from our .bashrc.
+# otherwise, we would need to manually remember everywhere we had set up configs.
+# TODO: it would be better if this function searched for a contiguous sequence of lines,
+# rather than search for and delete each line individually.
+# as written, this may break for config files that already have lots of content.
+# NOTE: this requires restarting the terminal twice.
+# once to run the function to append lines to stub files,
+# and a second time to pick up the newly appended lines.
 
-# TODO: currently, using this config var approach requires restarting kitty twice.
-# once to update the kitty config file in ~/.config, and once for kitty to read the updated file.
-# better approach is to execute this code upon shell exit.
+append_to_stub() {
+    local stub_file="$1"
+    local -n source_lines="$2"
+    local enable="$3"
 
-CONFIG_MAGIC="756E72A0-C214-4288-BA88-74D974E83784"
-
-ENABLE_KITTY_CONFIG=true
-#ENABLE_KITTY_CONFIG=false
-if [ "$ENABLE_KITTY_CONFIG" = true ]; then
-    echo "enabling kitty config"
-    if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
-        #echo "kitty config contains magic value."
-        : # no-op
-        # no action required.
-    else
-        #echo "kitty config not contains magic value."
-        # append config reference and magic value.
-        echo "# these lines appended by ~/src/dotfiles/.bashrc $CONFIG_MAGIC" >> $HOME/.config/kitty/kitty.conf
-        echo "include ~/src/dotfiles/kitty.conf" >> $HOME/.config/kitty/kitty.conf # hmm... line-end comments not supported in kitty.conf
+    if [[ "$enable" == "true" ]]; then
+        echo "enabling $stub_file"
+        if [[ ! -f "$stub_file" ]]; then
+            exit 1
+        fi
+        for line in "${source_lines[@]}"; do
+            if ! grep -F -q -x "$line" "$stub_file"; then
+                echo "$line" >> "$stub_file"
+            fi
+        done
+    elif [[ "$enable" == "false" ]]; then
+        echo "disabling $stub_file"
+        if [[ -f "$stub_file" ]]; then
+            for line in "${source_lines[@]}"; do
+                local temp_file
+                temp_file=$(mktemp)
+                grep -F -v -x "$line" "$stub_file" > "$temp_file"
+                mv "$temp_file" "$stub_file"
+            done
+        fi
     fi
-# careful here. only take action if enable var is defined and is false.
-# take no action if var is undefined.
-#elif [ -v "$ENABLE_KITTY_CONFIG" && $"ENABLE_KITTY_CONFIG" == "false" ]; then
-elif [  "$ENABLE_KITTY_CONFIG" == "false" ]; then
-    echo "disabling kitty config"
-    if grep -q $CONFIG_MAGIC $HOME/.config/kitty/kitty.conf; then
-        #echo "kitty config contains magic value."
-        # remove config reference.
-        while read -r line
-        do
-            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
-        done < $HOME/.config/kitty/kitty.conf > $HOME/tmp/tmp.conf
-        while read -r line
-        do
-            [[ ! $line =~ "include ~/src/dotfiles/kitty.conf" ]] && echo "$line"
-        done < $HOME/tmp/tmp.conf > $HOME/tmp/tmp2.conf
-        mv $HOME/tmp/tmp2.conf $HOME/.config/kitty/kitty.conf
-    else
-        #echo "kitty config not contains magic value."
-	: # no-op
-        # no action required.
-    fi
-fi
+}
 
-# NOTE: the below script assumes that astronvim template has been cloned to ~/.config/nvim
-# see instructions at https://docs.astronvim.com/
-# and template at https://github.com/AstroNvim/template
-# TODO: add a check so this portion of the script only runs if astronvim starter template has been cloned.
-# BUG: if lua/plugins/overridden.lua is completely empty (as it is after cleaup), lua still tries to load it and throws an error.
-# # it needs to return {}.
+lines=("[general]" "import = [\"$HOME/src/dotfiles/alacritty.toml\"]")
+append_to_stub "$HOME/.config/alacritty/alacritty.toml" lines "true"
 
-#ENABLE_NVIM_CONFIG=true
-ENABLE_NVIM_CONFIG=false
-if [ "$ENABLE_NVIM_CONFIG" = true ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
-    echo "enabling nvim config"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
-        #echo "nvim config contains magic value."
-        : # no-op
-        # no action required.
-    else
-        #echo "nvim config not contains magic value."
-        # append config reference and magic value.
-        echo "dofile ('$HOME/src/dotfiles/overridden.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
-        echo "return ASTRONVIM_DOTFILE_CONFIG -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/plugins/overridden.lua
-    fi
-# careful here. only take action if enable var is defined and is false.
-# take no action if var is undefined.
-elif [  "$ENABLE_NVIM_CONFIG" == "false" ] && [ -f $HOME/.config/nvim/lua/plugins/overridden.lua ]; then
-    echo "disabling nvim config"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/plugins/overridden.lua; then
-        #echo "nvim config contains magic value."
-        : # no-op
-        # remove config reference.
-        while read -r line
-        do
-            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
-        done < $HOME/.config/nvim/lua/plugins/overridden.lua > $HOME/tmp/tmp.conf
-        mv $HOME/tmp/tmp.conf $HOME/.config/nvim/lua/plugins/overridden.lua
-    else
-        #echo "nvim config not contains magic value."
-	: # no-op
-        # no action required.
-    fi
-fi
-
-#ENABLE_NVIM_LUA=true
-ENABLE_NVIM_LUA=false
-if [ "$ENABLE_NVIM_LUA" = true ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; then
-    echo "enabling nvim lua"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/polish.lua; then
-        #echo "nvim lua contains magic value."
-	: # no-op
-        # no action required.
-    else
-        #echo "nvim lua not contains magic value."
-        # append config reference and magic value.
-        echo "dofile ('$HOME/src/dotfiles/polish.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/lua/polish.lua
-    fi
-# careful here. only take action if enable var is defined and is false.
-# take no action if var is undefined.
-elif [  "$ENABLE_NVIM_LUA" == "false" ] && [ -f $HOME/.config/nvim/lua/polish.lua ]; then
-    echo "disabling nvim lua"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/lua/polish.lua; then
-        #echo "nvim lua contains magic value."
-        # remove config reference.
-        while read -r line
-        do
-            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
-        done < $HOME/.config/nvim/lua/polish.lua > $HOME/tmp/tmp.conf
-        mv $HOME/tmp/tmp.conf $HOME/.config/nvim/lua/polish.lua
-    else
-        #echo "nvim polish not contains magic value."
-	: # no-op
-        # no action required.
-    fi
-fi
-
-# in lua, dofile loads and executes a file, while require keeps a table of modules that have already been loaded.
-# https://stackoverflow.com/questions/31144564/what-are-the-differences-between-dofile-and-require-in-lua
-
-ENABLE_NVIM_KICKSTART=true
-#ENABLE_NVIM_KICKSTART=false
-if [ "$ENABLE_NVIM_KICKSTART" = true ] && [ -f $HOME/.config/nvim/init.lua ]; then
-    echo "enabling nvim kickstart"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/init.lua; then
-        #echo "nvim init contains magic value."
-	: # no-op
-        # no action required.
-    else
-        #echo "nvim init not contains magic value."
-        # append config reference and magic value.
-        echo "dofile ('$HOME/src/dotfiles/kickstart.lua') -- 756E72A0-C214-4288-BA88-74D974E83784" >> $HOME/.config/nvim/init.lua
-    fi
-# careful here. only take action if enable var is defined and is false.
-# take no action if var is undefined.
-elif [  "$ENABLE_NVIM_LUA" == "false" ] && [ -f $HOME/.config/nvim/init.lua ]; then
-    echo "disabling nvim kickstart"
-    if grep -q $CONFIG_MAGIC $HOME/.config/nvim/init.lua; then
-        #echo "nvim lua contains magic value."
-        # remove config reference.
-        while read -r line
-        do
-            [[ ! $line =~ "$CONFIG_MAGIC" ]] && echo "$line"
-        done < $HOME/.config/nvim/init.lua > $HOME/tmp/tmp.conf
-        mv $HOME/tmp/tmp.conf $HOME/.config/nvim/init.lua
-    else
-        #echo "nvim polish not contains magic value."
-	: # no-op
-        # no action required.
-    fi
-fi
-
-# start zellij when bash starts.
-# attach to an existing session if it exists.
-# close bash if zellij closes.
-# todo: stop zellij server if client shell closes. (possible with config)
-
-#export ZELLIJ_AUTO_ATTACH="true"
-#export ZELLIJ_AUTO_EXIT="true"
-#export ZELLIJ_CONFIG_FILE="$HOME/src/dotfiles/zellij.kdl"
-#if [[ -z "$ZELLIJ" ]]; then
-#    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
-#        zellij attach -c
-#    else
-#        zellij
-#    fi
-#
-#    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
-#        exit
-#    fi
-#fi
-
-# this is only for playing Beyond All Reason.
-# maps side mouse button to middle.
-# does not take effect system wide, but doesn't need to 
-# because i launch BAR from shell.
-#xinput set-button-map 7 1 2 3 4 5 6 7 2 9 10
-
-#echo 'CTRL+\ CTRL+N to exit insert mode in neovim terminal'
+lines=("dofile ('$HOME/src/dotfiles/kickstart.lua')")
+append_to_stub "$HOME/.config/nvim/init.lua" lines "true"
 
 echo 'END ~/src/dotfiles/.bashrc'

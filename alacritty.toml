@@ -1,0 +1,42 @@
+# to activate this config, put the following line in ~/.alacritty.toml:
+#import = ["~/src/dotfiles/.alacritty.toml"]
+# (note, the config will not reload unless you re-save the config in home dir)
+
+#import = [
+#
+#  # https://github.com/alacritty/alacritty-theme
+#  #'~/src/alacritty-theme/themes/breeze.toml'
+#  #'~/src/alacritty-theme/themes/base16_default_dark.toml'
+#  #'~/src/alacritty-theme/themes/bluish.toml'
+#  #'~/src/alacritty-theme/themes/Cobalt2.toml'
+#  #'~/src/alacritty-theme/themes/dark_pastels.toml'
+#  '~/src/alacritty-theme/themes/tokyo-night.toml'
+#]
+#
+#[window]
+##startup_mode = 'Fullscreen'
+#startup_mode = 'SimpleFullscreen'
+##startup_mode = 'Maximized'
+#
+#[window.dimensions]
+#columns = 1024
+#lines = 1024
+#
+#
+#
+#[font]
+## fonts must be downloaded to ~/.fonts.
+#normal.family = 'JetBrainsMonoNerdFont'
+##bold.family = 'JetBrainsMonoNerdFont'
+#size = 12.0
+
+[window]
+#startup_mode = "Maximized"
+startup_mode = "Fullscreen"
+
+[font]
+size = 12.0
+normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
+
+[terminal]
+osc52 = "OnlyCopy"
