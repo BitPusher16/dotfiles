@@ -1,3 +1,6 @@
+-- to install this file, append the following line to $HOME/.config/nvim/init.lua:
+-- dofile ('$HOME/src/dotfiles/kickstart.lua'
+--
 -- this file copied from https://github.com/nvim-lua/kickstart.nvim
 -- gx: open url, filepath.
 -- :lua print(vim.o.clipboard)
@@ -5,9 +8,11 @@
 -- :help option-list
 -- :options -- opens a new window
 -- :help toc -- table of contents
+-- NOTE: if which-key is loaded, don't forget to look at <leader><backspace>.
 --
--- to install this file, append the following line to $HOME/.config/nvim/init.lua:
--- dofile ('$HOME/src/dotfiles/kickstart.lua'
+-- Learn Neovim, Ofirgall
+-- https://ofirgall.github.io/learn-nvim/chapters/00-why-should-i-learn.html
+--
 
 --[[
 
@@ -197,6 +202,14 @@ vim.g.clipboard = {
 	},
 }
 
+-- Set netrw to use tree view.
+vim.g.netrw_liststyle = 3
+
+-- Disable netrw so that we can load neotree later.
+-- (Note: this falsely states that netrw is already loaded, so neovim will not attempt.
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+
 -- Treat wrapped lines as individual lines when scrolling.
 vim.o.smoothscroll = true
 
@@ -268,6 +281,25 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- https://vi.stackexchange.com/questions/3670/how-to-enter-insert-mode-when-entering-neovim-terminal-pane
+vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w><C-h>", { desc = "Move focus from terminal to left window" })
+vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w><C-l>", { desc = "Move focus from terminal to right window" })
+vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w><C-j>", { desc = "Move focus from terminal to lower window" })
+vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w><C-k>", { desc = "Move focus from terminal to upper window" })
+
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		if vim.opt.buftype:get() == "terminal" then
+			vim.cmd(":startinsert")
+		end
+	end,
+})
+
+--vim.keymap.set("n", "<leader>r", "<cmd>tabnew|term<CR>")
+vim.keymap.set("n", "<leader>t", "<cmd>vsplit|term<CR>")
+vim.keymap.set("n", "<leader>e", "<cmd>e.<CR>")
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -282,6 +314,8 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+--vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "Window commands" })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -332,7 +366,15 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+
+	{
+		"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+		config = function()
+			require("guess-indent").setup({
+				auto_cmd = true,
+			})
+		end,
+	},
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -430,7 +472,7 @@ require("lazy").setup({
 			-- Document existing key chains
 			spec = {
 				{ "<leader>s", group = "[S]earch" },
-				{ "<leader>t", group = "[T]oggle" },
+				{ "<leader>g", group = "To[g]gle" },
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 			},
 		},
@@ -670,7 +712,8 @@ require("lazy").setup({
 						if vim.fn.has("nvim-0.11") == 1 then
 							return client:supports_method(method, bufnr)
 						else
-							return client.supports_method(method, { bufnr = bufnr })
+							--return client.supports_method(method, { bufnr = bufnr })
+							return false
 						end
 					end
 
@@ -719,9 +762,9 @@ require("lazy").setup({
 						client
 						and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
 					then
-						map("<leader>th", function()
+						map("<leader>gh", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-						end, "[T]oggle Inlay [H]ints")
+						end, "To[g]gle Inlay [H]ints")
 					end
 				end,
 			})
@@ -994,7 +1037,8 @@ require("lazy").setup({
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("tokyonight-night")
+			--vim.cmd.colorscheme("tokyonight-night")
+			vim.cmd.colorscheme("default")
 		end,
 	},
 
@@ -1107,6 +1151,33 @@ require("lazy").setup({
 	-- Or use telescope!
 	-- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
 	-- you can continue same window with `<space>sr` which resumes last telescope search
+
+	--{
+	--	"nvim-neo-tree/neo-tree.nvim",
+	--	version = "*",
+	--	dependencies = {
+	--		"nvim-lua/plenary.nvim",
+	--		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	--		"MunifTanjim/nui.nvim",
+	--	},
+	--	lazy = false,
+	--	keys = {
+	--		{ "\\", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
+	--	},
+	--	opts = {
+	--		filesystem = {
+	--			window = {
+	--				mappings = {
+	--					["\\"] = "close_window",
+	--				},
+	--			},
+	--		},
+	--	},
+	--},
+
+	-- pretty cool!
+	-- you can insert a table into the middle of a parent table with dofile.
+	dofile(os.getenv("HOME") .. "/src/dotfiles/kickstart-neo-tree.lua"),
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
