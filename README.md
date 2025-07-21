@@ -19,11 +19,11 @@ so arguably it is better to allow for gradually enabling configs when setting up
 2024-03-10
 I am having trouble referring to dotfiles neovim config.
 Neovim assumes an existing directory structure at ~/.config/neovim.
-If I source from ~/.config/neovim/init.lua, further "require" statements break.
+If I source from `~/.config/neovim/init.lua`, further "require" statements break.
 I also have the option to use $XDG_CONFIG_HOME,
 but if I set this to my dotfiles dir, other programs may write there.
 Update: Maybe I was just sourcing incorrectly.
-I can now call vim-plug from ~/src/dotfiles/nvim/misc.lua.
+I can now call vim-plug from `~/src/dotfiles/nvim/misc.lua`.
 
 2024-10-11
 Have been trying AstroNvim for a while. I like it.
@@ -51,15 +51,15 @@ Note about login vs non-login shells:
 https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell
 https://unix.stackexchange.com/questions/119627/why-are-interactive-shells-on-osx-login-shells-by-default
 Logging in through SSH will give a login shell. Logging in with an X terminal application will give a non-login shell.
-We would like ~/.bashrc and ~/.profile to be loaded in both cases.
-Unfortunately, this may be difficult, because ~/.profile sources ~/.bashrc,
-so if we call ~/.profile from ~/.bashrc, we get an infinite loop.
+We would like `~/.bashrc` and `~/.profile` to be loaded in both cases.
+Unfortunately, this may be difficult, because `~/.profile sources` `~/.bashrc`,
+so if we call `~/.profile` from `~/.bashrc`, we get an infinite loop.
 
-Note about ~/.bashrc, ~/.profile:
-~/.profile loads ~/bin, ~/.local/bin, but it only runs if shell is login shell.
+Note about `~/.bashrc`, `~/.profile`:
+`~/.profile` loads `~/bin`, `~/.local/bin`, but it only runs if shell is login shell.
 Need to have configs such that everything works same for login and non-login shell.
-Tried sourcing ~/.profile from ~/.bashrc, but this creates an infinite loop.
-So instead, just load ~/bin and ~/.local/bin from ~/.bashrc 
+Tried sourcing `~/.profile` from `~/.bashrc`, but this creates an infinite loop.
+So instead, just load `~/bin` and `~/.local/bin` from `~/.bashrc` 
 (if they've not been added to path already).
 
 2025-01-12

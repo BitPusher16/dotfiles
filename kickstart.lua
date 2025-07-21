@@ -119,7 +119,7 @@ vim.g.have_nerd_font = true
 --vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+--vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 --vim.o.mouse = 'a'
@@ -225,7 +225,7 @@ vim.o.smartcase = true
 
 -- Keep signcolumn on by default
 --vim.o.signcolumn = 'yes'
-vim.o.signcolumn = "no" -- allows cleaner copy pasting?
+--vim.o.signcolumn = "no" -- allows cleaner copy pasting? # doh, this interferes with dap ui!
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -269,6 +269,12 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Don't strikethrough text between tildes in markup files.
+-- (I am not sure where this is being set.)
+-- Update: This is probably being set by Treesitter, which enables highlighting of markdown files.
+--vim.cmd("hi clear @markup.strikethrough")
+--vim.cmd("hi link @markup.strikethrough Normal")
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -564,7 +570,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			--vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-			vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>r", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
@@ -1178,6 +1184,7 @@ require("lazy").setup({
 	-- pretty cool!
 	-- you can insert a table into the middle of a parent table with dofile.
 	dofile(os.getenv("HOME") .. "/src/dotfiles/kickstart-neo-tree.lua"),
+	dofile(os.getenv("HOME") .. "/src/dotfiles/kickstart-debug.lua"),
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the

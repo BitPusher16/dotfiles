@@ -20,7 +20,7 @@ return {
 			},
 			window = {
 				mappings = {
-					["\\"] = "close_window",
+					--["\\"] = "close_window",
 				},
 			},
 		},
@@ -37,3 +37,5 @@ return {
 		},
 	},
 }
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
