@@ -1,5 +1,23 @@
 # dotfiles
 
+## setup
+
+  299  man ssh-keygen
+  300  ssh-keygen -t ed25519
+  301  man ssh-add
+  302  ssh-add ~/.ssh/id_ed25519
+  303  cat ~/.ssh/id_ed25519.pub 
+  305  echo https://github.com/settings/ssh/new
+  306  git clone git@github.com:BitPusher16/dotfiles.git
+  307  ls
+  308  cd dotfiles/
+  309  ls
+  310  vi README.md 
+  311  man history 
+  312  history | tail -n 20
+
+## notes
+
 mv <FILE/DIR> ./
 ln -sr <FILE/DIR> <LINK> # s for symbolic, r for relative (to current dir)
 
