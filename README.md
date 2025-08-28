@@ -3,11 +3,8 @@
 ## setup
 
 ```
-  317  git config --global user.name fj
-  318  git config --global user.email fj@somedomain.com
-
   299  man ssh-keygen
-  300  ssh-keygen -t ed25519
+  300  ssh-keygen -t ed25519 -C "fj@somedomain.com"
   301  man ssh-add
   302  ssh-add ~/.ssh/id_ed25519
   303  cat ~/.ssh/id_ed25519.pub 
@@ -19,6 +16,10 @@
   310  vi README.md 
   311  man history 
   312  history | tail -n 20
+
+  317  git config --global user.name fj
+  318  git config --global user.email fj@somedomain.com
+  319  git add -A && git commit -m 'foo' && git push
 ```
 
 
