@@ -2,6 +2,9 @@
 
 ## setup
 
+  317  git config --global user.name fj
+  318  git config --global user.email fj@somedomain.com
+
   299  man ssh-keygen
   300  ssh-keygen -t ed25519
   301  man ssh-add
@@ -15,6 +18,8 @@
   310  vi README.md 
   311  man history 
   312  history | tail -n 20
+
+
 
 ## notes
 
