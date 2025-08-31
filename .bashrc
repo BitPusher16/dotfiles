@@ -77,6 +77,7 @@ if [[ -d ~/.local/bin ]] ; then
 fi
 
 set -o vi
+bind 'set bell-style none' # normally this is done in .inputrc. possible to do in .bashrc with bind.
 
 # set default editor to nvim. this will allow copy paste in browse mode with Ctrl-s e
 # https://www.reddit.com/r/zellij/comments/17s9hm7/is_there_any_way_to_copypaste_text_using_only_the/
