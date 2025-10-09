@@ -12,7 +12,12 @@ shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 #echo '| move win:       command + shift + arrow     | maximize win:             command + m                                 |'
 #echo '| tmux help:      ctrl-b ?                    | tmux kill other sess:     ctrl-b s x y                                |'
 #echo '| tmux new sess:  ctrl-b :new -s <name>       | exit neovim terminal:     ctrl-\ ctrl-n                               |'
-#echo '| list env vars:  env | sort | pr -3t -w 180  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort               |'
+#echo '| list env vars:  env | sort | pr -3t -w 180  | list path vars:           echo $PATH | tr : '\''\n'\'' | sort         |'
+#echo '| describe available commands: whatis `compgen -c` | sort | less                                                      |' 
+# type `compgen -c | sort` | less
+# whatis `compgen -c` | sort | less
+# whatis `ls ${PATH//:/ }` | sort | less
+# ghostty +list-keybinds --default | sort | less
 
 # start tmux immediately.
 # https://unix.stackexchange.com/a/113768/604574
@@ -191,5 +196,83 @@ append_to_stub "$HOME/.config/alacritty/alacritty.toml" lines "true"
 
 lines=("dofile ('$HOME/src/dotfiles/kickstart.lua')")
 append_to_stub "$HOME/.config/nvim/init.lua" lines "true"
+
+# 2025-10-08 fj
+# below code is from grok. not tested.
+append_or_delete() {
+    # Declare local variables for the file path and append flag from arguments
+    local file="$1"
+    local append_flag="$2"
+    # Shift the first two arguments to handle the remaining as the array of lines
+    shift 2
+    # Declare a local array to hold the lines passed as arguments
+    local -a lines=("$@")
+
+    # Check if the append flag is true
+    if [ "$append_flag" = "true" ]; then
+        # Loop through each line in the array
+        for line in "${lines[@]}"; do
+            # Append the line to the end of the file
+            echo "$line" >> "$file"
+        done
+    else
+        # Early return if the file doesn't exist or no lines are provided
+        if [ ! -f "$file" ] || [ ${#lines[@]} -eq 0 ]; then
+            return
+        fi
+        # Read the entire file into an array, one line per element
+        mapfile -t file_lines < "$file"
+        # Get the length of the file lines array
+        local len=${#file_lines[@]}
+        # Get the length of the sequence to delete
+        local seq_len=${#lines[@]}
+        # Flag to indicate if a match was found
+        local found=0
+        # Loop through possible starting positions in the file
+        for ((i=0; i <= len - seq_len; i++)); do
+            # Assume match until proven otherwise
+            local match=1
+            # Check each line in the sequence
+            for ((j=0; j < seq_len; j++)); do
+                # Compare the file line with the sequence line
+                if [ "${file_lines[i+j]}" != "${lines[j]}" ]; then
+                    # Set match to 0 if lines don't match
+                    match=0
+                    # Exit the inner loop early
+                    break
+                fi
+            done
+            # If a full match is found
+            if [ $match -eq 1 ]; then
+                # Reconstruct the array without the matched sequence
+                file_lines=("${file_lines[@]:0:i}" "${file_lines[@]:i+seq_len}")
+                # Set found flag to 1
+                found=1
+                # Exit the outer loop after first match
+                break
+            fi
+        done
+        # If a match was found and removed
+        if [ $found -eq 1 ]; then
+            # Truncate the file to empty it
+            > "$file"
+            # Rewrite the updated lines to the file
+            for line in "${file_lines[@]}"; do
+                echo "$line" >> "$file"
+            done
+        fi
+    fi
+}
+
+# Example: Append lines
+lines=("Hello" "World")
+append_or_delete "example.txt" "true" "${lines[@]}"
+
+# Example: Delete lines (first contiguous occurrence)
+lines=("Hello" "World")
+append_or_delete "example.txt" "false" "${lines[@]}"
+
+
+
 
 echo 'END ~/src/dotfiles/.bashrc'
