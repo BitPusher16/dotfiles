@@ -38,5 +38,20 @@ startup_mode = "Fullscreen"
 size = 12.0
 normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
 
-[terminal]
-osc52 = "OnlyCopy"
+#[terminal]
+#osc52 = "OnlyCopy"
+
+# start tmux on alacritty start.
+# define a trap that kills session if window closed or terminal exit.
+[terminal.shell]
+program = "/bin/sh"
+args = [
+"-c", 
+''' \
+SESSION="alacritty-tmux-$$"; \
+tmux new-session -d -s "$SESSION"; \
+trap "tmux kill-session -t \"$SESSION\" 2>/dev/null || true" \
+EXIT INT TERM HUP; \
+tmux attach-session -t "$SESSION" \
+'''
+]
