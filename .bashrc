@@ -52,6 +52,10 @@ function cl(){
     ls -a
 }
 
+function nc(){
+    tmux capture-pane -p -S - -E - | nvim -c "set buftype=nofile" -
+}
+
 # TODO: modify this to check the output of dry run and proceed if it succeeds.
 # useful binaries: xclip, fuzzy finder, ripgrep.
 function install_defaults() {

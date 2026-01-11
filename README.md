@@ -147,3 +147,13 @@ Note: For some reason, the .desktop file provided with the Kitty binary download
 
 https://rrethy.github.io/book/colorscheme.html
 Keeping Neovim and Kitty Terminal Colorschemes Consistent
+
+2026-01-10
+
+nice trick to make btop use terminal colors:
+#color_theme = "Default"
+color_theme = "TTY"
+
+2026-01-10-b
+
+persisted a copy of configs for alacritty, tmux, nvim that give nice copy paste behavior and unified colors.

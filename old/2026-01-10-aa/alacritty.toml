@@ -1,0 +1,50 @@
+[window]
+#startup_mode = "Fullscreen"
+startup_mode = "Maximized"
+decorations_theme_variant = "Light" # keep window title bar light.
+
+[general]
+import = [
+	# https://github.com/alacritty/alacritty-theme
+	#"~/src/alacritty-theme/themes/argonaut.toml"
+	#"~/src/alacritty-theme/themes/base16_default_dark.toml"
+	#"~/src/alacritty-theme/themes/monokai.toml"
+	"~/src/alacritty-theme/themes/flat_remix.toml"
+]
+
+[env]
+#TERM = "xterm-256color"
+
+# restrict programs to using ansi colors.
+# alacritty should still render the ansi colors using 24-bit.
+# note: tmux overrides this TERM variable. but it appears neovim observes anyways.
+# so alacritty is only tool in the stack that persists this value?
+#TERM = "ansi" # this forces correct colors in neovim, but breaks osc52 copy-paste.
+
+#FOO = "BAR"
+
+[terminal]
+
+osc52 = "CopyPaste"
+
+#program = "/home/fj/.cargo/bin/zellij"
+#args = ["--default-shell", "/bin/bash"]
+#shell = {program = "/home/fj/.cargo/bin/zellij", args=["--default-shell", "/bin/bash"]}
+
+#shell = {program = "/home/fj/.cargo/bin/zellij"}
+#shell = { program = "/home/fj/start-tmux.sh" }
+
+# start tmux on alacritty start.
+#define a trap that kills session if window closed or terminal exit.
+[terminal.shell]
+program = "/bin/sh"
+args = [
+"-c", 
+''' \
+SESSION="alacritty-tmux-$$"; \
+tmux new-session -d -s "$SESSION"; \
+trap "tmux kill-session -t \"$SESSION\" 2>/dev/null || true" \
+EXIT INT TERM HUP; \
+tmux attach-session -t "$SESSION" \
+'''
+]

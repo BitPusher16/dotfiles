@@ -1,0 +1,18 @@
+vim.opt.scrolloff = 1000
+vim.opt.number = true
+vim.opt.mouse = ""
+
+vim.opt.termguicolors = false
+
+vim.opt.clipboard = 'unnamedplus'
+
+vim.cmd('packadd! termdebug')
+
+-- termdebug hotkeys (not validated yet)
+vim.keymap.set('n', '<F5>', ':Break<CR>', { desc = 'Set breakpoint at cursor' })
+vim.keymap.set('n', '<F6>', ':Clear<CR>', { desc = 'Clear breakpoint at cursor' })
+vim.keymap.set('n', '<F9>', ':Step<CR>', { desc = 'Step into' })
+vim.keymap.set('n', '<F10>', ':Over<CR>', { desc = 'Step over' })
+vim.keymap.set('n', '<F11>', ':Finish<CR>', { desc = 'Step out of function' })
+vim.keymap.set('n', '<F12>', ':Continue<CR>', { desc = 'Continue to next breakpoint' })
+vim.keymap.set('n', '<leader>e', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
