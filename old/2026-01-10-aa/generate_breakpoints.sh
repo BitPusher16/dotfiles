@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# This script recursively searches the current directory for lines ending with "#bk"
+# recursively searches the current directory for lines ending with "#bk"
 # and generates a .pdbrc file with breakpoint commands for pdb.
-
-#output=".pdbrc"
-
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <directory>"
@@ -14,12 +11,11 @@ fi
 dir="${1%/}"  # Remove trailing slash if present
 
 output="$dir/.pdbrc"
-#echo $output
 
-# Clear or create the output file
+# clear or create the output file.
 > "$output"
 
-# Use process substitution to handle grep output
+# use process substitution to handle grep output.
 while read -r grep_line; do
     # Extract filename (up to first :)
     file="${grep_line%%:*}"
