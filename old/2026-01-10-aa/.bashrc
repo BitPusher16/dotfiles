@@ -122,6 +122,7 @@ echo 'BEG ~/.bashrc'
 
 # 2025-08-30 fj
 export PATH=$PATH:/home/fj/bin/nvim/nvim-linux-x86_64/bin
+#export MANPAGER="nvim +Man!"
 
 set -o vi
 bind 'set bell-style none'

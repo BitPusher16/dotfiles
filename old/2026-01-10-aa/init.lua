@@ -8,6 +8,10 @@ vim.opt.clipboard = 'unnamedplus'
 
 vim.cmd('packadd! termdebug')
 
+vim.api.nvim_create_autocmd(
+	"BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd _") end end, })
+	--"BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd o") end end, })
+
 -- termdebug hotkeys (not validated yet)
 vim.keymap.set('n', '<F5>', ':Break<CR>', { desc = 'Set breakpoint at cursor' })
 vim.keymap.set('n', '<F6>', ':Clear<CR>', { desc = 'Clear breakpoint at cursor' })
