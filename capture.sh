@@ -8,6 +8,7 @@ files=(
 	~/.tmux.conf
 	~/.config/nvim/init.lua
 	~/.scripts/start_debugger.sh
+	~/.scripts/generate_breakpoints.sh
 )
 
 cp "${files[@]}" ~/src/dotfiles/old/2026-01-10-aa/
