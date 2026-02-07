@@ -124,6 +124,9 @@ echo 'BEG ~/.bashrc'
 export PATH=$PATH:/home/fj/bin/nvim/nvim-linux-x86_64/bin
 #export MANPAGER="nvim +Man!"
 
+# make sort treat underscore as a regular symbol.
+export LC_COLLATE=C
+
 set -o vi
 bind 'set bell-style none'
 
@@ -150,5 +153,9 @@ echo 'alacritty themes at ~/src/alacritty-themes'
 #echo 'zellij installed with cargo install zellij --locked'
 #echo 'zellij config at ~/.configs/zellij'
 #echo 'zellij run with blank config: zellij --config-dir ~/'
+echo 'tmux installed with apt install tmux'
 echo 'tmux list-keys'
+echo 'man, info, man man, info info, man -a intro'
+echo 'man -k . | sort | less'
+echo 'info -o - | grep \* | sort | less'
 echo 'END ~/.bashrc'

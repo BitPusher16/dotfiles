@@ -6,6 +6,9 @@ vim.opt.termguicolors = false
 
 vim.opt.clipboard = 'unnamedplus'
 
+vim.opt.cursorline = true
+vim.api.nvim_set_hl(0, 'CursorLine', { ctermbg = 13 })
+
 vim.cmd('packadd! termdebug')
 
 vim.api.nvim_create_autocmd(
