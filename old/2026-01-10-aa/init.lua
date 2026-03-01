@@ -2,12 +2,22 @@ vim.opt.scrolloff = 1000
 vim.opt.number = true
 vim.opt.mouse = ""
 
-vim.opt.termguicolors = false
+vim.g.netrw_liststyle = 3 	-- Set Netrw to tree view (style 3)
+--vim.g.netrw_browse_split = 4 	-- Keep the tree expanded when navigating back (optional, but helpful)
+--vim.g.netrw_browse_split = 2 	-- ??
+--vim.g.netrw_winsize = 16 	-- Set netrw to behave more like a file browser
+--vim.g.netrw_banner = 0 		-- Hide banner
+--vim.g.netrw_altv = 1
 
+vim.opt.termguicolors = false
 vim.opt.clipboard = 'unnamedplus'
 
-vim.opt.cursorline = true
-vim.api.nvim_set_hl(0, 'CursorLine', { ctermbg = 13 })
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+--vim.opt.cursorline = true
+--vim.api.nvim_set_hl(0, 'CursorLine', { ctermbg = 8 }) --8 is black
+--vim.api.nvim_set_hl(0, 'CursorLineNr', { ctermbg = 13 }) --8 is black
 
 vim.cmd('packadd! termdebug')
 
