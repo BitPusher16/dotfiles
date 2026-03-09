@@ -9,7 +9,7 @@ if [ -n "$existing_pane" ]; then
     tmux select-pane -t "$existing_pane"
     tmux send-keys -t "$existing_pane" "./debug.sh" C-m
 else
-    tmux split-window -v
+    tmux split-window -h -c "#{pane_current_path}"
     tmux select-pane -T "debugger"
     tmux send-keys "./debug.sh" C-m
 fi

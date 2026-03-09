@@ -10,4 +10,4 @@ files=(
 	~/.scripts
 )
 
-cp -r "${files[@]}" ~/src/dotfiles/captured
+cp -r "${files[@]}" ~/src/dotfiles/conf_captured
