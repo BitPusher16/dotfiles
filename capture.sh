@@ -6,6 +6,7 @@ files=(
 	~/.bashrc
 	~/.config/alacritty/alacritty.toml
 	~/.tmux.conf
+	~/.config/btop/btop.conf
 	~/.config/nvim/init.lua
 	~/.scripts
 )
