@@ -8,6 +8,7 @@ files=(
 	~/.tmux.conf
 	~/.config/btop/btop.conf
 	~/.config/nvim/init.lua
+	~/.config/nvim/lua
 	~/.scripts
 )
 

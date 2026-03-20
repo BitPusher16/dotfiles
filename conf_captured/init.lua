@@ -19,6 +19,16 @@ vim.opt.smartcase = true
 --vim.api.nvim_set_hl(0, 'CursorLine', { ctermbg = 8 }) --8 is black
 --vim.api.nvim_set_hl(0, 'CursorLineNr', { ctermbg = 13 }) --8 is black
 
+-- remap "change" command to "change and copy to null buffer".
+-- this allows pasting of whatever was previously copied to clipboard.
+vim.keymap.set({'n', 'x'}, 'C', '"_C')
+
+vim.o.expandtab = true -- convert tabs to spaces on file open? what about makefiles?
+--vim.o.softtabstop = 4  -- spaces inserted on tab press.
+vim.o.shiftwidth = 4   -- on tab press or backspace, insert or delete enough spaces to move to next multiple of shiftwidth.
+
+
+
 vim.cmd('packadd! termdebug')
 
 vim.api.nvim_create_autocmd(
@@ -33,3 +43,8 @@ vim.keymap.set('n', '<F10>', ':Over<CR>', { desc = 'Step over' })
 vim.keymap.set('n', '<F11>', ':Finish<CR>', { desc = 'Step out of function' })
 vim.keymap.set('n', '<F12>', ':Continue<CR>', { desc = 'Continue to next breakpoint' })
 vim.keymap.set('n', '<leader>e', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
+
+
+
+vim.g.netrw_list_hide = ''
+require("netrw_help")
