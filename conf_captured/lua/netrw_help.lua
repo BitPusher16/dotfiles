@@ -7,7 +7,7 @@ vim.g.netrw_banner = 0
 
 local function show_netrw_help()
   local help_text = {
-    "Netrw Quick Help                                      (q to close)",
+"Netrw Quick Help                              (q to close, q F1 for normal help)",
     "",
     " Navigation",
     "   <CR> / l     Open file or directory",

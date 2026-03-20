@@ -2,6 +2,8 @@ vim.opt.scrolloff = 1000
 vim.opt.number = true
 vim.opt.mouse = ""
 
+--vim.g.mapleader = "\\"
+
 vim.g.netrw_liststyle = 3 	-- Set Netrw to tree view (style 3)
 --vim.g.netrw_browse_split = 4 	-- Keep the tree expanded when navigating back (optional, but helpful)
 --vim.g.netrw_browse_split = 2 	-- ??
@@ -48,3 +50,5 @@ vim.keymap.set('n', '<leader>e', ':Evaluate<CR>', { desc = 'Evaluate expression 
 
 vim.g.netrw_list_hide = ''
 require("netrw_help")
+
+require("bookmarks")
