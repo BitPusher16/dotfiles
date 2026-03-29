@@ -20,7 +20,8 @@ else
     #tmux send-keys "./debug.sh" C-m
 
     # create new pane detached (-d) and capture its ID immediately.
-    new_pane=$(tmux split-window -fl 6 -d -c "#{pane_current_path}" -P -F "#{pane_id}")
+    new_pane=$(tmux split-window -fl 12 -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along bottom.
+    #new_pane=$(tmux split-window -hfl 60 -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along right.
 
     # set the title using the standard escape sequence (no select-pane needed).
     # ] means operating system command. 2 is rename.
