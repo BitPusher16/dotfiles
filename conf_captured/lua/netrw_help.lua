@@ -1,13 +1,6 @@
--- copy pasted code to replace netrw quick help.
-
--- ~/.config/nvim/init.lua (or your netrw config file)
-
--- Hide the ugly default netrw banner
-vim.g.netrw_banner = 0
-
 local function show_netrw_help()
   local help_text = {
-"Netrw Quick Help                              (q to close, q F1 for normal help)",
+    "Netrw Quick Help                              (q to close, q F1 for normal help)",
     "",
     " Navigation",
     "   <CR> / l     Open file or directory",

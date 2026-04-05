@@ -1,5 +1,3 @@
-
-
 #!/bin/bash
 
 # save current pane id.
@@ -19,9 +17,10 @@ else
     #tmux select-pane -T "debugger"
     #tmux send-keys "./debug.sh" C-m
 
-    # create new pane detached (-d) and capture its ID immediately.
-    new_pane=$(tmux split-window -fl 12 -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along bottom.
+    # create new pane detached (-d) full (f) horizontal (h) and capture its ID immediately.
+    #new_pane=$(tmux split-window -fl 12 -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along bottom.
     #new_pane=$(tmux split-window -hfl 60 -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along right.
+    new_pane=$(tmux split-window -hf -d -c "#{pane_current_path}" -P -F "#{pane_id}") # debug pane along bottom.
 
     # set the title using the standard escape sequence (no select-pane needed).
     # ] means operating system command. 2 is rename.
@@ -29,7 +28,6 @@ else
 
     # set tmux pane title using a user option @title.
     #tmux set-option -t "$new_pane" -p @title "debugger"
-
     
     #tmux select-pane -t "$new_pane" -T "debugger"
     #tmux select-pane -t "$current_pane"
