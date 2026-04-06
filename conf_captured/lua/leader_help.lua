@@ -123,6 +123,7 @@ local function show_user_maps()
   local user_maps = {}
   for _, map in ipairs(maps) do
     if map.desc and map.desc:find("(user)", 1, true) then
+    --if map.desc and map.desc ~= "" then
       table.insert(user_maps, {
         lhs  = map.lhs,
         rhs  = map.rhs or (map.callback and "<lua callback>" or ""),

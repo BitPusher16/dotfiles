@@ -53,7 +53,10 @@ vim.o.shiftwidth = 4   -- on tab press or backspace, insert or delete enough spa
 vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*",
   callback = function()
-    if vim.bo.buftype == "help" then
+    -- the second check here avoids the "already only one window error
+    -- by checking if more than one window exists.
+    -- vim.fn.winnr("$") returns number of windows in current tab.
+    if vim.bo.buftype == "help" and vim.fn.winnr("$") > 1 then
       vim.cmd("wincmd T")
     end
   end,
