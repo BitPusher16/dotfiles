@@ -35,10 +35,29 @@ vim.o.expandtab = true -- convert tabs to spaces on file open? what about makefi
 --vim.o.softtabstop = 4  -- spaces inserted on tab press.
 vim.o.shiftwidth = 4   -- on tab press or backspace, insert or delete enough spaces to move to next multiple of shiftwidth.
 
-vim.api.nvim_create_autocmd(
-    "BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd _") end end, }
-    --"BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd o") end end, }
-)
+-- cause help windows to appear almost maximized?
+--vim.api.nvim_create_autocmd(
+--    "BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd _") end end, }
+--    --"BufEnter", { callback = function() if vim.bo.buftype == "help" then vim.cmd("wincmd o") end end, }
+--)
+
+--vim.api.nvim_create_autocmd('BufWinEnter', {
+--    pattern = '*',
+--    callback = function(event)
+--        if vim.bo[event.buf].filetype == 'help' then
+--            vim.cmd.only()
+--        end
+--    end,
+--})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.buftype == "help" then
+      vim.cmd("wincmd T")
+    end
+  end,
+})
 
 -- neovim sets pwd (and therefore netrw default dir) to the directory you start neovim from,
 -- not the directory argument you pass at the command line. change this.
@@ -83,14 +102,14 @@ vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "FocusLost" }, {
 vim.cmd('packadd! termdebug')
 
 -- termdebug hotkeys (not validated yet)
-vim.keymap.set('n', '<F5>', ':Break<CR>', { desc = 'Set breakpoint at cursor' })
-vim.keymap.set('n', '<F6>', ':Clear<CR>', { desc = 'Clear breakpoint at cursor' })
-vim.keymap.set('n', '<F9>', ':Step<CR>', { desc = 'Step into' })
-vim.keymap.set('n', '<F10>', ':Over<CR>', { desc = 'Step over' })
-vim.keymap.set('n', '<F11>', ':Finish<CR>', { desc = 'Step out of function' })
-vim.keymap.set('n', '<F12>', ':Continue<CR>', { desc = 'Continue to next breakpoint' })
---vim.keymap.set('n', '<leader>e', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
-vim.keymap.set('n', '<F7>', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
+--vim.keymap.set('n', '<F5>', ':Break<CR>', { desc = 'Set breakpoint at cursor' })
+--vim.keymap.set('n', '<F6>', ':Clear<CR>', { desc = 'Clear breakpoint at cursor' })
+--vim.keymap.set('n', '<F9>', ':Step<CR>', { desc = 'Step into' })
+--vim.keymap.set('n', '<F10>', ':Over<CR>', { desc = 'Step over' })
+--vim.keymap.set('n', '<F11>', ':Finish<CR>', { desc = 'Step out of function' })
+--vim.keymap.set('n', '<F12>', ':Continue<CR>', { desc = 'Continue to next breakpoint' })
+----vim.keymap.set('n', '<leader>e', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
+--vim.keymap.set('n', '<F7>', ':Evaluate<CR>', { desc = 'Evaluate expression under cursor' })
 
 vim.g.netrw_liststyle = 3 -- set netrw to tree view.
 vim.g.netrw_list_hide = '' -- don't hide any files in netrw.
@@ -101,7 +120,7 @@ require("netrw_help")
 require("bookmarks")
 
 vim.o.winborder = "rounded" -- this makes lsp popups stand out more.
-vim.o.signcolumn = "yes" -- leave sign column on alwys, otherwise lsp causes jitter.
+vim.o.signcolumn = "yes" -- leave sign column on always, otherwise lsp causes jitter.
 require("language_server")
 
 require("leader_help")

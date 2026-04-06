@@ -31,7 +31,7 @@ end, {
   desc = "Open your bookmarked Neovim help pages",
 })
 
-vim.keymap.set("n", "<leader>hb", ":HelpBookmarks<CR>", {
+vim.keymap.set("n", "<leader>b", ":HelpBookmarks<CR>", {
 --vim.keymap.set("n", "<leader>b", ":HelpBookmarks<CR>", {
   desc = "Help bookmarks",
   silent = true,

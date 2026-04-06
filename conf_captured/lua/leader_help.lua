@@ -100,6 +100,9 @@ local function show_leader_maps()
 
   vim.keymap.set("n", "q", function()
     vim.api.nvim_win_close(win, true)
+    vim.schedule(function()
+        vim.cmd("redraw!")
+    end)
   end, {
     buffer  = buf,
     silent  = true,
@@ -109,3 +112,66 @@ local function show_leader_maps()
 end
 
 vim.keymap.set("n", "<leader>?", show_leader_maps, { desc = "Show all leader keymaps" })
+
+
+
+
+
+local function show_user_maps()
+  local maps = vim.api.nvim_get_keymap("n")
+
+  local user_maps = {}
+  for _, map in ipairs(maps) do
+    if map.desc and map.desc:find("(user)", 1, true) then
+      table.insert(user_maps, {
+        lhs  = map.lhs,
+        rhs  = map.rhs or (map.callback and "<lua callback>" or ""),
+        desc = map.desc,
+      })
+    end
+  end
+
+  table.sort(user_maps, function(a, b) return a.lhs < b.lhs end)
+
+  local lines = {
+    "User Keymaps                                            (q to close)",
+    "",
+  }
+  for _, m in ipairs(user_maps) do
+    table.insert(lines, string.format(" %-14s  %s", m.lhs, m.desc))
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].buftype    = "nofile"
+  vim.bo[buf].filetype   = "help"
+  vim.bo[buf].buflisted  = false
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative  = "editor",
+    width     = vim.o.columns,
+    height    = vim.o.lines,
+    col       = 0,
+    row       = 0,
+    style     = "minimal",
+    border    = "none",
+    title     = " User Keymaps ",
+    title_pos = "center",
+  })
+
+  vim.keymap.set("n", "q", function()
+    vim.api.nvim_win_close(win, true)
+    vim.schedule(function()
+        vim.cmd("redraw!")
+    end)
+  end, {
+    buffer  = buf,
+    silent  = true,
+    nowait  = true,
+    desc    = "Close user keymaps window",
+  })
+end
+
+vim.keymap.set("n", "<leader>,", show_user_maps, { desc = "Show all user keymaps" })
