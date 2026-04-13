@@ -12,7 +12,12 @@ import = [
 	"~/src/alacritty-theme/themes/flat_remix.toml"
 ]
 
-[env]
+# 2026-04-12
+# hm... learned today that flat_remix does not map alacritty's defaul background
+# to one of the 16 ansi colors.
+# maybe fine for now.
+
+#[env]
 #TERM = "xterm-256color"
 
 [font]
@@ -30,7 +35,6 @@ size = 10.0
 #FOO = "BAR"
 
 [terminal]
-
 osc52 = "CopyPaste"
 
 #program = "/home/fj/.cargo/bin/zellij"

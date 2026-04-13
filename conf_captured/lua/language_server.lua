@@ -1,12 +1,12 @@
-
--- General per-project LSP starter (no plugins)
+-- on opening certain filetypes,
+-- look in the current dir for a start-lsp.sh file.
+-- run it if found.
 vim.api.nvim_create_autocmd("FileType", {
 
   -- this line needed so neovim doesn't launch start-lsp on all file types.
-  pattern = { "rust", "python", "sh" },   -- ← add any other languages here
+  pattern = { "rust", "python", "sh" },
 
   callback = function()
-    -- The presence of start-lsp.sh *defines* the project root
     local root = vim.fs.root(0, "start-lsp.sh")
     if not root then
       return
@@ -24,6 +24,59 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+
+--  what does this do?
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
+
+-- Enable LSP auto-completion on trigger characters (like ".")
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, args.buf, {
+        autotrigger = true,  -- This is what makes it pop on "." automatically
+      })
+    end
+  end,
+})
+
+-- p menu border available in nvim 12.
+--vim.opt.pumborder = 'single' -- or rounded, double, solid, shadow.
+
+-- https://neovim.io/doc/user/syntax/#cterm-colors
+-- (use NR-16 values below.)
+--
+--          NR-16   NR-8    COLOR NAME 
+--	    0	    0	    Black
+--	    1	    4	    DarkBlue
+--	    2	    2	    DarkGreen
+--	    3	    6	    DarkCyan
+--	    4	    1	    DarkRed
+--	    5	    5	    DarkMagenta
+--	    6	    3	    Brown, DarkYellow
+--	    7	    7	    LightGray, LightGrey, Gray, Grey
+--	    8	    0*	    DarkGray, DarkGrey
+--	    9	    4*	    Blue, LightBlue
+--	    10	    2*	    Green, LightGreen
+--	    11	    6*	    Cyan, LightCyan
+--	    12	    1*	    Red, LightRed
+--	    13	    5*	    Magenta, LightMagenta
+--	    14	    3*	    Yellow, LightYellow
+--	    15	    7*	    White
+--vim.api.nvim_set_hl(0, 'Pmenu', {
+    --ctermfg = 10, -- 10 = green?
+    --ctermbg = 0, -- 0 = black?
+    --ctermfg = 4,
+    --ctermbg = 16,
+    --fg = "Green",
+    --bg = "Grey",
+--})
+--vim.api.nvim_set_hl(0, "Pmenu", {link="Normal"})
+
+-- this is better. don't do custom color picking.
+-- link to existing highlight settings,
+-- preferably ones that ship with neovim.
+vim.api.nvim_set_hl(0, "Pmenu", {link="DiffAdd"})
 
 
 -- Global user commands (you liked these — :LspHover, :LspDiag, etc.)
@@ -57,7 +110,7 @@ end
 -- grb
 -- grc
 -- grd
--- gre (but this is short for grep)
+-- gre (not explicitly used, but gre is short for grep.)
 -- grf
 -- grg
 -- grh

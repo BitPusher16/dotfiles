@@ -7,6 +7,16 @@ vim.g.mapleader = ";"
 vim.o.timeout = false -- disable timeout for mappings.
 
 vim.opt.termguicolors = false
+--vim.o.t_Co = 16
+
+--vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+--vim.api.nvim_set_hl(0, "NormalFloat", { ctermbg = "none" })
+
+-- enabling the following line helps to show that alacritty
+-- uses a background color which is not one of the 16 ansi colors.
+--vim.api.nvim_set_hl(0, "Normal", { ctermbg = 0 })
+
 
 -- getting copy-paste to work on neovim is a deep rabbit hole.
 -- it gets worse when a terminal emulator (alacritty) and session manager (tmux) are involved.
@@ -101,6 +111,15 @@ vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "FocusLost" }, {
     end
   end,
 })
+
+-- esc in normal mode does nothing.
+-- use it to clear the / search.
+vim.keymap.set("n", "<Esc>", function()
+  if vim.v.hlsearch == 1 then
+    vim.cmd("nohlsearch")
+  end
+  return "<Esc>"
+end, { expr = true, silent = true })
 
 vim.cmd('packadd! termdebug')
 
