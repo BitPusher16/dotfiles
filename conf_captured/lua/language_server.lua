@@ -126,3 +126,53 @@ lsp_map("f", vim.lsp.buf.references,     "(user) Find References (def -> uses)")
 lsp_map("s", vim.diagnostic.open_float,  "(user) Show E/W/H message")
 lsp_map("k", vim.diagnostic.goto_prev,   "(user) Previous diagnostic")
 lsp_map("j", vim.diagnostic.goto_next,   "(user) Next diagnostic")
+
+
+-- Updated for string-based SymbolKind (what your rust-analyzer actually returns)
+local function lsp_document_symbols(filter)
+  local kind_map = {
+    -- Single categories
+    f   = {"Method", "Function"},        -- Methods + Functions
+    fn  = {"Function"},                  -- Functions only
+    m   = {"Method"},                    -- Methods only
+    s   = {"Struct"},                    -- Structs only
+    e   = {"Enum"},                      -- Enums only
+    t   = {"Interface"},                 -- Traits (rust-analyzer calls them Interface)
+    c   = {"Constant"},                  -- Constants only
+
+    -- Combinations
+    fs  = {"Method", "Function", "Struct"},      -- ← your perfect starting point
+    fst = {"Method", "Function", "Struct", "Interface", "Enum"},
+    all = nil,                                   -- everything (like gO)
+  }
+
+  local wanted = kind_map[filter] or kind_map.fs   -- default = fs
+
+  vim.lsp.buf.document_symbol({
+    on_list = function(opts)
+      local items = opts.items
+
+      if wanted then
+        items = vim.tbl_filter(function(item)
+          return vim.tbl_contains(wanted, item.kind)
+        end, items)
+      end
+
+      if #items == 0 then
+        vim.notify("No matching symbols found", vim.log.levels.WARN)
+        return
+      end
+
+      opts.items = items
+      vim.fn.setqflist(items)
+      vim.cmd.copen()          -- change to vim.cmd.lopen() if you prefer location list
+    end,
+  })
+end
+
+
+-- Add this anywhere after your lsp_document_symbols() function is defined
+vim.keymap.set('n', 'g[', function()
+  lsp_document_symbols('fs')
+end, { desc = 'LSP (user): View functions, methods, structs in quickfix list' })
+

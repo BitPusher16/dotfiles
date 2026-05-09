@@ -121,6 +121,26 @@ vim.keymap.set("n", "<Esc>", function()
   return "<Esc>"
 end, { expr = true, silent = true })
 
+
+---- <Esc> in normal mode:
+----   - clears / search highlighting
+----   - closes quickfix window if it's open
+--vim.keymap.set("n", "<Esc>", function()
+--  -- Clear search highlight if it's on
+--  if vim.v.hlsearch == 1 then
+--    vim.cmd("nohlsearch")
+--  end
+--
+--  -- Close quickfix window if it's currently open
+--  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+--    vim.cmd("cclose")
+--  end
+--
+--  return "<Esc>"
+--end, { expr = true, silent = true })
+
+
+
 vim.cmd('packadd! termdebug')
 
 -- termdebug hotkeys (not validated yet)
@@ -137,6 +157,34 @@ vim.g.netrw_liststyle = 3 -- set netrw to tree view.
 vim.g.netrw_list_hide = '' -- don't hide any files in netrw.
 vim.g.netrw_banner = 0 -- hide the default banner.
 
+
+-- change quickfix height whenever it opens.
+-- (one use of quickfix is navigating files using lsp types.)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.cmd("resize 20")   -- ← change 20 to your desired number of rows
+  end,
+})
+
+-- Auto-close quickfix/location-list after selecting an entry with <CR>
+--vim.api.nvim_create_autocmd("FileType", {
+--  pattern = "qf",
+--  callback = function()
+--    -- Simple version (works for both quickfix and loclist in most cases)
+--    vim.keymap.set("n", "<C-CR>", "<CR>:cclose<CR>", {
+--      buffer = true,
+--      silent = true,
+--      desc = "Select quickfix entry and close window",
+--    })
+--  end,
+--})
+
+--vim.opt.foldmethod = "indent"
+--vim.opt.foldlevelstart = 0
+
+
+
 require("netrw_help")
 
 require("bookmarks")
@@ -146,3 +194,8 @@ vim.o.signcolumn = "yes" -- leave sign column on always, otherwise lsp causes ji
 require("language_server")
 
 require("leader_help")
+
+require("indent_nav")
+
+
+
