@@ -164,3 +164,11 @@ echo 'info -o - | grep \* | sort | less'
 echo 'mint os shortcuts: super+left'
 echo 'END ~/.bashrc'
 echo 'tmux list-keys, ctrl+b ?, alacritty ??, nvim ??'
+
+# appended during uv installation
+. "$HOME/.local/bin/env"
+
+# appended nvm installation
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

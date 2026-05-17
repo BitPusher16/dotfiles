@@ -7,17 +7,20 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "rust", "python", "sh" },
 
   callback = function()
+    -- walks up the directory tree looking for start-lsp.sh, starting at 0 (current buffer).
     local root = vim.fs.root(0, "start-lsp.sh")
+
     if not root then
       return
     end
 
     local script = root .. "/start-lsp.sh"
 
+    -- check if lsp script is executable.
     if vim.fn.executable(script) == 1 then
       vim.lsp.start({
         name = vim.bo.filetype .. "-lsp",
-        cmd = { script },
+        cmd = { script, vim.bo.filetype },
         root_dir = root,
       })
     end
