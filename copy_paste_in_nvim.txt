@@ -1,0 +1,40 @@
+2026-05-17
+
+long convo with claude, trying to debug why 1/20 times neovim appears to overwrite
+what i have placed in the system copy_paste buffer.
+
+clause examined ~/bin/nvim/nvim-linux-x86_64/share/nvim/runtime/autoload/provider/clipboard.vim
+and concluded that tmux is managing its own buffer and sporadically overwriting system buffer.
+
+end of conversation included below. claude's suggestion is to install xsel.
+note that this may require tmux clipboard set to on.
+
+https://claude.ai/chat/97232561-8951-4f14-8ef5-be4d5ec9a3e8
+
+This is very revealing. Look at the auto-detection priority order in provider#clipboard#Executable():
+vimelseif !empty($DISPLAY) && executable('xsel') && s:cmd_ok('xsel -o -b')
+elseif !empty($DISPLAY) && executable('xclip')
+" ... other tools ...
+elseif !empty($TMUX) && executable('tmux')
+    return s:set_tmux()
+Since you have none of xsel/xclip/wl-copy installed, and you're running inside tmux, Neovim is using tmux load-buffer as its clipboard backend. Confirm this:
+vim:echo g:loaded_clipboard_provider  " already know: 2
+bashecho $TMUX  " should be non-empty
+which tmux  " should exist
+This is your bug
+Look at what s:set_tmux() does:
+vimlet s:copy['+'] = ['tmux', 'load-buffer', '-w', '-']
+let s:paste['+'] = ['sh', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -']
+Neovim is reading/writing the tmux paste buffer, not the X11 CLIPBOARD selection. And tmux load-buffer with set-clipboard off means tmux is managing its own internal buffer independently of X11.
+So what's happening:
+
+You copy in browser → goes to X11 CLIPBOARD
+You yank in Neovim → goes to tmux buffer via load-buffer
+You press Ctrl-Shift-V in Alacritty → Alacritty reads X11 CLIPBOARD ✓ (usually works)
+But sometimes tmux syncs its buffer back to X11 CLIPBOARD, clobbering the browser copy
+
+The intermittency is tmux's buffer sync timing.
+The fix
+Install xsel — it's the proper X11 clipboard tool and will take priority over the tmux fallback:
+bashsudo apt install xsel
+Then restart Neovim. It will now use xsel instead of tmux, yanks will go directly to X11 CLIPBOARD, and Alacritty's Ctrl-Shift-V will read from the same place Neovim writes to. No more tmux buffer in the middle.

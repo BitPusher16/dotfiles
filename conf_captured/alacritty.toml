@@ -6,10 +6,10 @@ decorations_theme_variant = "Light" # keep window title bar light.
 [general]
 import = [
 	# https://github.com/alacritty/alacritty-theme
-	#"~/src/alacritty-theme/themes/argonaut.toml"
+	"~/src/alacritty-theme/themes/argonaut.toml"
 	#"~/src/alacritty-theme/themes/base16_default_dark.toml"
 	#"~/src/alacritty-theme/themes/monokai.toml"
-	"~/src/alacritty-theme/themes/flat_remix.toml"
+	#"~/src/alacritty-theme/themes/flat_remix.toml"
 ]
 
 # 2026-04-12

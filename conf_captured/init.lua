@@ -183,8 +183,6 @@ vim.api.nvim_create_autocmd("FileType", {
 --vim.opt.foldmethod = "indent"
 --vim.opt.foldlevelstart = 0
 
-
-
 require("netrw_help")
 
 require("bookmarks")
@@ -197,5 +195,10 @@ require("leader_help")
 
 require("indent_nav")
 
+
+-- okay, one plugin only. for lean.
+vim.pack.add { "https://github.com/Julian/lean.nvim" }
+--require("lean").setup ({ mappings = true, graphics = { enabled = false }, })
+require('lean').setup({ mappings = true })
 
 
