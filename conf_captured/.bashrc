@@ -158,17 +158,19 @@ echo 'alacritty copy paste: ctrl+shift+c, ctrl+shift+v'
 #echo 'zellij run with blank config: zellij --config-dir ~/'
 echo 'tmux installed with apt install tmux'
 echo 'tmux config at ~/.tmux.conf'
+echo 'nvim downloaded from https://github.com/neovim/neovim/releases'
+echo 'nvim config at ~/.config/nvim'
 echo 'man, info, man man, info info, man -a intro'
 echo 'man -k . | sort | less'
 echo 'info -o - | grep \* | sort | less'
 echo 'mint os shortcuts: super+left'
-echo 'END ~/.bashrc'
 echo 'tmux list-keys, ctrl+b ?, alacritty ??, nvim ??'
+echo 'END ~/.bashrc'
 
 # modified during uv installation?
 . "$HOME/.local/bin/env"
 
-# appended nvm installation
+# appended nvim installation
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

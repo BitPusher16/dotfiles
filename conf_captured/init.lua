@@ -121,6 +121,16 @@ vim.keymap.set("n", "<Esc>", function()
   return "<Esc>"
 end, { expr = true, silent = true })
 
+-- improved autoindent
+-- Auto-expand {|} on <CR> (works with your existing autoindent)
+vim.keymap.set("i", "<CR>", function()
+  -- Check if the character right before the cursor is '{'
+  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "{" then return "<CR>}<C-O>O" end
+  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "(" then return "<CR>)<C-O>O" end
+  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "[" then return "<CR>]<C-O>O" end
+  return "<CR>"
+end, { expr = true, silent = true })
+
 
 ---- <Esc> in normal mode:
 ----   - clears / search highlighting
