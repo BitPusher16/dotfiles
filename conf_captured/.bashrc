@@ -120,6 +120,7 @@ if ! shopt -oq posix; then
 fi
 . "$HOME/.cargo/env"
 
+echo '----------------'
 echo 'BEG ~/.bashrc'
 
 # 2025-08-30 fj
@@ -142,16 +143,16 @@ function cl(){
 #}
 
 #alias cp='cp -n' # deprecated
-alias cp='cp --update=none'
+alias cp='cp -i' # interactive. warn if about to overwrite.
 alias mv='mv -n'
 alias clear='clear -x' # preserves contents of scrollback buffer.
 
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
 
-echo 'alacritty installed with cargo install alacritty --locked'
+echo 'alacritty installed with cargo install alacritty'
 echo 'alacritty config at ~/.config/alacritty/alacritty.toml'
-echo 'alacritty themes at ~/src/alacritty-themes'
+echo 'alacritty themes at ~/src/alacritty-theme/themes'
 echo 'alacritty copy paste: ctrl+shift+c, ctrl+shift+v'
 #echo 'zellij installed with cargo install zellij --locked'
 #echo 'zellij config at ~/.configs/zellij'
@@ -166,11 +167,12 @@ echo 'info -o - | grep \* | sort | less'
 echo 'mint os shortcuts: super+left'
 echo 'tmux list-keys, ctrl+b ?, alacritty ??, nvim ??'
 echo 'END ~/.bashrc'
+echo '----------------'
 
 # modified during uv installation?
 . "$HOME/.local/bin/env"
 
-# appended nvim installation
+# appended during nvm (node version manager) installation?
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

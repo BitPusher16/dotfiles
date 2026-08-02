@@ -12,11 +12,17 @@ import = [
 	#"~/src/alacritty-theme/themes/flat_remix.toml"
 	#"~/src/alacritty-theme/themes/zenburn.toml"
 	#"~/src/alacritty-theme/themes/acme.toml"
-	"~/src/alacritty-theme/themes/gruvbox_light.toml"
+	#"~/src/alacritty-theme/themes/gruvbox_light.toml"
+	#"~/src/alacritty-theme/themes/everforest_light_hard.toml"
+	#"~/src/alacritty-theme/themes/papertheme.toml"
+	#"~/src/alacritty-theme/themes/citylights.toml"
+	"~/src/alacritty-theme/themes/selenized_light.toml"
+	#"~/src/alacritty-theme/themes/everforest_light_soft.toml"
+
 ]
 
 # 2026-04-12
-# hm... learned today that flat_remix does not map alacritty's defaul background
+# hm... learned today that flat_remix does not map alacritty's default background
 # to one of the 16 ansi colors.
 # maybe fine for now.
 

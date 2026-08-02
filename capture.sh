@@ -10,6 +10,7 @@ files=(
 	~/.config/nvim/init.lua
 	~/.config/nvim/lua
 	~/.scripts
+        ~/".local/state/Beyond All Reason/uikeys.txt"
 )
 
 cp -r "${files[@]}" ~/src/dotfiles/conf_captured

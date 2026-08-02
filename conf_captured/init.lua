@@ -9,6 +9,14 @@ vim.o.timeout = false -- disable timeout for mappings.
 vim.opt.termguicolors = false
 --vim.o.t_Co = 16
 
+-- starting with neovim 10, neovim sets ctermbg = 0 (black).
+-- this made it very hard to read visual highlights
+-- with some themes from alacritty-theme.
+--vim.api.nvim_set_hl(0, "Visual", {
+--    ctermbg = 8,
+--    ctermfg = "NONE",
+--})
+
 --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 --vim.api.nvim_set_hl(0, "NormalFloat", { ctermbg = "none" })
@@ -123,13 +131,13 @@ end, { expr = true, silent = true })
 
 -- improved autoindent
 -- Auto-expand {|} on <CR> (works with your existing autoindent)
-vim.keymap.set("i", "<CR>", function()
-  -- Check if the character right before the cursor is '{'
-  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "{" then return "<CR>}<C-O>O" end
-  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "(" then return "<CR>)<C-O>O" end
-  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "[" then return "<CR>]<C-O>O" end
-  return "<CR>"
-end, { expr = true, silent = true })
+--vim.keymap.set("i", "<CR>", function()
+--  -- Check if the character right before the cursor is '{'
+--  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "{" then return "<CR>}<C-O>O" end
+--  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "(" then return "<CR>)<C-O>O" end
+--  if vim.fn.getline("."):sub(vim.fn.col(".") - 1, vim.fn.col(".") - 1) == "[" then return "<CR>]<C-O>O" end
+--  return "<CR>"
+--end, { expr = true, silent = true })
 
 
 ---- <Esc> in normal mode:
