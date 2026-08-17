@@ -1,0 +1,45 @@
+Tiny Cinnamon extension (recommended)
+
+Cinnamon already has Alacritty on the attention whitelist. That never fires, because Muffin does not mark this window urgent. Hook window-created instead. It runs inside Cinnamon, not as a daemon.
+
+mkdir -p ~/.local/share/cinnamon/extensions/alacritty-focus@local
+
+~/.local/share/cinnamon/extensions/alacritty-focus@local/metadata.json:
+
+{
+    "uuid": "alacritty-focus@local",
+    "name": "Alacritty Focus",
+    "description": "Focus Alacritty on map (Muffin 6.6)",
+    "cinnamon-version": ["6.4", "6.6", "6.8"],
+    "version": "1.0"
+}
+
+~/.local/share/cinnamon/extensions/alacritty-focus@local/extension.js:
+
+const Main = imports.ui.main;
+const Mainloop = imports.mainloop;
+
+let id = 0;
+
+function init() {}
+
+function enable() {
+    id = global.display.connect('window-created', (display, window) => {
+        Mainloop.idle_add(() => {
+            if (!window || window.has_focus() || window.is_skip_taskbar() || !Main.isInteresting(window))
+                return false;
+            let wmclass = window.get_wm_class() || '';
+            if (wmclass.toLowerCase().includes('alacritty'))
+                window.activate(global.get_current_time());
+            return false;
+        });
+    });
+}
+
+function disable() {
+    if (id)
+        global.display.disconnect(id);
+    id = 0;
+}
+
+Then: System Settings → Extensions → enable Alacritty Focus. If it does not appear, restart Cinnamon (Ctrl+Alt+Esc or logout).

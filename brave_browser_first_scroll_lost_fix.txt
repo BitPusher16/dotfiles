@@ -1,0 +1,161 @@
+Brave first-scroll-lost on Linux Mint Cinnamon / X11
+====================================================
+
+Problem
+-------
+Brave (and GTK apps) drop the first mouse-wheel notch after focus change,
+pointer enter, right-click, Alt+Tab, Super, etc.
+
+This is the X11 XI2 valuator baseline bug (GTK #558 / GNOME 750994).
+"Smooth" / high-res wheel events are a session-wide valuator, not a
+per-window delta. After enter/focus the client has no previous value, so
+GTK and Chromium throw the first event away and use it only as a baseline.
+GTK shipped a real fix, reverted it, and closed the bug as by design.
+
+Brave page scrolling does not go through GTK. Chromium has its own XI2
+path and does the same discard. A GTK-only workaround will not fix Brave.
+
+Machine this was done on
+------------------------
+Linux Mint 22.3 Cinnamon 6.6.9, X11 (not Wayland).
+Official brave-browser .deb (not Arch, not Flatpak).
+Razer DeathAdder V3. High-res wheel scroll was enabled in libinput.
+
+
+What was rejected, and why
+--------------------------
+1) Disable libinput high-res wheel for this mouse
+
+     xinput set-prop "Razer Razer DeathAdder V3" \
+       "libinput High Resolution Wheel Scroll Enabled" 0
+
+   That can fix Brave and GTK in one shot, because the driver then emits
+   old discrete wheel events instead of valuator events.
+   Rejected: it is hardware-specific and changes the mouse for every app.
+
+2) GDK_CORE_DEVICE_EVENTS=1
+   Forces GTK3 onto core X button 4/5 events. Helps Nemo/xed/etc.
+   Does not reliably fix Brave. Not used.
+
+3) ~/.config/brave-flags.conf
+   Arch packaging reads this. Official Brave .deb does not.
+   /opt/brave.com/brave/brave-browser is only:
+
+     exec "$HERE/brave" "$@"
+
+   A flags.conf on this install is inert unless a wrapper reads it.
+   Do not use it. Do not split flags across a conf file and a .desktop.
+
+4) Patching GTK, or a Cinnamon extension
+   GTK already tried and reverted the valuator-query patch.
+   The discard is inside the client, not the window manager.
+
+
+What was kept
+-------------
+Two command-line switches, already known to work:
+
+  --force-device-scale-factor=1.4
+  --disable-high-precision-scrolling
+
+The second is Chromium's workaround for the first-tick discard: treat the
+wheel as discrete clicks, not high-res valuator events.
+
+These are argv switches. They are not chrome://flags, not Preferences,
+and not /etc/brave/policies. They apply only to the first Brave process
+that takes the profile lock. Later launches (menu, xdg-open, terminal)
+are stubs that ask the existing process to open a URL/window. They do
+not merge a new flag set. Quit every Brave window after changing flags.
+
+
+Why not leave the flags in the .desktop file
+--------------------------------------------
+~/.local/share/applications/brave-browser.desktop already overrode the
+packaged launcher (good: updates do not wipe /usr/share/... ).
+
+But a .desktop file is a launcher, not a config store:
+  - four Exec= lines (default, Exec[en_US], New Window, incognito)
+  - Cinnamon / xdg-open use it; a terminal `brave-browser-stable` does not
+  - Brave's packaged desktop file keeps changing; the override drifts
+
+Single source of truth: a wrapper we own. Desktop and PATH names call it.
+Flags live in one file.
+
+
+Setup
+-----
+~/bin is already first on PATH.
+
+1) Wrapper. Only place the two flags should live.
+
+     cat > ~/bin/brave <<'EOF'
+     #!/bin/bash
+     # Persistent Brave CLI flags. Menu, xdg-open, and PATH names all land here.
+     exec /usr/bin/brave-browser-stable \
+       --force-device-scale-factor=1.4 \
+       --disable-high-precision-scrolling \
+       "$@"
+     EOF
+     chmod +x ~/bin/brave
+
+   exec so there is no leftover shell.
+   Absolute /usr/bin/brave-browser-stable so a later PATH symlink with
+   that name cannot recurse. "$@" so %U, --incognito, and extra args pass
+   through.
+
+   Add or change flags here only. Leave the desktop file alone.
+
+2) Point the user desktop file at the wrapper.
+   File: ~/.local/share/applications/brave-browser.desktop
+
+   Main:
+
+     Exec=/home/fj/bin/brave %U
+     Exec[en_US]=/home/fj/bin/brave %U
+
+   [Desktop Action new-window]
+
+     Exec=/home/fj/bin/brave
+
+   [Desktop Action new-private-window]
+
+     Exec=/home/fj/bin/brave --incognito %U
+
+   Absolute path: Cinnamon does not use the login PATH for .desktop Exec.
+   Keep Exec[en_US]: glib/Cinnamon may prefer the locale-specific key.
+   Default browser is already brave-browser.desktop, so http(s) via
+   xdg-open hits this file.
+
+3) Optional PATH names, so a terminal `brave-browser` /
+   `brave-browser-stable` also hits the wrapper.
+
+   Run from anywhere. The target "brave" is relative to the symlink's
+   directory (~/bin), not to cwd:
+
+     ln -s brave ~/bin/brave-browser
+     ln -s brave ~/bin/brave-browser-stable
+
+   Or:
+
+     cd ~/bin
+     ln -s brave brave-browser
+     ln -s brave brave-browser-stable
+
+   Only after ~/bin/brave exists.
+
+4) Quit every Brave window, then start from the menu or `brave`.
+
+
+If first-scroll-lost comes back in GTK apps (Nemo, xed, …)
+----------------------------------------------------------
+That is the GTK side of the same X11 bug. This wrapper does not fix it.
+Next lever, if wanted: GDK_CORE_DEVICE_EVENTS=1 for GTK only.
+Do not turn off libinput high-res wheel unless we accept a mouse-wide
+change again.
+
+
+Cinnamon Wayland
+----------------
+The bug does not exist on native Wayland. Mint 22.3 / Cinnamon 6.6
+Wayland is still experimental. XWayland clients can still drop the
+first tick. Not used as the daily fix.
