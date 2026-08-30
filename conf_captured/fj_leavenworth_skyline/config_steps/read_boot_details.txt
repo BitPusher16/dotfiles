@@ -1,0 +1,29 @@
+echo "Check if the computer uses UEFI firmware or legacy BIOS."
+echo "Command: test -d /sys/firmware/efi && echo \"UEFI boot\" || echo \"Legacy BIOS boot\""
+test -d /sys/firmware/efi && echo "UEFI boot" || echo "Legacy BIOS boot"
+echo
+
+echo "Show all disks, partitions, sizes, file systems, labels, mount points, and UUIDs."
+echo "Command: lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,UUID"
+lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,UUID
+echo
+
+echo "Show the EFI boot entries and the current boot order."
+echo "Command: sudo efibootmgr -v"
+sudo efibootmgr -v
+echo
+
+echo "List the folders on the EFI System Partition."
+echo "Command: ls -l /boot/efi/EFI/"
+sudo ls -l /boot/efi/EFI/
+echo
+
+echo "Show the main GRUB settings used by Linux Mint."
+echo "Command: grep -E 'GRUB_TIMEOUT|GRUB_DEFAULT|GRUB_DISABLE_OS_PROBER|GRUB_TIMEOUT_STYLE' /etc/default/grub"
+grep -E 'GRUB_TIMEOUT|GRUB_DEFAULT|GRUB_DISABLE_OS_PROBER|GRUB_TIMEOUT_STYLE' /etc/default/grub
+echo
+
+echo "Ask GRUB to search for other operating systems on the disk."
+echo "Command: sudo os-prober"
+sudo os-prober
+echo

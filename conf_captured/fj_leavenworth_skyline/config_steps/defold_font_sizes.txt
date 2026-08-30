@@ -1,0 +1,44 @@
+put the following in ~/.defold/editor.css:
+
+.root {
+    -fx-font-size: 22px;
+}
+
+.menu-bar .menu-button > .label,
+.menu-bar .menu-item > .label,
+.context-menu .menu-item > .label {
+    -fx-font-size: 22px;
+}
+
+.text-input,
+.text-field,
+.text-area,
+.text-area.property {
+    -fx-font-size: 22px;
+}
+
+.md-root {
+    -fx-font-size: 22px;
+}
+
+.md-root.md-page-root {
+    -fx-font-size: 22px;
+}
+
+.md-paragraph > .md-h1 { -fx-font-size: 32px; }
+.md-paragraph > .md-h2 { -fx-font-size: 28px; }
+.md-paragraph > .md-h3 { -fx-font-size: 24px; }
+.md-paragraph > .md-h4 { -fx-font-size: 22px; }
+.md-paragraph > .md-h5 { -fx-font-size: 20px; }
+.md-paragraph > .md-h6 { -fx-font-size: 18px; }
+
+
+
+and put the following in ~/.config/Defold/prefs.editor_settings:
+
+{
+  :code {
+    :font {
+      :size 18.0
+    }
+...

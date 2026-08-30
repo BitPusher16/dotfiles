@@ -1,0 +1,22 @@
+
+
+fj@fj-leavenworth-skyline:~$ inxi -Sx
+System:
+  Host: fj-leavenworth-skyline Kernel: 7.0.0-28-generic arch: x86_64 bits: 64
+    compiler: gcc v: 13.3.0
+  Desktop: Cinnamon v: 6.6.9 Distro: Linux Mint 22.3 Zena
+    base: Ubuntu 24.04 noble
+fj@fj-leavenworth-skyline:~$ inxi -G
+Graphics:
+  Device-1: AMD driver: amdgpu v: kernel
+  Device-2: AMD driver: amdgpu v: kernel
+  Device-3: Logitech Webcam C270 driver: snd-usb-audio,uvcvideo type: USB
+  Display: x11 server: X.Org v: 21.1.11 with: Xwayland v: 24.1.13 driver: X:
+    loaded: amdgpu dri: radeonsi gpu: amdgpu resolution: 5120x2160
+  API: EGL v: 1.5 drivers: radeonsi,swrast
+    platforms: gbm,x11,surfaceless,device
+  API: OpenGL v: 4.6 vendor: amd mesa
+    v: 26.2.1+git2608201115.88947685514~n~mesarc0 renderer: AMD Radeon RX 9070
+    XT (radeonsi gfx1201 ACO DRM 3.64 7.0.0-28-generic)
+  API: Vulkan v: 1.3.275 drivers: N/A surfaces: xcb,xlib
+
