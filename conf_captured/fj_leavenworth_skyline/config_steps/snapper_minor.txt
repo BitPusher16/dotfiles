@@ -1,0 +1,4 @@
+to get rid of 'invalid snapshot' message after running apt install, apt upgrade,
+open /etc/default/snapper and set:
+
+DISABLE_APT_SNAPSHOT="yes"
