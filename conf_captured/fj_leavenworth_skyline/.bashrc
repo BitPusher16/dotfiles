@@ -145,6 +145,17 @@ function cl(){
     ls -a
 }
 
+bg_job_count(){
+    local count
+    count=$(jobs -p | wc -l)
+    if [ "$count" -gt 0 ]; then
+        echo "[$count bg]"
+    fi
+}
+# strip the trailing dollar sign from the current PS1, append job_count, and add dollar sign back
+PS1="${PS1%\\\$ } \$(bg_job_count)\\\$ "
+
+
 #alias cp='cp -n' # deprecated
 alias cp='cp -i' # interactive. warn if about to overwrite.
 alias mv='mv -n'
@@ -152,26 +163,22 @@ alias clear='clear -x' # preserves contents of scrollback buffer.
 
 [[ $- == *i* ]] && echo 'interactive shell' || echo 'non-interactive shell' 
 shopt -q login_shell && echo 'login shell' || echo 'non-login shell'
-
-echo "sudo snapper -c root create -d "manual" && sudo snapper -c home create -d \"manual\""
-echo "sudo snapper-gui"
-echo "nix installed with apt"
-echo "alacritty installed with cargo"
-# echo "alacritty shortcut created with: "
-# printf '%s\n' '[Desktop Entry]' 'Type=Application' 'Name=Alacritty' 'Exec=alacritty' 'org.gnome.Terminal-symbolic' 'Terminal=false' 'Categories=System;TerminalEmulator;' > ~/.local/share/applications/alacritty.desktop
-# gsettings set org.cinnamon demands-attention-passthru-wm-classes "['gnome-screenshot', 'lxterminal', 'xfce4-terminal', 'firefox', 'libreoffice', 'soffice', 'Alacritty']"
-echo "tmux installed with apt"
+echo ''
 
 # brave startup in .desktop file needs these args for hardware accel on wayland:
-# /usr/bin/brave-browser-stable --ozone-platform-hint=wayland --start-maximized --render-node-override=/dev/dri/renderD128 --gpu-vaapi-driver-device-path=/dev/dri/renderD128 --ignore-gpu-blocklist --disable-gpu-driver-bug-workarounds --enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL --disable-features=Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,UseChromeOSDirectVideoDecoder
+# /usr/bin/brave-browser-stable --ozone-platform-hint=wayland --start-maximized --render-node-override=/dev/dri/renderD128 --gpu-vaapi-driver-device-path=/dev/dri/renderD128 
+# --ignore-gpu-blocklist --disable-gpu-driver-bug-workarounds --enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL 
+# --disable-features=Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,UseChromeOSDirectVideoDecoder
 
-echo ""
-
-
+echo "nix installed with apt"
 echo 'alacritty installed with cargo install alacritty'
 echo 'alacritty config at ~/.config/alacritty/alacritty.toml'
 echo 'alacritty themes at ~/src/alacritty-theme/themes'
 echo 'alacritty copy paste: ctrl+shift+c, ctrl+shift+v'
+# echo "alacritty shortcut created with: "
+# printf '%s\n' '[Desktop Entry]' 'Type=Application' 'Name=Alacritty' 'Exec=alacritty' 'org.gnome.Terminal-symbolic' 'Terminal=false' 'Categories=System;TerminalEmulator;' > ~/.local/share/applications/alacritty.desktop
+# gsettings set org.cinnamon demands-attention-passthru-wm-classes "['gnome-screenshot', 'lxterminal', 'xfce4-terminal', 'firefox', 'libreoffice', 'soffice', 'Alacritty']"
+#echo 'wezterm installed with apt'
 #echo 'zellij installed with cargo install zellij --locked'
 #echo 'zellij config at ~/.configs/zellij'
 #echo 'zellij run with blank config: zellij --config-dir ~/'
@@ -179,10 +186,22 @@ echo 'tmux installed with apt install tmux'
 echo 'tmux config at ~/.tmux.conf'
 echo 'nvim downloaded from https://github.com/neovim/neovim/releases'
 echo 'nvim config at ~/.config/nvim'
+echo ''
+
+echo 'monitor brightness up: ddcutil setvcp 10 + 5'
+echo 'monitor brightness up, down: meta-f11, meta-f12'
+echo "snapshot root and home: sudo snapper -c root create -d "manual" && sudo snapper -c home create -d \"manual\""
+echo "sudo snapper-gui"
 echo 'man, info, man man, info info, man -a intro'
 echo 'man -k . | sort | less'
 echo 'info -o - | grep \* | sort | less'
-echo 'mint os shortcuts: super+left'
-echo 'tmux list-keys, ctrl+b ?, alacritty ??, nvim ??'
+echo 'alacritty listkeys how??, nvim listkeys how??'
+echo 'tmux list-keys'
+echo 'tmux help: ctrl+b ?'
+echo 'tmux capture pane: ctrl+space b'
+echo 'tmux respawn pane (reload configs): ctrl+space R'
+echo 'tmux start debug script: ctrl+space e'
 echo 'END ~/.bashrc'
 echo '----------------'
+
+. "$HOME/.local/bin/env"

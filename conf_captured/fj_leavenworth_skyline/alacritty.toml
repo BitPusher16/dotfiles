@@ -6,7 +6,7 @@
 [general]
 import = [
 	# https://github.com/alacritty/alacritty-theme
-	"~/src/alacritty-theme/themes/argonaut.toml"
+	#"~/src/alacritty-theme/themes/argonaut.toml"
 	#"~/src/alacritty-theme/themes/base16_default_dark.toml"
 	#"~/src/alacritty-theme/themes/monokai.toml"
 	#"~/src/alacritty-theme/themes/flat_remix.toml"
@@ -15,7 +15,7 @@ import = [
 	#"~/src/alacritty-theme/themes/gruvbox_light.toml"
 	#"~/src/alacritty-theme/themes/everforest_light_hard.toml"
 	#"~/src/alacritty-theme/themes/papertheme.toml"
-	#"~/src/alacritty-theme/themes/citylights.toml"
+	"~/src/alacritty-theme/themes/citylights.toml"
 	#"~/src/alacritty-theme/themes/selenized_light.toml"
 	#"~/src/alacritty-theme/themes/everforest_light_soft.toml"
 

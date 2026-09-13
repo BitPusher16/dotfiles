@@ -1,8 +1,12 @@
 // /cheat
 // /nocost
-// /keyreload   
+// /keyreload
 
+// ctrl+shift+click queues 100 units,
+// but ctrl+shift+hotkey subtracts 5 units??
 
+// some unit toggles change on every key press, (like cloak)
+// but others use rapid-press to toggle exactly to a selected setting (like trajectory).
 
 unbindall          // clear the defaults
 unbind enter chat  // clear the defaults
@@ -12,6 +16,56 @@ unbind enter chat  // clear the defaults
 fakemeta Space
 bind                M+g  quicksharetotarget
 bind             M+sc_c  blueprint_create
+bind             M+sc_d  cloak
+bind             M+sc_d  wantcloak
+
+bind           Any+sc_b  selectbox_same // this fixes constructor issue, 
+  // but breaks units with trajectory (rattlesnake) or on/off (mex).
+  // for these units, the first b-press is consumed by toggling trajector or on,
+  // so subsequent drag select doesn't work.
+
+// q is unused? can i use it for com cloak?
+// update: i am wrong. it is used for select-similar.
+//bind               sc_q  cloak
+//bind         Shift+sc_q  cloak
+//bind               sc_q  wantcloak
+//bind           Any+sc_q  wantcloak
+
+// no unit with cload has trajectory,
+// and no unit with trajectory has cloak.
+// so i can safely double-map b to cloak.
+//bind               sc_k  cloak
+//bind         Shift+sc_k  cloak
+//bind               sc_k  wantcloak
+//bind           Any+sc_k  wantcloak
+
+// by default, w is capture, and k is cloak.
+// i will swap them since cloak is used in higher-
+//bind               sc_w  cloak
+//bind         Shift+sc_w  cloak
+//bind               sc_w  wantcloak
+//bind           Any+sc_w  wantcloak
+//bind               sc_k  capture
+//bind         Shift+sc_k  capture
+
+
+
+
+
+// defaults that i have remapped:
+
+
+
+
+
+// defaults:
+
+bind               sc_k  cloak
+bind         Shift+sc_k  cloak
+bind               sc_k  wantcloak
+bind           Any+sc_k  wantcloak
+bind               sc_w  capture
+bind         Shift+sc_w  capture
 
 bind                esc  select AllMap++_ClearSelection_SelectNum_0+
 bind                esc  quitmessage
@@ -24,7 +78,7 @@ bind                esc  teamstatus_close
 bind                esc  customgameinfo_close
 bind                esc  buildmenu_pregame_deselect
 bind      Alt+backspace  fullscreen
-bind           Any+sc_z  selectbox_same
+//bind           Any+sc_z  selectbox_same // this breaks for constructors...
 bind          Any+space  selectbox_idle
 bind          Any+shift  selectbox_append
 bind          Any+shift  selectbox_any
@@ -241,10 +295,6 @@ bind               sc_i  unit_stats
 bind          Ctrl+sc_i  customgameinfo
 bind               sc_j  loadunits
 bind         Shift+sc_j  loadunits
-bind               sc_k  cloak
-bind         Shift+sc_k  cloak
-bind               sc_k  wantcloak
-bind           Any+sc_k  wantcloak
 bind               sc_m  restore
 bind         Shift+sc_m  restore
 bind               sc_n  command_skip_current
@@ -264,8 +314,6 @@ bind               sc_u  unloadunits
 bind         Shift+sc_u  unloadunits
 bind               sc_w  resurrect
 bind         Shift+sc_w  resurrect
-bind               sc_w  capture
-bind         Shift+sc_w  capture
 bind               sc_y  wait
 bind         Shift+sc_y  wait queued
 bind          sc_b,sc_b  onoff 0
@@ -348,3 +396,9 @@ bind           Alt+sc_y  blueprint_delete
 bind           Alt+sc_[  blueprint_prev
 bind           Alt+sc_]  blueprint_next
 bind           Alt+sc_g  factoryqueuemode
+
+
+
+
+
+

@@ -41,6 +41,15 @@ vim.opt.smartcase = true -- if search includes an uppercase, search case sensiti
 vim.api.nvim_set_hl(0, "StatusLine",   { link = "Comment" }) -- use comment styling for status line.
 vim.api.nvim_set_hl(0, "StatusLineNC", { link = "Comment" }) -- status line non-current (non-active).
 
+-- minimal attempt at replacing default status line.
+-- %f file, %m modified flag, %f readonly, %= right-align, %l line, %L total lines, %p percent.
+vim.opt.statusline = "--- %f %m %r%=%l/%L %p%%"
+
+-- make splits more visible.
+--
+--vim.api.nvim_set_hl(0, "WinSeparator", { link = "Directory" })
+--vim.api.nvim_set_hl(0, "WinSeparator", { link = "DiffText" })
+
 --vim.opt.cursorline = true
 --vim.api.nvim_set_hl(0, 'CursorLine', { ctermbg = 8 }) --8 is black
 --vim.api.nvim_set_hl(0, 'CursorLineNr', { ctermbg = 13 }) --8 is black
@@ -69,16 +78,25 @@ vim.o.shiftwidth = 4   -- on tab press or backspace, insert or delete enough spa
 --    end,
 --})
 
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*",
-  callback = function()
-    -- the second check here avoids the "already only one window error
-    -- by checking if more than one window exists.
-    -- vim.fn.winnr("$") returns number of windows in current tab.
-    if vim.bo.buftype == "help" and vim.fn.winnr("$") > 1 then
-      vim.cmd("wincmd T")
-    end
-  end,
+-- help buffers open in half-page split, not great. open help buffers in new tab, not new window. (??)
+--vim.api.nvim_create_autocmd("BufWinEnter", {
+--  pattern = "*",
+--  callback = function()
+--    -- the second check here avoids the "already only one window error
+--    -- by checking if more than one window exists.
+--    -- vim.fn.winnr("$") returns number of windows in current tab.
+--    if vim.bo.buftype == "help" and vim.fn.winnr("$") > 1 then
+--      vim.cmd("wincmd T")
+--    end
+--  end,
+--})
+
+-- help buffers open in half-page split, not great.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+        vim.cmd("wincmd _")
+    end,
 })
 
 -- neovim sets pwd (and therefore netrw default dir) to the directory you start neovim from,
@@ -129,6 +147,22 @@ vim.keymap.set("n", "<Esc>", function()
   end
   return "<Esc>"
 end, { expr = true, silent = true })
+
+-- quick write-quit.
+--vim.keymap.set("n", "<leader>x", ":wq<CR>", {
+--    desc = "Write and quit (user)",
+--    silent = true,
+--})
+
+-- quick write-quit.
+vim.keymap.set("n", "<leader>x", function()
+  if vim.bo.buftype ~= "" then
+    vim.cmd("q")
+  else
+    --vim.cmd("bd") -- close buffer, but keep neovim open if buffer is last.
+    vim.cmd("wq") -- standard wq behavior.
+  end
+end, { desc = "Write and quit (user)", silent = true })
 
 -- improved autoindent
 -- Auto-expand {|} on <CR> (works with your existing autoindent)
@@ -196,19 +230,25 @@ vim.api.nvim_create_autocmd("FileType", {
 --  end,
 --})
 
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        print("leader help ;?. netrw help ?.")
+    end,
+})
+
 --vim.opt.foldmethod = "indent"
 --vim.opt.foldlevelstart = 0
 
----- user plugins
+-- user plugins
+
+require("cheatsheet")
 --require("netrw_help")
---
 --require("bookmarks")
---
+--require("leader_help")
+
 --vim.o.winborder = "rounded" -- this makes lsp popups stand out more.
 --vim.o.signcolumn = "yes" -- leave sign column on always, otherwise lsp causes jitter.
 --require("language_server")
---
---require("leader_help")
 --
 --require("indent_nav")
 
