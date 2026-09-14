@@ -158,6 +158,12 @@ end, { expr = true, silent = true })
 vim.keymap.set("n", "<leader>x", function()
   if vim.bo.buftype ~= "" then
     vim.cmd("q")
+  elseif vim.fn.expand("%") == "" then
+      -- unnamed [No Name] buffer.
+      vim.cmd("q!")
+  elseif vim.fn.expand("%") == "" then
+    -- unnamed [No Name] buffer: :wq errors with E32 (No file name).
+    vim.cmd("q!")
   else
     --vim.cmd("bd") -- close buffer, but keep neovim open if buffer is last.
     vim.cmd("wq") -- standard wq behavior.
