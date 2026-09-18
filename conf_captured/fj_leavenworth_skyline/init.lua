@@ -154,21 +154,37 @@ end, { expr = true, silent = true })
 --    silent = true,
 --})
 
--- quick write-quit.
-vim.keymap.set("n", "<leader>x", function()
-  if vim.bo.buftype ~= "" then
-    vim.cmd("q")
-  elseif vim.fn.expand("%") == "" then
-      -- unnamed [No Name] buffer.
-      vim.cmd("q!")
-  elseif vim.fn.expand("%") == "" then
-    -- unnamed [No Name] buffer: :wq errors with E32 (No file name).
-    vim.cmd("q!")
-  else
-    --vim.cmd("bd") -- close buffer, but keep neovim open if buffer is last.
-    vim.cmd("wq") -- standard wq behavior.
-  end
-end, { desc = "Write and quit (user)", silent = true })
+---- quick write-quit.
+--vim.keymap.set("n", "<leader>x", function()
+--    --if vim.bo.buftype ~= "" then -- if no buffer open, close nvim.
+--    --    vim.cmd("q")
+--    --elseif vim.fn.expand("%") == "" then
+--    --    vim.cmd("q!")
+--    --else
+--    --    --vim.cmd("w") -- write should already happen upon change.
+--    --    vim.cmd("bd")
+--    --end
+--    vim.cmd("bd")
+--end, { desc = "Write and close buffer (user)", silent = true })
+
+---- quick close buffer.
+--vim.keymap.set("n", "<leader>q", function()
+--    vim.cmd("qa")
+--end, { desc = "Quit (user)", silent = true })
+--
+---- quick quit.
+--vim.keymap.set("n", "<leader>x", function()
+--    vim.cmd("bd")
+--end, { desc = "Write and close buffer (user)", silent = true })
+
+--vim.keymap.set("n", "<leader>x", function()
+--  if vim.bo.buftype ~= "" then
+--    vim.cmd("q")
+--    return
+--  end
+--  vim.cmd("wa")
+--  vim.cmd("qa!")
+--end, { desc = "Write all and quit (user)", silent = true })
 
 -- improved autoindent
 -- Auto-expand {|} on <CR> (works with your existing autoindent)
@@ -224,17 +240,18 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Auto-close quickfix/location-list after selecting an entry with <CR>
---vim.api.nvim_create_autocmd("FileType", {
---  pattern = "qf",
---  callback = function()
---    -- Simple version (works for both quickfix and loclist in most cases)
---    vim.keymap.set("n", "<C-CR>", "<CR>:cclose<CR>", {
---      buffer = true,
---      silent = true,
---      desc = "Select quickfix entry and close window",
---    })
---  end,
---})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    -- Simple version (works for both quickfix and loclist in most cases)
+    --vim.keymap.set("n", "<C-CR>", "<CR>:cclose<CR>", {
+    vim.keymap.set("n", "<CR>", "<CR>:cclose<CR>", {
+      buffer = true,
+      silent = true,
+      desc = "Select quickfix entry and close window",
+    })
+  end,
+})
 
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
@@ -251,6 +268,9 @@ require("cheatsheet")
 --require("netrw_help")
 --require("bookmarks")
 --require("leader_help")
+require("dbg")
+--require("session")
+require("recent")
 
 --vim.o.winborder = "rounded" -- this makes lsp popups stand out more.
 --vim.o.signcolumn = "yes" -- leave sign column on always, otherwise lsp causes jitter.
